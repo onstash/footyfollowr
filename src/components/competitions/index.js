@@ -2,11 +2,14 @@ import React from 'react';
 
 import { fetchCompetitions } from '../../api/methods';
 
-const Competition = props => {
-  console.log('Competition props', props);
+import { Link } from 'react-router-dom';
+
+const Competition = ({ caption, id }) => {
   return (
     <div>
-      {props.caption}
+      <Link to={ `/competitions/${id}` }>
+        { caption }
+      </Link>
     </div>
   );
 };
@@ -19,19 +22,16 @@ class Competitions extends React.Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    fetchCompetitions().then(competitions => {
-      console.log('competitions', competitions);
+    fetchCompetitions().then(response => {
+      const { data: competitions } = response;
       this.setState(() => ({ loading: false, competitions }));
     }).catch(error => {
-      console.log('error', error);
       this.setState(() => ({ loading: false }));
     });
   }
 
   render() {
     const { loading, competitions } = this.state;
-
-    console.log('competitions', competitions, typeof competitions);
 
     if (loading) {
       return (
@@ -52,7 +52,8 @@ class Competitions extends React.Component {
     return (
       <div>
         {
-          competitions.map(competition => <Competition {...competition} />)
+          competitions.map((competition, index) =>
+            <Competition {...competition} key={ index }/>)
         }
       </div>
     );
