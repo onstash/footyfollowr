@@ -1,7 +1,12 @@
 import apiRequest from './api-request';
 
-const addQueryParam = (endpoint, queryParam, queryParamValue, isQueryParamAdded=false) {
-  queryParamSeparator = isQueryParamAdded ? '&' : '';
+const addQueryParam = (
+  endpoint,
+  queryParam,
+  queryParamValue,
+  isQueryParamAdded=false
+) => {
+  let queryParamSeparator = isQueryParamAdded ? '&' : '';
   return `${endpoint}${queryParamSeparator}?${queryParam}=${queryParamValue}`;
 };
 
@@ -10,7 +15,7 @@ const fetchCompetitions = () => apiRequest('/competitions');
 const fetchCompetitionTeams = id =>
   apiRequest(`/competitions/${id}/teams`);
 
-const fetchCompetitionLeagueTable = (id, matchday='') => {
+const fetchCompetitionLeagueTable = (id, matchDay='') => {
   let leagueTableEndpoint = `/competitions/${id}/leagueTable`;
   if (matchDay) {
     leagueTableEndpoint = addQueryParam(
@@ -53,8 +58,8 @@ const fetchFixture = (id, headToHead='') => {
   if (headToHead) {
     fixtureEndpoint = addQueryParam(
       fixtureEndpoint,
-      'head2head'
-      headToHead
+      'head2head',
+      headToHead,
       false
     );
   }
@@ -67,8 +72,8 @@ const fetchTeamFixtures = (id, season='', timeFrame='', venue='') => {
   if (season) {
     teamFixturesEndpoint = addQueryParam(
       teamFixturesEndpoint,
-      'season'
-      season
+      'season',
+      season,
       queryParamAdded
     );
     queryParamAdded = true;
@@ -76,8 +81,8 @@ const fetchTeamFixtures = (id, season='', timeFrame='', venue='') => {
   if (timeFrame) {
     teamFixturesEndpoint = addQueryParam(
       teamFixturesEndpoint,
-      'timeFrame'
-      timeFrame
+      'timeFrame',
+      timeFrame,
       queryParamAdded
     );
     queryParamAdded = true;
@@ -85,8 +90,8 @@ const fetchTeamFixtures = (id, season='', timeFrame='', venue='') => {
   if (venue) {
     teamFixturesEndpoint = addQueryParam(
       teamFixturesEndpoint,
-      'venue'
-      venue
+      'venue',
+      venue,
       queryParamAdded
     );
   }

@@ -8,9 +8,9 @@ export const get = requestOptions => {
     headers: headers || {}
   }).then(response => {
     statusCode = response.status;
-    return response
+    return response.text();
   }).then(textResponse => {
-    let jsonResponse;
+    let jsonResponse = null;
     try {
       jsonResponse = JSON.parse(textResponse);
       jsonResponse.statusCode = statusCode;
