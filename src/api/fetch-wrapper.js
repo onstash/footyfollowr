@@ -13,8 +13,10 @@ export const get = requestOptions => {
     let jsonResponse = null;
     try {
       jsonResponse = JSON.parse(textResponse);
-      jsonResponse.statusCode = statusCode;
-      return jsonResponse;
+      return Object.assign(
+        {},
+        { data: jsonResponse, statusCode }
+      );
     } catch(error) {
       console.log('fetchWrapper JSON.parse error', error);
       console.log('textResponse', textResponse);
