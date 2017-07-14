@@ -1,5 +1,4 @@
 import apiRequest from './api-request';
-import teams from './teams';
 
 const addQueryParam = (
   endpoint,
