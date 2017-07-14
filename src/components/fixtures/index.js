@@ -24,9 +24,14 @@ class Fixtures extends React.Component {
     this.state = { loading: false, fixtures: [] };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { id } = this.props;
+    if (!id) {
+      return;
+    }
+
     this.setState(() => ({ loading: true }));
-    fetchCompetitionFixtures(this.props.match.params.id).then(response => {
+    fetchCompetitionFixtures(id).then(response => {
       const { data: fixturesData } = response;
       const { fixtures } = fixturesData;
       this.setState(() => ({ loading: false, fixtures }));
@@ -35,7 +40,33 @@ class Fixtures extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { id } = nextProps;
+    if (!id) {
+      return;
+    }
+
+    this.setState(() => ({ loading: true }));
+    fetchCompetitionFixtures(id).then(response => {
+      const { data: fixturesData } = response;
+      const { fixtures } = fixturesData;
+      this.setState(() => ({ loading: false, fixtures }));
+    }).catch(error => {
+      this.setState(() => ({ loading: false }));
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Fixtures shouldComponentUpdate', nextState !== this.state, this.props !== nextProps);
+    return nextState !== this.state || this.props !== nextProps;
+  }
+
   render() {
+    const { id } = this.props;
+    if (!id) {
+      return <div />;
+    }
+
     const { loading, fixtures } = this.state;
 
     if (loading) {

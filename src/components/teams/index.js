@@ -21,18 +21,50 @@ class Teams extends React.Component {
     this.state = { loading: false, teams: [] };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { id } = this.props;
+    if (!id) {
+      return;
+    }
     this.setState(() => ({ loading: true }));
-    fetchCompetitionTeams(this.props.match.params.id).then(response => {
-      const { data: teamsData } = response;
-      const { teams } = teamsData;
+    fetchCompetitionTeams().then(response => {
+      // const { data: teamsData } = response;
+      // const { teams } = teamsData;
+      const { data: { teams } } = response;
       this.setState(() => ({ loading: false, teams }));
     }).catch(error => {
       this.setState(() => ({ loading: false }));
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { id } = nextProps;
+    if (!id) {
+      return;
+    }
+
+    this.setState(() => ({ loading: true }));
+    fetchCompetitionTeams(id).then(response => {
+      // const { data: teamsData } = response;
+      // const { teams } = teamsData;
+      const { data: { teams } } = response;
+      this.setState(() => ({ loading: false, teams }));
+    }).catch(error => {
+      this.setState(() => ({ loading: false }));
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Teams shouldComponentUpdate', nextState !== this.state, this.props !== nextProps);
+    return nextState !== this.state || this.props !== nextProps;
+  }
+
   render() {
+    const { id } = this.props;
+    if (!id) {
+      return <div />;
+    }
+
     const { loading, teams } = this.state;
 
     if (loading) {

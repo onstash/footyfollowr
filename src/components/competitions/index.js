@@ -2,22 +2,20 @@ import React from 'react';
 
 import { fetchCompetitions } from '../../api/methods';
 
-import { Link } from 'react-router-dom';
+import Competition from '../competition';
 
-const Competition = ({ caption, id }) => {
-  return (
-    <div>
-      <Link to={ `/competitions/${id}` }>
-        { caption }
-      </Link>
-    </div>
-  );
+const Option = ({ caption, id }) => {
+  return <option value={JSON.stringify({id, caption})}>{caption}</option>;
+}
+
+const generateCompetitionOption = ({ caption, id }) => {
+  return { description: caption, code: id };
 };
 
 class Competitions extends React.Component {
   constructor() {
     super();
-    this.state = { loading: false, competitions: [] };
+    this.state = { loading: false, competitions: [], caption: null, id: null };
   }
 
   componentDidMount() {
@@ -26,12 +24,23 @@ class Competitions extends React.Component {
       const { data: competitions } = response;
       this.setState(() => ({ loading: false, competitions }));
     }).catch(error => {
+      console.log('error', error);
       this.setState(() => ({ loading: false }));
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Competitions shouldComponentUpdate', this.state !== nextState);
+    return this.state !== nextState;
+  }
+
+  onSelect(event) {
+    const { caption, id } = JSON.parse(event.target.value);
+    this.setState(() => ({ id, caption }));
+  }
+
   render() {
-    const { loading, competitions } = this.state;
+    const { loading, competitions, caption, id } = this.state;
 
     if (loading) {
       return (
@@ -51,10 +60,17 @@ class Competitions extends React.Component {
 
     return (
       <div>
-        {
-          competitions.map((competition, index) =>
-            <Competition {...competition} key={ index }/>)
-        }
+        <select
+          className="competitions"
+          placeholder="Select a competition"
+          value={caption || ''}
+          onChange={(event) => this.onSelect(event)}
+        >
+          {
+            competitions.map((competition, index) => <Option key={ index } {...competition} />)
+          }
+        </select>
+        <Competition id={id} />
       </div>
     );
   }

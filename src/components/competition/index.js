@@ -4,15 +4,23 @@ import { fetchCompetition } from '../../api/methods';
 
 import { Link } from 'react-router-dom';
 
+import Teams from '../teams';
+import Fixtures from '../fixtures';
+
 class Competition extends React.Component {
   constructor() {
     super();
     this.state = { loading: false, competition: {} };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { id } = this.props;
+    if (!id) {
+      return;
+    }
+
     this.setState(() => ({ loading: true }));
-    fetchCompetition(this.props.match.params.id).then(response => {
+    fetchCompetition(id).then(response => {
       const { data: competition } = response;
       this.setState(() => ({ loading: false, competition }));
     }).catch(error => {
@@ -20,8 +28,60 @@ class Competition extends React.Component {
     });
   }
 
+  showTeams() {
+    const { id } = this.props;
+    this.setState(() => ({
+      teamsID: id,
+      fixturesID: null,
+      leagueTableID: null
+    }));
+  }
+
+  showFixtures() {
+    const { id } = this.props;
+    this.setState(() => ({
+      teamsID: null,
+      fixturesID: id,
+      leagueTableID: null
+    }));
+  }
+
+  showLeagueTable() {
+    const { id } = this.props;
+    this.setState(() => ({
+      teamsID: null,
+      fixturesID: null,
+      leagueTableID: id
+    }));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { id } = nextProps;
+    if (!id) {
+      return;
+    }
+
+    this.setState(() => ({ loading: true }));
+    fetchCompetition(id).then(response => {
+      const { data: competition } = response;
+      this.setState(() => ({ loading: false, competition }));
+    }).catch(error => {
+      this.setState(() => ({ loading: false }));
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Competition shouldComponentUpdate', this.state !== nextState);
+    return this.state !== nextState;
+  }
+
   render() {
-    const { loading, competition } = this.state;
+    const { id } = this.props;
+    if (!id) {
+      return <div />;
+    }
+
+    const { loading, competition, teamsID, fixturesID, leagueTableID } = this.state;
 
     if (loading) {
       return <div>Loading</div>;
@@ -51,20 +111,22 @@ class Competition extends React.Component {
           { currentMatchday } / { numberOfMatchdays }
         </h4>
         <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/teams` }>
+          <button onClick={() => this.showTeams()}>
             Teams
-          </Link>
+          </button>
         </div>
         <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/fixtures` }>
+          <button onClick={() => this.showFixtures()}>
             Fixtures
-          </Link>
+          </button>
         </div>
         <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/league-table` }>
+          <button onClick={() => this.showLeagueTable()}>
             League table
-          </Link>
+          </button>
         </div>
+        <Teams id={teamsID} />
+        <Fixtures id={fixturesID} />
       </div>
     );
   }

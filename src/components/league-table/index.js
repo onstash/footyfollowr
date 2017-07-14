@@ -10,10 +10,15 @@ class LeagueTable extends React.Component {
     this.state = { loading: false, competition: {} };
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { id } = this.props;
+    if (!id) {
+      return;
+    }
+
     this.setState(() => ({ loading: true }));
     console.log('this.props', this.props);
-    fetchCompetitionLeagueTable(this.props.match.params.id).then(response => {
+    fetchCompetitionLeagueTable().then(response => {
       // const { data: competition } = response;
       console.log('response', response);
       this.setState(() => ({ loading: false }));
@@ -22,7 +27,34 @@ class LeagueTable extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { id } = nextProps;
+    if (!id) {
+      return;
+    }
+
+    this.setState(() => ({ loading: true }));
+    console.log('this.props', this.props);
+    fetchCompetitionLeagueTable().then(response => {
+      // const { data: competition } = response;
+      console.log('response', response);
+      this.setState(() => ({ loading: false }));
+    }).catch(error => {
+      this.setState(() => ({ loading: false }));
+    });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('LeagueTable shouldComponentUpdate', this.state !== nextState);
+    return this.state !== nextState;
+  }
+
   render() {
+    const { id } = this.props;
+    if (!id) {
+      return <div />;
+    }
+
     const { loading, competition } = this.state;
 
     if (loading) {
@@ -54,16 +86,6 @@ class LeagueTable extends React.Component {
         <h4 className="match-day">
           { currentMatchday } / { numberOfMatchdays }
         </h4>
-        <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/teams` }>
-            Teams
-          </Link>
-        </div>
-        <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/fixtures` }>
-            Fixtures
-          </Link>
-        </div>
       </div>
     );
   }
