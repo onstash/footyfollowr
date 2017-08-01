@@ -4,13 +4,15 @@ import { fetchCompetitions } from '../../api/methods';
 
 import { Link } from 'react-router-dom';
 
+import './styles.css';
+
 const Competition = ({ caption, id }) => {
   return (
-    <div>
-      <Link to={ `/competitions/${id}` }>
+    <Link to={ `/competitions/${id}` } className="competition-link-container">
+      <div className="competition-link">
         { caption }
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 
@@ -50,11 +52,16 @@ class Competitions extends React.Component {
     }
 
     return (
-      <div>
-        {
-          competitions.map((competition, index) =>
-            <Competition {...competition} key={ index }/>)
-        }
+      <div className="competitions-container">
+        <h2 className="competitions-heading">
+          Competitions
+        </h2>
+        <div className="competitions">
+          {
+            competitions.map((competition, index) =>
+              <Competition {...competition} key={ index }/>)
+          }
+        </div>
       </div>
     );
   }
