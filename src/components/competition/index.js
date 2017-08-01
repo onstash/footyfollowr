@@ -4,6 +4,8 @@ import { fetchCompetition } from '../../api/methods';
 
 import { Link } from 'react-router-dom';
 
+import './styles.css';
+
 class Competition extends React.Component {
   constructor() {
     super();
@@ -39,30 +41,38 @@ class Competition extends React.Component {
       currentMatchday
     } = competition;
 
+    const { id } = this.props.match.params;
+
     return (
-      <div className="container">
+      <div className="competition-container">
         <h2 className="caption">
           { caption }
         </h2>
         <h3 className="games">
-          { numberOfGames }
+          <div className="games-label">Number of games:</div>
+          <div className="games-value">{ numberOfGames }</div>
         </h3>
         <h4 className="match-day">
-          { currentMatchday } / { numberOfMatchdays }
+          <div className="match-day-label">Match day:</div>
+          <div className="match-day-value">
+            <div className="current-match-day">
+              { currentMatchday }
+            </div>
+            <div className="divider">/</div>
+            <div className="number-of-match-days">
+              { numberOfMatchdays }
+            </div>
+          </div>
         </h4>
-        <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/teams` }>
-            Teams
+        <div className="competition-links">
+          <Link to={ `/competitions/${id}/teams` } className="link-container">
+            <div className="link">Teams</div>
           </Link>
-        </div>
-        <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/fixtures` }>
-            Fixtures
+          <Link to={ `/competitions/${id}/fixtures` } className="link-container">
+            <div className="link">Fixtures</div>
           </Link>
-        </div>
-        <div>
-          <Link to={ `/competitions/${this.props.match.params.id}/league-table` }>
-            League table
+          <Link to={ `/competitions/${id}/league-table` } className="link-container">
+            <div className="link">League Table</div>
           </Link>
         </div>
       </div>
