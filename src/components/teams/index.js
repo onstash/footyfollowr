@@ -2,16 +2,14 @@ import React from 'react';
 
 import { fetchCompetitionTeams } from '../../api/methods';
 
-import { Link } from 'react-router-dom';
+import './styles.css';
 
-const Team = ({ name, shortName }) => (
-  <div className="container">
-    <h2 className="name">
+const Team = ({ name, crestUrl, shortName }) => (
+  <div className="team">
+    <img src={crestUrl} className="team-logo" />
+    <div className="team-name">
       { name }
-    </h2>
-    <h2 className="short-name">
-      { shortName }
-    </h2>
+    </div>
   </div>
 );
 
@@ -44,10 +42,13 @@ class Teams extends React.Component {
     }
 
     return (
-      <div>
-        {
-          teams.map((team, index) => <Team {...team} key={ index }/>)
-        }
+      <div className="teams-container">
+        <h2 className="teams-heading">TEAMS</h2>
+        <div className="teams">
+          {
+            teams.map((team, index) => <Team {...team} key={ index }/>)
+          }
+        </div>
       </div>
     );
   }

@@ -1,0 +1,39 @@
+.teams-heading {
+  display: flex;
+  justify-content: center;
+}
+
+.team {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.team-logo {
+  height: 64px;
+  width: 64px;
+}
+
+.team-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .teams-container {
+    margin: 20px 10px 10px 10px;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .teams-container {
+    margin-top: 20px;
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
