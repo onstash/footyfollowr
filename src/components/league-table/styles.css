@@ -1,0 +1,107 @@
+body {
+  line-height: 1.25;
+}
+
+.league-table-container {
+  max-width: 750px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.league-table-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.league-table-match-day {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-around;
+  width: 20%;
+  margin-top: 20px;
+}
+
+table {
+  margin-top: 20px;
+  border: 1px solid #CCC;
+  border-collapse: collapse;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table tr {
+  background-color: #F8F8F8;
+  border: 1px solid #DDD;
+  padding: 0.35em;
+}
+
+table th, table td {
+  padding: 0.625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 480px) {
+  .league-table-container {
+    margin: 10px;
+  }
+
+  .league-table-match-day {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+    width: 35%;
+    margin-top: 20px;
+  }
+
+  table {
+    border: 0;
+  }
+
+  thead {
+    display: none;
+  }
+
+  table tr {
+    border-bottom: 3px solid #DDD;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #DDD;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
+
+  table td:before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:nth-child {
+    background-color: white;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
