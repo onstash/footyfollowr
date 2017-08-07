@@ -2,18 +2,33 @@ import React from 'react';
 
 import { fetchCompetitionFixtures } from '../../api/methods';
 
-import { Link } from 'react-router-dom';
+import TimeDifference from '../time-difference';
+
+import './styles.css';
 
 const Fixture = ({ homeTeamName, awayTeamName, date, matchday, status }) => (
-  <div>
-    <div>
-      { homeTeamName } vs { awayTeamName }
+  <div className="fixture-container">
+    <div className="fixture-teams">
+      <div className="fixture-home-team">
+        { homeTeamName }
+      </div>
+      <div className="fixture-team-divider">
+        vs
+      </div>
+      <div className="fixture-away-team">
+         { awayTeamName }
+      </div>
     </div>
-    <div>
-      { status }
+    <div className="fixture-match-day">
+      <div className="fixture-match-day-label">
+        Day
+      </div>
+      <div className="fixture-match-day-value">
+        { matchday }
+      </div>
     </div>
-    <div>
-      { date }
+    <div className="fixture-date">
+      <TimeDifference timeStampString={date} />
     </div>
   </div>
 );
@@ -43,11 +58,11 @@ class Fixtures extends React.Component {
     }
 
     if (!fixtures) {
-      return <div>There's something wrong!</div>;
+      return <div>{"There's something wrong!"}</div>;
     }
 
     return (
-      <div>
+      <div className="fixtures">
         {
           fixtures.map((fixture, index) =>
             <Fixture {...fixture} key={ index }/>

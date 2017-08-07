@@ -1,0 +1,71 @@
+@media screen and (max-width: 480px) {
+  .fixture-container {
+    margin: 20px 10px 20px 10px;
+    padding: 5px 5px 5px 5px;
+    border: 1px solid #CCC;
+  }
+
+  .fixture-teams {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .fixture-match-day {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .time-difference {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .fixture-container {
+    width: 550px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 5px 5px 5px;
+    border: 1px solid #CCC;
+  }
+
+  .fixture-teams {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .fixture-match-day {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .time-difference {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
