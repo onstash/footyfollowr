@@ -5,6 +5,10 @@
     border: 1px solid #CCC;
   }
 
+  .day-fixture {
+    border: 1px solid #999;
+  }
+
   .fixture-teams {
     display: flex;
     flex-direction: row;
@@ -35,12 +39,21 @@
 @media screen and (min-width: 480px) {
   .fixture-container {
     width: 550px;
-    margin-top: 20px;
-    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 5px 5px 5px 5px;
     border: 1px solid #CCC;
+  }
+
+  .day-fixture {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #999;
   }
 
   .fixture-teams {
