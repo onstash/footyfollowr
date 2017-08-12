@@ -11,13 +11,6 @@ const calculateTimeDifference = timeStampString => {
   const deltaDays = Math.abs(Math.round(deltaHours / 24));
   const deltaWeeks = Math.abs(Math.round(deltaDays / 7));
   const deltaMonths = Math.abs(Math.round(deltaWeeks / 4));
-  // console.group('calculateTimeDifference', timeStampString);
-  // console.group('deltaSeconds', deltaSeconds);
-  // console.group('deltaMinutes', deltaMinutes);
-  // console.group('deltaHours', deltaHours);
-  // console.group('deltaDays', deltaDays);
-  // console.group('deltaWeeks', deltaWeeks);
-  // console.groupEnd();
   let timeDelta, unit;
   if (deltaSeconds < 60) {
     timeDelta = parseInt(deltaSeconds);
@@ -25,13 +18,13 @@ const calculateTimeDifference = timeStampString => {
   } else if (deltaMinutes < 60) {
     timeDelta = parseInt(deltaMinutes);
     unit = 'minute';
-  } else if (deltaHours <= 24) {
+  } else if (deltaHours < 24) {
     timeDelta = parseInt(deltaHours);
     unit = 'hour';
-  } else if (deltaDays <= 7) {
+  } else if (deltaDays < 7) {
     timeDelta = parseInt(deltaDays);
     unit = 'day';
-  } else if (deltaWeeks <= 4) {
+  } else if (deltaWeeks < 4) {
     timeDelta = parseInt(deltaWeeks);
     unit = 'week';
   } else {
@@ -41,7 +34,6 @@ const calculateTimeDifference = timeStampString => {
   switch (timeDelta) {
     case 0:
       return `moments ${suffix}`;
-      break;
     case 1:
       switch (unit) {
         case 'month':
@@ -55,7 +47,6 @@ const calculateTimeDifference = timeStampString => {
         default:
           return `moments ${suffix}`;
       }
-      break;
     default:
       switch (suffix) {
         case 'second':
