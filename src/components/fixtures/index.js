@@ -70,11 +70,11 @@ class Fixtures extends React.Component {
     const { loading, clubbedFixtures } = this.state;
 
     if (loading) {
-      return <div>Loading</div>;
+      return <h2 className="placeholder-message">Loading fixtures...</h2>;
     }
 
     if (!clubbedFixtures) {
-      return <div>{"There's something wrong!"}</div>;
+      return <div className="fixtures">{"There's something wrong!"}</div>;
     }
 
     return (

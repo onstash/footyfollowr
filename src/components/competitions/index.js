@@ -37,16 +37,20 @@ class Competitions extends React.Component {
 
     if (loading) {
       return (
-        <div>
-          Loading competitions
+        <div className="competitions-container">
+          <h2 className="competitions-heading">
+            Loading competitions...
+          </h2>
         </div>
       );
     }
 
     if (!competitions) {
       return (
-        <div>
-          There seems to be an error
+        <div className="competitions-container">
+          <h2 className="competitions-heading">
+            There seems to be an error
+          </h2>
         </div>
       );
     }

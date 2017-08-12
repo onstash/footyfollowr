@@ -34,16 +34,22 @@ class Teams extends React.Component {
     const { loading, teams } = this.state;
 
     if (loading) {
-      return <div>Loading</div>;
+      return (
+        <div className="teams-container">
+          <h2 className="teams-heading">
+            Loading teams...
+          </h2>
+        </div>
+      );
     }
 
     if (!teams) {
-      return <div>There's something wrong!</div>;
+      return <div className="teams-container">{"There's something wrong!"}</div>;
     }
 
     return (
       <div className="teams-container">
-        <h2 className="teams-heading">TEAMS</h2>
+        <h2 className="teams-heading">Teams</h2>
         <div className="teams">
           {
             teams.map((team, index) => <Team {...team} key={ index }/>)
