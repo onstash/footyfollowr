@@ -83,7 +83,7 @@ class LeagueTable extends React.Component {
     const { loading, standing, league, matchDay, matchDays } = this.state;
 
     if (loading) {
-      return <div>Loading</div>;
+      return <div className="league-table-container">Loading</div>;
     }
 
     return (

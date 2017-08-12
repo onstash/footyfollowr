@@ -26,11 +26,17 @@ class Competition extends React.Component {
     const { loading, competition } = this.state;
 
     if (loading) {
-      return <div>Loading</div>;
+      return (
+        <div className="competition-container">
+          <h2 className="caption">
+            Loading competition...
+          </h2>
+        </div>
+      );
     }
 
     if (!competition) {
-      return <div>There's something wrong!</div>;
+      return <div>{"There's something wrong!"}</div>;
     }
 
     const {
