@@ -6,14 +6,8 @@ import TimeDifference from '../time-difference';
 
 import './styles.css';
 
-const dayFixtureStyles = {
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderColor: '#999'
-};
-
 const DayFixtures = ({ fixtureDay, fixtures }) => (
-  <div style={dayFixtureStyles}>
+  <div className="day-fixture">
     {
       fixtures.map((fixture, index) =>
         <Fixture {...fixture} key={ index }/>
