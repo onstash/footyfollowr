@@ -1,0 +1,138 @@
+.link-container:link, .link-container:visited {
+  text-decoration: none;
+  text-align: center;
+  color: green;
+}
+
+@media screen and (max-width: 480px) {
+  .competition-container {
+    margin: 20px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .caption {
+    display: flex;
+    margin-top: 30px;
+    font-size: 30px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .games {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .match-day {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .match-day-value {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .divider {
+    padding: 4px 4px 4px 4px;
+  }
+
+  .current-match-day {
+    padding: 4px 4px 4px 4px;
+  }
+
+  .number-of-match-days {
+    color: #AAA;
+    padding: 4px 4px 4px 4px;
+  }
+
+  .competition-links {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .link {
+    padding: 8px 8px 8px 8px;
+    border: 0.125px solid #000;
+    border-radius: 3px;
+    background-color: #DDD;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .competition-container {
+    margin-top: 20px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .caption {
+    display: flex;
+    margin-top: 30px;
+    font-size: 30px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .games {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .match-day {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .match-day-value {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .divider {
+    padding: 4px 4px 4px 4px;
+  }
+
+  .current-match-day {
+    padding: 4px 4px 4px 4px;
+  }
+
+  .number-of-match-days {
+    color: #AAA;
+    padding: 4px 4px 4px 4px;
+  }
+
+  .competition-links {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .link {
+    padding: 8px 8px 8px 8px;
+    border: 0.125px solid #000;
+    border-radius: 3px;
+    background-color: #DDD;
+  }
+}

@@ -1,0 +1,58 @@
+.competition-link-container:link, .competition-link-container:visited {
+  text-decoration: none;
+  color: green;
+}
+
+@media screen and (max-width: 480px) {
+  .competitions-container {
+    margin: 20px 10px 10px 10px;
+  }
+
+  .competitions-heading {
+    margin-top: 20px;
+    margin-left: 8px;
+    text-align: center;
+  }
+
+  .competitions {
+    margin-top: 20px;
+  }
+
+  .competition-link {
+    margin: 8px 8px 8px 8px;
+    padding: 8px 8px 8px 8px;
+    border: 0.125px solid #000;
+    border-radius: 3px;
+    background-color: #DDD;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .competitions-container {
+    margin-top: 20px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .competitions-heading {
+    margin-top: 20px;
+    margin-left: 20px;
+    text-align: center;
+  }
+
+  .competitions {
+    margin-top: 20px;
+  }
+
+  .competition-link {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 8px 8px 8px 8px;
+    border: 0.125px solid #000;
+    border-radius: 3px;
+    background-color: #DDD;
+  }
+}

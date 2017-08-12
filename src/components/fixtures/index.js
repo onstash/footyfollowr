@@ -2,18 +2,46 @@ import React from 'react';
 
 import { fetchCompetitionFixtures } from '../../api/methods';
 
-import { Link } from 'react-router-dom';
+import TimeDifference from '../time-difference';
+
+import './styles.css';
+
+const dayFixtureStyles = {
+  borderWidth: 1,
+  borderStyle: 'solid',
+  borderColor: '#999'
+};
+
+const DayFixtures = ({ fixtureDay, fixtures }) => (
+  <div style={dayFixtureStyles}>
+    {
+      fixtures.map((fixture, index) =>
+        <Fixture {...fixture} key={ index }/>
+      )
+    }
+  </div>
+);
 
 const Fixture = ({ homeTeamName, awayTeamName, date, matchday, status }) => (
-  <div>
-    <div>
-      { homeTeamName } vs { awayTeamName }
+  <div className="fixture-container">
+    <div className="fixture-teams">
+      <div className="fixture-home-team">
+        { homeTeamName }
+      </div>
+      <div className="fixture-away-team">
+         { awayTeamName }
+      </div>
     </div>
-    <div>
-      { status }
+    <div className="fixture-match-day">
+      <div className="fixture-match-day-label">
+        Day
+      </div>
+      <div className="fixture-match-day-value">
+        { matchday }
+      </div>
     </div>
-    <div>
-      { date }
+    <div className="fixture-date">
+      <TimeDifference timeStampString={date} />
     </div>
   </div>
 );
@@ -21,7 +49,7 @@ const Fixture = ({ homeTeamName, awayTeamName, date, matchday, status }) => (
 class Fixtures extends React.Component {
   constructor() {
     super();
-    this.state = { loading: false, fixtures: [] };
+    this.state = { loading: false, clubbedFixtures: {} };
   }
 
   componentDidMount() {
@@ -29,32 +57,48 @@ class Fixtures extends React.Component {
     fetchCompetitionFixtures(this.props.match.params.id).then(response => {
       const { data: fixturesData } = response;
       const { fixtures } = fixturesData;
-      this.setState(() => ({ loading: false, fixtures }));
+      const clubbedFixtures = {};
+      fixtures.map(fixture => {
+        const { matchday: matchDay } = fixture;
+        if (clubbedFixtures[matchDay]) {
+          clubbedFixtures[matchDay].push(fixture)
+        } else {
+          clubbedFixtures[matchDay] = [fixture];
+        }
+      });
+      this.setState(() => ({ loading: false, clubbedFixtures }));
     }).catch(error => {
       this.setState(() => ({ loading: false }));
     });
   }
 
   render() {
-    const { loading, fixtures } = this.state;
+    const { loading, clubbedFixtures } = this.state;
 
     if (loading) {
       return <div>Loading</div>;
     }
 
-    if (!fixtures) {
-      return <div>There's something wrong!</div>;
+    if (!clubbedFixtures) {
+      return <div>{"There's something wrong!"}</div>;
     }
 
     return (
-      <div>
+      <div className="fixtures">
         {
-          fixtures.map((fixture, index) =>
-            <Fixture {...fixture} key={ index }/>
-          )
+          Object.keys(clubbedFixtures).map(fixtureDay => {
+            const dayFixtures = clubbedFixtures[fixtureDay];
+            return (
+              <DayFixtures
+                key={fixtureDay}
+                fixtureDay={fixtureDay}
+                fixtures={dayFixtures}
+              />
+            );
+          })
         }
       </div>
-    );
+    )
   }
 };
 
