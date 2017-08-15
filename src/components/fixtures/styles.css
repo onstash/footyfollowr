@@ -5,19 +5,27 @@
   margin-top: 20px;
 }
 
-.fixtures-filter {
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: space-between;
-  width: 55%;
-  margin-top: 20px;
-}
-
 @media screen and (max-width: 480px) {
   .fixtures-container {
-    margin: 20px 10px 20px 10px;
+    margin: 10px 10px 10px 10px;
+  }
+
+  .fixture-container {
+    padding: 10px 5px 10px 5px;
+    border: 1px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .fixtures-filter {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    width: 55%;
+    margin-top: 20px;
   }
 
   .fixtures-heading {
@@ -26,18 +34,12 @@
     align-items: center;
   }
 
-  .fixture-container {
-    padding: 5px 5px 5px 5px;
-    border: 1px solid #CCC;
-  }
-
   .day-fixture-container {
-    padding: 5px 10px 10px 10px;
     margin-top: 20px;
   }
 
   .day-fixture {
-    border: 1px solid #999;
+    margin-top: 20px;
     margin-bottom: 10px;
   }
 
@@ -45,7 +47,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 10px;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
@@ -76,23 +77,23 @@
     margin-bottom: 20px;
   }
 
+  .fixtures-filter {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+    width: 18%;
+    margin-top: 20px;
+  }
+
   .fixtures-heading {
     display: flex;
     justify-content: center;
   }
 
-  .fixture-container {
-    width: 550px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 5px 5px 5px 5px;
-    border: 1px solid #CCC;
-  }
-
   .day-fixture {
-    width: 600px;
+    width: 550px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -100,11 +101,19 @@
     border: 1px solid #999;
   }
 
+  .fixture-container {
+    padding: 10px 5px 10px 5px;
+    border: 1px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
   .fixture-teams {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 60%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -112,9 +121,10 @@
   .fixture-match-day {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width: 25%;
+    width: 60px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
   }
