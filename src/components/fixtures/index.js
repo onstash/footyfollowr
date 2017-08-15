@@ -4,6 +4,7 @@ import DataLayer from '../../data';
 
 import TimeDifference from '../time-difference';
 import FixtureResult from '../fixture-result';
+import AddToCalendar from '../add-to-calendar';
 
 import './styles.css';
 
@@ -22,7 +23,7 @@ const collateFixtures = fixtures => {
   return { oldFixtures, upcomingFixtures };
 };
 
-const DayFixtures = ({ fixtureDay, fixtures, team }) => {
+const DayFixtures = ({ fixtureDay, fixtures, team, timeFrame }) => {
   const filteredFixtures = team ? fixtures.filter(({
       awayTeamName, homeTeamName
     }) => awayTeamName === team || homeTeamName === team
@@ -40,7 +41,7 @@ const DayFixtures = ({ fixtureDay, fixtures, team }) => {
       <div className="day-fixture">
         {
           filteredFixtures.map((fixture, index) =>
-            <Fixture {...fixture} key={ index }/>
+            <Fixture {...fixture} key={ index } timeFrame={timeFrame} />
           )
         }
       </div>
@@ -48,8 +49,21 @@ const DayFixtures = ({ fixtureDay, fixtures, team }) => {
   );
 };
 
-const Fixture = ({ homeTeamName, awayTeamName, date, matchday, status, result }) => {
+const Fixture = ({
+  homeTeamName, awayTeamName, date, matchday, status, result, timeFrame
+}) => {
   const fixtureClassName = status === 'FINISHED' ? 'old' : 'upcoming';
+  const showCalendar = timeFrame !== 'p7';
+  const calendarProps = showCalendar ? {
+    event: {
+      title: `${homeTeamName} vs ${awayTeamName}`,
+      startTime: date,
+      endTime: new Date(new Date(date).getTime() + 5400000),
+      description: '',
+      location: ''
+    },
+    timeFrame
+  } : {};
   return (
     <div className={`fixture-container ${fixtureClassName}`}>
       <div className="fixture-teams">
@@ -63,6 +77,9 @@ const Fixture = ({ homeTeamName, awayTeamName, date, matchday, status, result })
       <FixtureResult {...result} />
       <div className="fixture-date">
         <TimeDifference timeStampString={date} />
+      </div>
+      <div className="fixture-calendar">
+        <AddToCalendar {...calendarProps} />
       </div>
     </div>
   );
@@ -241,6 +258,7 @@ class Fixtures extends React.Component {
               return (
                 <DayFixtures
                   key={fixtureDay}
+                  timeFrame={timeFrame}
                   team={team}
                   fixtureDay={fixtureDay}
                   fixtures={dayFixtures}

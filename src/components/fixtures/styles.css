@@ -74,6 +74,14 @@ select {
     justify-content: center;
     align-items: center;
   }
+
+  .fixture-calendar {
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    margin-top: 10px;
+  }
 }
 
 @media screen and (min-width: 480px) {
@@ -139,6 +147,14 @@ select {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+  }
+
+  .fixture-calendar {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
     align-items: center;
   }
 }
