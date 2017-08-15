@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fetchCompetitionLeagueTable } from '../../api/methods';
+import DataLayer from '../../data';
 
 import './styles.css';
 
@@ -59,24 +59,26 @@ class LeagueTable extends React.Component {
   componentDidMount() {
     const { matchDay } = this.state;
     this.setState(() => ({ loading: true }));
-    fetchCompetitionLeagueTable(this.props.match.params.id, matchDay).then(response => {
-      const { leagueCaption: league, standing, matchday: matchDay } = response.data;
-      const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
-      this.setState(() => ({ loading: false, league, standing, matchDay, matchDays }));
-    }).catch(error => {
-      this.setState(() => ({ loading: false }));
-    });
+    DataLayer.fetchCompetitionLeagueTable(this.props.match.params.id, matchDay)
+      .then(response => {
+        const { leagueCaption: league, standing, matchday: matchDay } = response.data;
+        const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
+        this.setState(() => ({ loading: false, league, standing, matchDay, matchDays }));
+      }).catch(error => {
+        this.setState(() => ({ loading: false }));
+      });
   }
 
   handleSelection(event) {
     event.preventDefault();
     const newMatchDay = event.target.value;
-    fetchCompetitionLeagueTable(this.props.match.params.id, newMatchDay).then(response => {
-      const { standing } = response.data;
-      this.setState(() => ({ loading: false, standing, matchDay: newMatchDay }));
-    }).catch(error => {
-      this.setState(() => ({ loading: false, matchDay: newMatchDay }));
-    });
+    DataLayer.fetchCompetitionLeagueTable(this.props.match.params.id, newMatchDay)
+      .then(response => {
+        const { standing } = response.data;
+        this.setState(() => ({ loading: false, standing, matchDay: newMatchDay }));
+      }).catch(error => {
+        this.setState(() => ({ loading: false, matchDay: newMatchDay }));
+      });
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fetchCompetition } from '../../api/methods';
+import DataLayer from '../../data';
 
 import { Link } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ class Competition extends React.Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    fetchCompetition(this.props.match.params.id).then(response => {
+    DataLayer.fetchCompetition(this.props.match.params.id).then(response => {
       const { data: competition } = response;
       this.setState(() => ({ loading: false, competition }));
     }).catch(error => {

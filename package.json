@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
+    "localStorage": "^1.0.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router": "^4.1.1",
