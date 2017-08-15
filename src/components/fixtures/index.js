@@ -210,43 +210,29 @@ class Fixtures extends React.Component {
         <h2 className="fixtures-heading">
           Fixtures
         </h2>
-        <div className="fixtures-filter-container">
-          <div className="fixtures-filter">
-            <div className="fixtures-filter-label">
-              Current schedule:
-            </div>
-            <div className="fixtures-filter-value">
-              <select
-                onChange={(event) => this.handleTimeFrameSelection(event)}
-              >
-                {
-                  fixtureFilters.map(({ label, timeFrame: value }, index) =>
-                    <option value={value} key={index}>
-                      {label}
-                    </option>
-                  )
-                }
-              </select>
-            </div>
-          </div>
-          <div className="fixtures-filter">
-            <div className="fixtures-filter-label">
-              Current Team:
-            </div>
-            <div className="fixtures-filter-value">
-              <select
-                onChange={(event) => this.handleTeamSelection(event)}
-              >
-                {
-                  teams.map(({ label, value }, index) =>
-                    <option value={value} key={index}>
-                      {label}
-                    </option>
-                  )
-                }
-              </select>
-            </div>
-          </div>
+        <div className="fixtures-filter">
+          <select
+            onChange={(event) => this.handleTimeFrameSelection(event)}
+          >
+            {
+              fixtureFilters.map(({ label, timeFrame: value }, index) =>
+                <option value={value} key={index}>
+                  {label}
+                </option>
+              )
+            }
+          </select>
+          <select
+            onChange={(event) => this.handleTeamSelection(event)}
+          >
+            {
+              teams.map(({ label, value }, index) =>
+                <option value={value} key={index}>
+                  {label}
+                </option>
+              )
+            }
+          </select>
         </div>
         <div className="fixtures">
           {

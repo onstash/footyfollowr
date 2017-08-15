@@ -5,6 +5,10 @@
   margin-top: 20px;
 }
 
+select {
+  width: 120px;
+}
+
 @media screen and (max-width: 480px) {
   .fixtures-container {
     margin: 10px 10px 10px 10px;
@@ -16,12 +20,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-  }
-
-  .fixtures-filter-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 
   .fixtures-filter {
@@ -84,23 +82,14 @@
     margin-bottom: 20px;
   }
 
-  .fixtures-filter-container {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: space-between;
-    align-items: center;
-    width: 550px;
-  }
-
   .fixtures-filter {
     display: flex;
     flex-direction: row;
     margin-left: auto;
     margin-right: auto;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    width: 550px;
     margin-top: 20px;
   }
 
