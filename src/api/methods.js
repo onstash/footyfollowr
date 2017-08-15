@@ -68,7 +68,7 @@ const fetchFixture = (id, headToHead='') => {
   return apiRequest(fixtureEndpoint);
 };
 
-const fetchTeamFixtures = (id, season='', timeFrame='', venue='') => {
+const fetchTeamFixtures = (id, timeFrame='', venue='', season='') => {
   let teamFixturesEndpoint = `/teams/${id}/fixtures`;
   let queryParamAdded = false;
   if (season) {
