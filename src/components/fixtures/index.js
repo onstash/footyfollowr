@@ -12,7 +12,7 @@ const DayFixtures = ({ fixtureDay, fixtures }) => {
     <div className="day-fixture-container">
       <div className="fixture-match-day">
         <div className="fixture-match-day-label">
-          Day
+          Week
         </div>
         <div className="fixture-match-day-value">
           { fixtureDay }
