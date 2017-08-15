@@ -7,7 +7,26 @@ import FixtureResult from '../fixture-result';
 
 import './styles.css';
 
-const DayFixtures = ({ fixtureDay, fixtures }) => {
+const collateFixtures = fixtures => {
+  const oldFixtures = {};
+  const upcomingFixtures = {};
+  fixtures.forEach(fixture => {
+    const { matchday: matchDay, status } = fixture;
+    const target = status === 'FINISHED' ? oldFixtures : upcomingFixtures;
+    if (target[matchDay]) {
+      target[matchDay].push(fixture)
+    } else {
+      target[matchDay] = [fixture];
+    }
+  });
+  return { oldFixtures, upcomingFixtures };
+};
+
+const DayFixtures = ({ fixtureDay, fixtures, team }) => {
+  const filteredFixtures = team ? fixtures.filter(({
+      awayTeamName, homeTeamName
+    }) => awayTeamName === team || homeTeamName === team
+  ) : fixtures;
   return (
     <div className="day-fixture-container">
       <div className="fixture-match-day">
@@ -20,7 +39,7 @@ const DayFixtures = ({ fixtureDay, fixtures }) => {
       </div>
       <div className="day-fixture">
         {
-          fixtures.map((fixture, index) =>
+          filteredFixtures.map((fixture, index) =>
             <Fixture {...fixture} key={ index }/>
           )
         }
@@ -62,35 +81,51 @@ class Fixtures extends React.Component {
         { label: 'Next week', timeFrame: 'n7' },
         { label: 'Next 2 weeks', timeFrame: 'n14' },
         { label: 'Previous week', timeFrame: 'p7' }
-      ]
+      ],
+      allTeams: {},
+      teams: [],
+      team: null,
+      teamID: null
     };
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     const { timeFrame } = this.state;
     this.setState(() => ({ loading: true }));
-    DataLayer.fetchCompetitionFixtures(this.props.match.params.id, timeFrame).then(response => {
-      const { data: fixturesData } = response;
-      const { fixtures } = fixturesData;
-      const oldFixtures = {};
-      const upcomingFixtures = {};
-      fixtures.map(fixture => {
-        const { matchday: matchDay, status } = fixture;
-        const target = status === 'FINISHED' ? oldFixtures : upcomingFixtures;
-        if (target[matchDay]) {
-          target[matchDay].push(fixture)
-        } else {
-          target[matchDay] = [fixture];
-        }
+    const competitionFixturesPromise = DataLayer.fetchCompetitionFixtures(
+      this.props.match.params.id, timeFrame
+    );
+    const competitionTeamsPromise = DataLayer.fetchCompetitionTeams(
+      this.props.match.params.id
+    );
+    Promise.all([competitionFixturesPromise, competitionTeamsPromise])
+      .then(([fixturesResponse, teamsResponse]) => {
+        const { data: { teams: teamsList } } = teamsResponse;
+        const allTeams = {};
+        const teams = [{ label: 'All teams', value: 'all-teams' }];
+        teamsList.forEach(team => {
+          const { name, _links: { self: { href: teamLink } } } = team;
+          const teamLinkParts = teamLink.split('/');
+          const teamID = teamLinkParts[teamLinkParts.length - 1];
+          allTeams[`${teamID}`] = name;
+          teams.push({ label: name, value: teamID });
+        });
+        const { data: fixturesData } = fixturesResponse;
+        const { fixtures } = fixturesData;
+        const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
+        this.setState(() => ({
+          loading: false,
+          oldFixtures,
+          upcomingFixtures,
+          teams,
+          allTeams
+        }));
+      }).catch(error => {
+        this.setState(() => ({ loading: false }));
       });
-      this.setState(() => ({ loading: false, oldFixtures, upcomingFixtures }));
-    }).catch(error => {
-      this.setState(() => ({ loading: false }));
-    });
   }
 
-  handleSelection(event) {
+  handleTimeFrameSelection(event) {
     event.preventDefault();
     const newTimeFrame = event.target.value;
     let timeFrameLabel;
@@ -105,25 +140,22 @@ class Fixtures extends React.Component {
         timeFrameLabel = 'Next week';
         break;
     }
-    const { timeFrame: oldTimeFrame } = this.state;
+    const { timeFrame: oldTimeFrame, teamID, allTeams } = this.state;
     if (newTimeFrame === oldTimeFrame) {
       return;
     }
-    DataLayer.fetchCompetitionFixtures(this.props.match.params.id, newTimeFrame)
+    const fetchFixturesPromise = (
+      teamID !== null ?
+      DataLayer.fetchTeamFixtures(teamID, newTimeFrame) :
+      DataLayer.fetchCompetitionFixtures(
+        this.props.match.params.id, newTimeFrame
+      )
+    );
+    fetchFixturesPromise
       .then(response => {
         const { data: fixturesData } = response;
         const { fixtures } = fixturesData;
-        const oldFixtures = {};
-        const upcomingFixtures = {};
-        fixtures.map(fixture => {
-          const { matchday: matchDay, status } = fixture;
-          const target = status === 'FINISHED' ? oldFixtures : upcomingFixtures;
-          if (target[matchDay]) {
-            target[matchDay].push(fixture)
-          } else {
-            target[matchDay] = [fixture];
-          }
-        });
+        const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
         this.setState(() => ({
           loading: false,
           oldFixtures,
@@ -140,6 +172,17 @@ class Fixtures extends React.Component {
       });
   }
 
+  handleTeamSelection(event) {
+    event.preventDefault();
+    const teamID = event.target.value;
+    const { team, allTeams, timeFrame } = this.state;
+    const selectedTeam = allTeams[teamID];
+    if (team === selectedTeam) {
+      return;
+    }
+    this.setState(() => ({ team: selectedTeam }));
+  }
+
   render() {
     const {
       loading,
@@ -147,7 +190,9 @@ class Fixtures extends React.Component {
       oldFixtures,
       timeFrame,
       timeFrameLabel,
-      fixtureFilters
+      fixtureFilters,
+      teams,
+      team
     } = this.state;
 
     if (loading) {
@@ -165,22 +210,42 @@ class Fixtures extends React.Component {
         <h2 className="fixtures-heading">
           Fixtures
         </h2>
-        <div className="fixtures-filter">
-          <div className="fixtures-filter-label">
-            Current schedule:
+        <div className="fixtures-filter-container">
+          <div className="fixtures-filter">
+            <div className="fixtures-filter-label">
+              Current schedule:
+            </div>
+            <div className="fixtures-filter-value">
+              <select
+                onChange={(event) => this.handleTimeFrameSelection(event)}
+              >
+                {
+                  fixtureFilters.map(({ label, timeFrame: value }, index) =>
+                    <option value={value} key={index}>
+                      {label}
+                    </option>
+                  )
+                }
+              </select>
+            </div>
           </div>
-          <div className="fixtures-filter-value">
-            <select
-              onChange={(event) => this.handleSelection(event)}
-            >
-              {
-                fixtureFilters.map(({ label, timeFrame: value }, index) =>
-                  <option value={value} key={index}>
-                    {label}
-                  </option>
-                )
-              }
-            </select>
+          <div className="fixtures-filter">
+            <div className="fixtures-filter-label">
+              Current Team:
+            </div>
+            <div className="fixtures-filter-value">
+              <select
+                onChange={(event) => this.handleTeamSelection(event)}
+              >
+                {
+                  teams.map(({ label, value }, index) =>
+                    <option value={value} key={index}>
+                      {label}
+                    </option>
+                  )
+                }
+              </select>
+            </div>
           </div>
         </div>
         <div className="fixtures">
@@ -190,6 +255,7 @@ class Fixtures extends React.Component {
               return (
                 <DayFixtures
                   key={fixtureDay}
+                  team={team}
                   fixtureDay={fixtureDay}
                   fixtures={dayFixtures}
                 />
