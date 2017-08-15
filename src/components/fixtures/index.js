@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fetchCompetitionFixtures } from '../../api/methods';
+import DataLayer from '../../data';
 
 import TimeDifference from '../time-difference';
 import FixtureResult from '../fixture-result';
@@ -70,7 +70,7 @@ class Fixtures extends React.Component {
     console.log('componentDidMount');
     const { timeFrame } = this.state;
     this.setState(() => ({ loading: true }));
-    fetchCompetitionFixtures(this.props.match.params.id, timeFrame).then(response => {
+    DataLayer.fetchCompetitionFixtures(this.props.match.params.id, timeFrame).then(response => {
       const { data: fixturesData } = response;
       const { fixtures } = fixturesData;
       const oldFixtures = {};
@@ -109,34 +109,35 @@ class Fixtures extends React.Component {
     if (newTimeFrame === oldTimeFrame) {
       return;
     }
-    fetchCompetitionFixtures(this.props.match.params.id, newTimeFrame).then(response => {
-      const { data: fixturesData } = response;
-      const { fixtures } = fixturesData;
-      const oldFixtures = {};
-      const upcomingFixtures = {};
-      fixtures.map(fixture => {
-        const { matchday: matchDay, status } = fixture;
-        const target = status === 'FINISHED' ? oldFixtures : upcomingFixtures;
-        if (target[matchDay]) {
-          target[matchDay].push(fixture)
-        } else {
-          target[matchDay] = [fixture];
-        }
+    DataLayer.fetchCompetitionFixtures(this.props.match.params.id, newTimeFrame)
+      .then(response => {
+        const { data: fixturesData } = response;
+        const { fixtures } = fixturesData;
+        const oldFixtures = {};
+        const upcomingFixtures = {};
+        fixtures.map(fixture => {
+          const { matchday: matchDay, status } = fixture;
+          const target = status === 'FINISHED' ? oldFixtures : upcomingFixtures;
+          if (target[matchDay]) {
+            target[matchDay].push(fixture)
+          } else {
+            target[matchDay] = [fixture];
+          }
+        });
+        this.setState(() => ({
+          loading: false,
+          oldFixtures,
+          upcomingFixtures,
+          timeFrame: newTimeFrame,
+          timeFrameLabel
+        }));
+      }).catch(error => {
+        this.setState(() => ({
+          loading: false,
+          timeFrame: newTimeFrame,
+          timeFrameLabel
+        }));
       });
-      this.setState(() => ({
-        loading: false,
-        oldFixtures,
-        upcomingFixtures,
-        timeFrame: newTimeFrame,
-        timeFrameLabel
-      }));
-    }).catch(error => {
-      this.setState(() => ({
-        loading: false,
-        timeFrame: newTimeFrame,
-        timeFrameLabel
-      }));
-    });
   }
 
   render() {

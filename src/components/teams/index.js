@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fetchCompetitionTeams } from '../../api/methods';
+import DataLayer from '../../data';
 
 import './styles.css';
 
@@ -21,13 +21,13 @@ class Teams extends React.Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    fetchCompetitionTeams(this.props.match.params.id).then(response => {
-      const { data: teamsData } = response;
-      const { teams } = teamsData;
-      this.setState(() => ({ loading: false, teams }));
-    }).catch(error => {
-      this.setState(() => ({ loading: false }));
-    });
+    DataLayer.fetchCompetitionTeams(this.props.match.params.id)
+      .then(response => {
+        const { data: { teams } } = response;
+        this.setState(() => ({ loading: false, teams }));
+      }).catch(error => {
+        this.setState(() => ({ loading: false }));
+      });
   }
 
   render() {
