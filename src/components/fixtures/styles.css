@@ -1,25 +1,52 @@
 .placeholder-message {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.fixtures-filter {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+  width: 55%;
   margin-top: 20px;
 }
 
 @media screen and (max-width: 480px) {
-  .fixture-container {
+  .fixtures-container {
     margin: 20px 10px 20px 10px;
+  }
+
+  .fixtures-heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .fixture-container {
     padding: 5px 5px 5px 5px;
     border: 1px solid #CCC;
   }
 
+  .day-fixture-container {
+    padding: 5px 10px 10px 10px;
+    margin-top: 20px;
+  }
+
   .day-fixture {
     border: 1px solid #999;
+    margin-bottom: 10px;
   }
 
   .fixture-teams {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 90%;
+    margin-top: 10px;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -35,6 +62,7 @@
   }
 
   .time-difference {
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -43,6 +71,16 @@
 }
 
 @media screen and (min-width: 480px) {
+  .fixtures-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .fixtures-heading {
+    display: flex;
+    justify-content: center;
+  }
+
   .fixture-container {
     width: 550px;
     margin-left: auto;
