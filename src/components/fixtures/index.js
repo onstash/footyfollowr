@@ -9,6 +9,14 @@ import './styles.css';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
+const FixturesError = () => (
+  <div className="fixtures-container">
+    <h2 className="fixtures-heading">
+      No fixtures up ahead, Master Wayne.
+    </h2>
+  </div>
+);
+
 const collateFixtures = fixtures => {
   const oldFixtures = {};
   const upcomingFixtures = {};
@@ -198,8 +206,8 @@ class Fixtures extends React.Component {
 
     const fixtures = timeFrame.indexOf('n') === -1 ? oldFixtures : upcomingFixtures;
 
-    if (!fixtures) {
-      return <div className="fixtures">{"There's something wrong!"}</div>;
+    if (Object.keys(fixtures).length === 0) {
+      return <FixturesError />;
     }
 
     return (

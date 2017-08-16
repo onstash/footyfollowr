@@ -10,6 +10,14 @@ import mixpanel from '../../utils/mixpanel';
 const range = (start, end) =>
   Array.from({length: (end - start)}, (v, k) => k + start);
 
+const LeagueTableError = () => (
+  <div className="league-table-container">
+    <h2 className="league-table-heading">
+      {"The table isn't ready, Master Wayne."}
+    </h2>
+  </div>
+);
+
 const LeagueTableEntry = ({
   position,
   teamName,
@@ -123,7 +131,17 @@ class LeagueTable extends React.Component {
     const { loading, standing, league, matchDay, matchDays } = this.state;
 
     if (loading) {
-      return <div className="league-table-container">Loading</div>;
+      return (
+        <div className="league-table-container">
+          <h2 className="league-table-heading">
+            Loading table...
+          </h2>
+        </div>
+      );
+    }
+
+    if (standing.length === 0) {
+      return <LeagueTableError />;
     }
 
     return (

@@ -9,6 +9,12 @@ import mixpanel from '../../utils/mixpanel';
 
 import './styles.css';
 
+const CompetitionError = () => (
+  <h2 className="competition-container">
+    There seems to be a problem, Master Wayne.
+  </h2>
+);
+
 class Competition extends React.Component {
   constructor() {
     super();
@@ -50,7 +56,7 @@ class Competition extends React.Component {
     }
 
     if (!competition) {
-      return <div>{"There's something wrong!"}</div>;
+      return <CompetitionError />;
     }
 
     const {
