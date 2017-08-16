@@ -59,7 +59,7 @@ class Teams extends React.Component {
       );
     }
 
-    if (!teams) {
+    if (teams.length === 0) {
       return <div className="teams-container">{"There's something wrong!"}</div>;
     }
 

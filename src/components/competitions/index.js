@@ -10,6 +10,14 @@ import mixpanel from '../../utils/mixpanel';
 
 import './styles.css';
 
+const CompetitionsError = () => (
+  <div className="competitions-container">
+    <h2 className="competitions-heading">
+      There seems to be a problem, Master Wayne.
+    </h2>
+  </div>
+);
+
 const Competition = ({ caption, id }) => {
   return (
     <Link to={ `/competitions/${id}` } className="competition-link-container">
@@ -64,13 +72,7 @@ class Competitions extends React.Component {
     }
 
     if (!competitions) {
-      return (
-        <div className="competitions-container">
-          <h2 className="competitions-heading">
-            There seems to be an error
-          </h2>
-        </div>
-      );
+      return <CompetitionsError />;
     }
 
     return (
