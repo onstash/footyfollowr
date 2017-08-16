@@ -2,6 +2,9 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
+import Cache from '../../utils/cache';
+import mixpanel from '../../utils/mixpanel';
+
 import './styles.css';
 
 const Team = ({ name, crestUrl, shortName }) => (
@@ -24,10 +27,23 @@ class Teams extends React.Component {
     DataLayer.fetchCompetitionTeams(this.props.match.params.id)
       .then(response => {
         const { data: { teams } } = response;
+        Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+          .then(distinctID => {
+            const eventProperties = {
+              id: this.props.match.params.id,
+              teams: teams.length
+            };
+            mixpanel.track(
+              distinctID,
+              'Teams Viewed',
+              eventProperties
+            );
+          }).catch(console.error);
         this.setState(() => ({ loading: false, teams }));
-      }).catch(error => {
-        this.setState(() => ({ loading: false }));
-      });
+      })
+    .catch(error => {
+      this.setState(() => ({ loading: false }));
+    });
   }
 
   render() {

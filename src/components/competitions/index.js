@@ -4,6 +4,10 @@ import DataLayer from '../../data';
 
 import { Link } from 'react-router-dom';
 
+import Cache from '../../utils/cache';
+import fetchIPInformation from '../../utils/ip';
+import mixpanel from '../../utils/mixpanel';
+
 import './styles.css';
 
 const Competition = ({ caption, id }) => {
@@ -24,12 +28,26 @@ class Competitions extends React.Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    DataLayer.fetchCompetitions().then(response => {
-      const { data: competitions } = response;
-      this.setState(() => ({ loading: false, competitions }));
-    }).catch(error => {
-      this.setState(() => ({ loading: false }));
-    });
+    const onFetchIPSuccess = ({ data: ipData }) => {
+      const { ip: distinctID } = ipData;
+      const profileProperties = Object.assign(
+        { distinct_id: distinctID },
+        ipData
+      );
+      Cache.set(Cache.keys.MIXPANEL_DISTINCT_ID, distinctID);
+      mixpanel.track(distinctID, 'Competitions Viewed');
+    };
+    const onFetchIPFailure = () => {};
+    fetchIPInformation()
+      .then(onFetchIPSuccess, onFetchIPFailure)
+      .then(() => {
+        return DataLayer.fetchCompetitions().then(response => {
+          const { data: competitions } = response;
+          this.setState(() => ({ loading: false, competitions }));
+        });
+      }).catch(error => {
+        this.setState(() => ({ loading: false }));
+      });
   }
 
   render() {

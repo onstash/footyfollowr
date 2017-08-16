@@ -57,7 +57,9 @@ const keys = {
   COMPETITION: 'competition',
   TEAMS: 'Teams',
   FIXTURES: 'Fixtures',
-  LEAGUE_TABLE: 'LeagueTable'
+  LEAGUE_TABLE: 'LeagueTable',
+  MIXPANEL_DISTINCT_ID: 'MixpanelDistinctID',
+  IP_INFORMATION: 'IPInformation'
 };
 
 export default Cache = {

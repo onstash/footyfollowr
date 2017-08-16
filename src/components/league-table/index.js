@@ -4,6 +4,9 @@ import DataLayer from '../../data';
 
 import './styles.css';
 
+import Cache from '../../utils/cache';
+import mixpanel from '../../utils/mixpanel';
+
 const range = (start, end) =>
   Array.from({length: (end - start)}, (v, k) => k + start);
 
@@ -59,21 +62,56 @@ class LeagueTable extends React.Component {
   componentDidMount() {
     const { matchDay } = this.state;
     this.setState(() => ({ loading: true }));
-    DataLayer.fetchCompetitionLeagueTable(this.props.match.params.id, matchDay)
-      .then(response => {
-        const { leagueCaption: league, standing, matchday: matchDay } = response.data;
-        const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
-        this.setState(() => ({ loading: false, league, standing, matchDay, matchDays }));
-      }).catch(error => {
-        this.setState(() => ({ loading: false }));
-      });
+    DataLayer.fetchCompetitionLeagueTable(
+      this.props.match.params.id, matchDay
+    ).then(response => {
+      Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+        .then(distinctID => {
+          const eventProperties = {
+            id: this.props.match.params.id,
+            matchDay
+          };
+          mixpanel.track(
+            distinctID,
+            'LeagueTable Viewed',
+            eventProperties
+          );
+        }).catch(console.error);
+      const {
+        leagueCaption: league,
+        standing,
+        matchday: matchDay
+      } = response.data;
+      const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
+      this.setState(() => ({
+        loading: false,
+        league, standing,
+        matchDay, matchDays
+      }));
+    })
+    .catch(error => {
+      this.setState(() => ({ loading: false }));
+    });
   }
 
   handleSelection(event) {
     event.preventDefault();
     const newMatchDay = event.target.value;
-    DataLayer.fetchCompetitionLeagueTable(this.props.match.params.id, newMatchDay)
-      .then(response => {
+    DataLayer.fetchCompetitionLeagueTable(
+      this.props.match.params.id, newMatchDay
+    ).then(response => {
+        Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+          .then(distinctID => {
+            const eventProperties = {
+              id: this.props.match.params.id,
+              matchDay: newMatchDay
+            };
+            mixpanel.track(
+              distinctID,
+              'LeagueTable Viewed',
+              eventProperties
+            );
+          }).catch(console.error);
         const { standing } = response.data;
         this.setState(() => ({ loading: false, standing, matchDay: newMatchDay }));
       }).catch(error => {
