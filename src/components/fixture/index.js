@@ -7,6 +7,25 @@ import FixtureTeams from '../fixture-teams';
 
 import './styles.css';
 
+
+// const showCalendar = timeFrame !== 'p7';
+// const calendarProps = showCalendar ? {
+//   event: {
+//     title: `${homeTeamName} vs ${awayTeamName}`,
+//     startTime: (new Date(date)).getTime() / 1000,
+//     endTime: (new Date(new Date(date).getTime() + 5400000)).getTime() / 1000,
+//     description: '',
+//     location: ''
+//   },
+//   timeFrame
+// } : {};
+
+// const calendarProps = {};
+//
+// <div className="fixture-calendar">
+//   <AddToCalendar {...calendarProps} />
+// </div>
+
 const Fixture = ({
   homeTeamName,
   awayTeamName,
@@ -17,26 +36,12 @@ const Fixture = ({
   timeFrame
 }) => {
   const fixtureClassName = status === 'FINISHED' ? 'old' : 'upcoming';
-  const showCalendar = timeFrame !== 'p7';
-  const calendarProps = showCalendar ? {
-    event: {
-      title: `${homeTeamName} vs ${awayTeamName}`,
-      startTime: date,
-      endTime: new Date(new Date(date).getTime() + 5400000),
-      description: '',
-      location: ''
-    },
-    timeFrame
-  } : {};
   return (
     <div className={`fixture-container ${fixtureClassName}`}>
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
       <FixtureResult {...result} />
       <div className="fixture-date">
         <TimeDifference timeStampString={date} />
-      </div>
-      <div className="fixture-calendar">
-        <AddToCalendar {...calendarProps} />
       </div>
     </div>
   );
