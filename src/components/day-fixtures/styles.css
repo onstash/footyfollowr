@@ -1,0 +1,48 @@
+.day-fixtures-container {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .day-fixtures {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .fixture-container {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    border: 1px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #EEE;
+    color: #38AC5F;
+    border-radius: 3px;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .day-fixtures {
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .fixture-container {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    border: 1px solid #CCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #EEE;
+    color: #38AC5F;
+    border-radius: 3px;
+  }
+}

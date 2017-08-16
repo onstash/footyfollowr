@@ -2,9 +2,7 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-import TimeDifference from '../time-difference';
-import FixtureResult from '../fixture-result';
-import AddToCalendar from '../add-to-calendar';
+import DayFixtures from '../day-fixtures';
 
 import './styles.css';
 
@@ -24,68 +22,6 @@ const collateFixtures = fixtures => {
     }
   });
   return { oldFixtures, upcomingFixtures };
-};
-
-const DayFixtures = ({ fixtureDay, fixtures, team, timeFrame }) => {
-  const filteredFixtures = team ? fixtures.filter(({
-      awayTeamName, homeTeamName
-    }) => awayTeamName === team || homeTeamName === team
-  ) : fixtures;
-  return (
-    <div className="day-fixture-container">
-      <div className="fixture-match-day">
-        <div className="fixture-match-day-label">
-          Week
-        </div>
-        <div className="fixture-match-day-value">
-          { fixtureDay }
-        </div>
-      </div>
-      <div className="day-fixture">
-        {
-          filteredFixtures.map((fixture, index) =>
-            <Fixture {...fixture} key={ index } timeFrame={timeFrame} />
-          )
-        }
-      </div>
-    </div>
-  );
-};
-
-const Fixture = ({
-  homeTeamName, awayTeamName, date, matchday, status, result, timeFrame
-}) => {
-  const fixtureClassName = status === 'FINISHED' ? 'old' : 'upcoming';
-  const showCalendar = timeFrame !== 'p7';
-  const calendarProps = showCalendar ? {
-    event: {
-      title: `${homeTeamName} vs ${awayTeamName}`,
-      startTime: date,
-      endTime: new Date(new Date(date).getTime() + 5400000),
-      description: '',
-      location: ''
-    },
-    timeFrame
-  } : {};
-  return (
-    <div className={`fixture-container ${fixtureClassName}`}>
-      <div className="fixture-teams">
-        <div className="fixture-home-team">
-          { homeTeamName }
-        </div>
-        <div className="fixture-away-team">
-           { awayTeamName }
-        </div>
-      </div>
-      <FixtureResult {...result} />
-      <div className="fixture-date">
-        <TimeDifference timeStampString={date} />
-      </div>
-      <div className="fixture-calendar">
-        <AddToCalendar {...calendarProps} />
-      </div>
-    </div>
-  );
 };
 
 class Fixtures extends React.Component {
