@@ -9,7 +9,7 @@ const sendRequest = (urlPath, payload) => {
   } catch (e) {
     b64 = base64.encode(escape(JSON.stringify(payload)));
   }
-  return fetch(`http://api.mixpanel.com${urlPath}/?data=${b64}`)
+  return fetch(`https://api.mixpanel.com${urlPath}/?data=${b64}`)
     .then(response => response.text())
     .then(r => {
       console.log('mixpanel.sendRequest[internal]', urlPath, payload, r);

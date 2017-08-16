@@ -3,7 +3,7 @@ import Cache from './cache';
 import mixpanel from './mixpanel';
 
 const requestOptions = {
-  url: 'http://freegeoip.net/json/',
+  url: 'https://freegeoip.net/json/',
 };
 
 const _fetchIPInformation = () => {
