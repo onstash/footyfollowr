@@ -8,6 +8,9 @@ import AddToCalendar from '../add-to-calendar';
 
 import './styles.css';
 
+import Cache from '../../utils/cache';
+import mixpanel from '../../utils/mixpanel';
+
 const collateFixtures = fixtures => {
   const oldFixtures = {};
   const upcomingFixtures = {};
@@ -107,7 +110,7 @@ class Fixtures extends React.Component {
   }
 
   componentDidMount() {
-    const { timeFrame } = this.state;
+    const { timeFrame, team } = this.state;
     this.setState(() => ({ loading: true }));
     const competitionFixturesPromise = DataLayer.fetchCompetitionFixtures(
       this.props.match.params.id, timeFrame
@@ -115,7 +118,10 @@ class Fixtures extends React.Component {
     const competitionTeamsPromise = DataLayer.fetchCompetitionTeams(
       this.props.match.params.id
     );
-    Promise.all([competitionFixturesPromise, competitionTeamsPromise])
+    Promise.all([
+      competitionFixturesPromise,
+      competitionTeamsPromise
+    ])
       .then(([fixturesResponse, teamsResponse]) => {
         const { data: { teams: teamsList } } = teamsResponse;
         const allTeams = {};
@@ -129,6 +135,19 @@ class Fixtures extends React.Component {
         });
         const { data: fixturesData } = fixturesResponse;
         const { fixtures } = fixturesData;
+        Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+          .then(distinctID => {
+            const eventProperties = {
+              id: this.props.match.params.id,
+              timeFrame,
+              currentTeam: team || 'All Teams',
+            };
+            mixpanel.track(
+              distinctID,
+              'Fixtures Viewed',
+              eventProperties
+            );
+          }).catch(console.error)
         const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
         this.setState(() => ({
           loading: false,
@@ -161,32 +180,42 @@ class Fixtures extends React.Component {
     if (newTimeFrame === oldTimeFrame) {
       return;
     }
-    const fetchFixturesPromise = (
-      teamID !== null ?
-      DataLayer.fetchTeamFixtures(teamID, newTimeFrame) :
-      DataLayer.fetchCompetitionFixtures(
-        this.props.match.params.id, newTimeFrame
-      )
-    );
-    fetchFixturesPromise
-      .then(response => {
-        const { data: fixturesData } = response;
-        const { fixtures } = fixturesData;
-        const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
-        this.setState(() => ({
-          loading: false,
-          oldFixtures,
-          upcomingFixtures,
-          timeFrame: newTimeFrame,
-          timeFrameLabel
-        }));
-      }).catch(error => {
-        this.setState(() => ({
-          loading: false,
-          timeFrame: newTimeFrame,
-          timeFrameLabel
-        }));
-      });
+
+    DataLayer.fetchCompetitionFixtures(
+      this.props.match.params.id, newTimeFrame
+    ).then(response => {
+      const { data: fixturesData } = response;
+      const { fixtures } = fixturesData;
+      const { team } = this.state;
+      Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+        .then(distinctID => {
+          const eventProperties = {
+            id: this.props.match.params.id,
+            timeFrame: newTimeFrame,
+            currentTeam: team || 'All Teams',
+            filter: 'TimeFrame'
+          };
+          mixpanel.track(
+            distinctID,
+            'Fixtures Filtered',
+            eventProperties
+          );
+        }).catch(console.error);
+      const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
+      this.setState(() => ({
+        loading: false,
+        oldFixtures,
+        upcomingFixtures,
+        timeFrame: newTimeFrame,
+        timeFrameLabel
+      }));
+    }).catch(error => {
+      this.setState(() => ({
+        loading: false,
+        timeFrame: newTimeFrame,
+        timeFrameLabel
+      }));
+    });
   }
 
   handleTeamSelection(event) {
@@ -197,6 +226,21 @@ class Fixtures extends React.Component {
     if (team === selectedTeam) {
       return;
     }
+    Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+      .then(distinctID => {
+        const { timeFrame } = this.state;
+        const eventProperties = {
+          id: this.props.match.params.id,
+          timeFrame,
+          currentTeam: selectedTeam || 'All Teams',
+          filter: 'Team'
+        };
+        mixpanel.track(
+          distinctID,
+          'Fixtures Filtered',
+          eventProperties
+        );
+      }).catch(console.error);
     this.setState(() => ({ team: selectedTeam }));
   }
 

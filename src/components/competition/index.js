@@ -4,6 +4,9 @@ import DataLayer from '../../data';
 
 import { Link } from 'react-router-dom';
 
+import Cache from '../../utils/cache';
+import mixpanel from '../../utils/mixpanel';
+
 import './styles.css';
 
 class Competition extends React.Component {
@@ -14,12 +17,23 @@ class Competition extends React.Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    DataLayer.fetchCompetition(this.props.match.params.id).then(response => {
-      const { data: competition } = response;
-      this.setState(() => ({ loading: false, competition }));
-    }).catch(error => {
-      this.setState(() => ({ loading: false }));
-    });
+    DataLayer.fetchCompetition(this.props.match.params.id)
+      .then(response => {
+        const { data: competition } = response;
+        const { caption: name } = competition;
+        Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+          .then(distinctID => {
+            mixpanel.track(
+              distinctID,
+              'Competition Viewed',
+              { name, id: this.props.match.params.id }
+            );
+          }).catch(console.error);
+        this.setState(() => ({ loading: false, competition }));
+      })
+      .catch(error => {
+        this.setState(() => ({ loading: false }));
+      });
   }
 
   render() {
