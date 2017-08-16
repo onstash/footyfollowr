@@ -5,21 +5,27 @@
   margin-top: 20px;
 }
 
-select {
-  width: 120px;
-}
-
 @media screen and (max-width: 480px) {
+  select {
+    width: 90px;
+  }
+
   .fixtures-container {
     margin: 10px 10px 10px 10px;
   }
 
   .fixture-container {
-    padding: 10px 5px 10px 5px;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
     border: 1px solid #CCC;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    background-color: #EEE;
+    color: #38AC5F;
+    border-radius: 3px;
   }
 
   .fixtures-filter {
@@ -29,7 +35,7 @@ select {
     margin-right: auto;
     justify-content: space-between;
     align-items: center;
-    width: 70%;
+    width: 85%;
     margin-top: 20px;
   }
 
@@ -44,7 +50,7 @@ select {
   }
 
   .day-fixture {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 
@@ -55,6 +61,7 @@ select {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
   }
 
   .fixture-match-day {
@@ -68,7 +75,7 @@ select {
   }
 
   .time-difference {
-    margin-top: 10px;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -78,13 +85,17 @@ select {
   .fixture-calendar {
     display: flex;
     flex-direction: row;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 20px;
   }
 }
 
 @media screen and (min-width: 480px) {
+  select {
+    width: 120px;
+  }
+
   .fixtures-container {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -110,17 +121,22 @@ select {
     width: 550px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
-    border: 1px solid #999;
   }
 
   .fixture-container {
-    padding: 10px 5px 10px 5px;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
     border: 1px solid #CCC;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    background-color: #EEE;
+    color: #38AC5F;
+    border-radius: 3px;
   }
 
   .fixture-teams {
@@ -130,6 +146,7 @@ select {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20px;
   }
 
   .fixture-match-day {
@@ -148,6 +165,7 @@ select {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
   }
 
   .fixture-calendar {
