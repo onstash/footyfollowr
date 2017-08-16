@@ -2,8 +2,12 @@ body {
   line-height: 1.25;
 }
 
+.name {
+  width: 50%;
+}
+
 .league-table-container {
-  max-width: 750px;
+  max-width: 550px;
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: auto;
@@ -22,7 +26,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   justify-content: space-around;
-  width: 20%;
+  width: 40%;
   margin-top: 20px;
 }
 
@@ -66,43 +70,7 @@ table th {
     margin-left: auto;
     margin-right: auto;
     justify-content: space-around;
-    width: 35%;
+    width: 50%;
     margin-top: 20px;
-  }
-
-  table {
-    border: 0;
-  }
-
-  thead {
-    display: none;
-  }
-
-  table tr {
-    border-bottom: 3px solid #DDD;
-    display: block;
-    margin-bottom: 0.625em;
-  }
-
-  table td {
-    border-bottom: 1px solid #DDD;
-    display: block;
-    font-size: 0.8em;
-    text-align: right;
-  }
-
-  table td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  table td:nth-child {
-    background-color: white;
-  }
-
-  table td:last-child {
-    border-bottom: 0;
   }
 }
