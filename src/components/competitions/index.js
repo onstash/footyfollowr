@@ -36,21 +36,14 @@ class Competitions extends React.Component {
 
   componentDidMount() {
     this.setState(() => ({ loading: true }));
-    const onFetchIPSuccess = ({ data: ipData }) => {
-      const { ip: distinctID } = ipData;
-      const profileProperties = Object.assign(
-        { distinct_id: distinctID },
-        ipData
-      );
-      Cache.set(Cache.keys.MIXPANEL_DISTINCT_ID, distinctID);
-      mixpanel.track(distinctID, 'Competitions Viewed');
-    };
-    const onFetchIPFailure = () => {};
-    fetchIPInformation()
-      .then(onFetchIPSuccess, onFetchIPFailure)
-      .then(() => {
+    const onCacheFetchSuccess = distinctID => distinctID;
+    const onCacheFetchFailure = () => {};
+    Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+      .then(onCacheFetchSuccess, onCacheFetchFailure)
+      .then(distinctID => {
         return DataLayer.fetchCompetitions().then(response => {
           const { data: competitions } = response;
+          mixpanel.track(distinctID, 'Competitions Viewed');
           this.setState(() => ({ loading: false, competitions }));
         });
       }).catch(error => {
