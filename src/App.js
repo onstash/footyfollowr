@@ -5,6 +5,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Competitions from './components/competitions';
+import Onboarding from './components/onboarding';
 import Competition from './components/competition';
 import Teams from './components/teams';
 import Fixtures from './components/fixtures';
@@ -19,7 +20,8 @@ class App extends Component {
           <Route exact path="/competitions/:id/fixtures" component={ Fixtures }/>
           <Route exact path="/competitions/:id/teams" component={ Teams }/>
           <Route exact path="/competitions/:id" component={ Competition }/>
-          <Route exact path="/" component={ Competitions }/>
+          <Route exact path="/competitions" component={ Competitions }/>
+          <Route exact path="/" component={ Onboarding }/>
         </div>
       </Router>
     );

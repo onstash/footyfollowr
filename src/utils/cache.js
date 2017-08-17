@@ -59,7 +59,8 @@ const keys = {
   FIXTURES: 'Fixtures',
   LEAGUE_TABLE: 'LeagueTable',
   MIXPANEL_DISTINCT_ID: 'MixpanelDistinctID',
-  IP_INFORMATION: 'IPInformation'
+  IP_INFORMATION: 'IPInformation',
+  ONBOARDING_SHOWN: 'OnboardingShown'
 };
 
 export default Cache = {
