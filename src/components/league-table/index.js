@@ -33,7 +33,7 @@ const LeagueTableEntry = ({
       <td data-label="Position" className="position">
         {position}
       </td>
-      <td data-label="Team" className="name">
+      <td data-label="Team" className="teamname">
         {teamName}
       </td>
       <td data-label="Wins" className="points">
@@ -173,7 +173,7 @@ class LeagueTable extends React.Component {
           <thead>
             <tr>
               <th className="position" scope="col" />
-              <th className="name" scope="col">Team</th>
+              <th className="teamname" scope="col">Team</th>
               <th className="points" scope="col">W</th>
               <th className="points" scope="col">L</th>
               <th className="points" scope="col">D</th>
