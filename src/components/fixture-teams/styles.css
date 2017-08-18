@@ -21,20 +21,27 @@
     margin-top: 20px;
   }
 
-  .name {
-    display: none;
-  }
-
   .home-team {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .away-team {
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    margin-top: 10px;
   }
 }
 
@@ -51,15 +58,17 @@
 
   .home-team {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 38%;
   }
 
   .away-team {
     display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 38%;
   }
 
@@ -68,5 +77,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
+    margin-top: 10px;
   }
 }
