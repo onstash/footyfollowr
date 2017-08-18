@@ -1,0 +1,13 @@
+.fixture-time {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .fixture-time {
+    font-size: 14px;
+  }
+}

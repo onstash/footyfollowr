@@ -16,9 +16,6 @@ const FullTimeScore = ({ goalsHomeTeam, goalsAwayTeam }) => {
         <div className="ft-home-team">
           { goalsHomeTeam }
         </div>
-        <div className="score-separator">
-          :
-        </div>
         <div className="ft-home-team">
           { goalsAwayTeam }
         </div>
@@ -40,9 +37,6 @@ const HalfTimeScore = ({ goalsHomeTeam, goalsAwayTeam }) => {
       <div className="ht-score-values">
         <div className="ht-home-team">
           { goalsHomeTeam || 0 }
-        </div>
-        <div className="score-separator">
-          :
         </div>
         <div className="ht-home-team">
           { goalsAwayTeam || 0 }

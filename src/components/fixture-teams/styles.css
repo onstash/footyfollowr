@@ -1,12 +1,40 @@
+.crest {
+  width: 48px;
+  height: 48px;
+}
+
+.divider {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 480px) {
   .fixture-teams {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 95%;
+    width: 70%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+  }
+
+  .name {
+    display: none;
+  }
+
+  .home-team {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .away-team {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
   }
 }
 
@@ -15,9 +43,30 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 80%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+  }
+
+  .home-team {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 38%;
+  }
+
+  .away-team {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 38%;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 }
