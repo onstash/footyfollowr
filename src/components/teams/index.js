@@ -5,11 +5,13 @@ import DataLayer from '../../data';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
+import teamLogos from '../../data/team-logos';
+
 import './styles.css';
 
 const Team = ({ name, crestUrl, shortName }) => (
   <div className="team">
-    <img src={crestUrl} className="team-logo" />
+    <img src={teamLogos[name] || crestUrl} className="team-logo" />
     <div className="team-name">
       { name }
     </div>
