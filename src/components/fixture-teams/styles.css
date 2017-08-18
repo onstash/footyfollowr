@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 70%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -26,6 +26,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 60%;
   }
 
   .away-team {
@@ -33,6 +34,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 60%;
   }
 
   .name {
