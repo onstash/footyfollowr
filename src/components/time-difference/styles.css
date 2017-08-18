@@ -1,0 +1,13 @@
+.time-difference {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .time-difference {
+    font-size: 14px;
+  }
+}

@@ -31,14 +31,6 @@
     margin-top: 20px;
   }
 
-  .time-difference {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
   .fixture-calendar {
     display: flex;
     flex-direction: row;
@@ -66,14 +58,6 @@
     justify-content: space-around;
     align-items: center;
     width: 550px;
-    margin-top: 20px;
-  }
-
-  .time-difference {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     margin-top: 20px;
   }
 

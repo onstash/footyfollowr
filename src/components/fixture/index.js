@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TimeDifference from '../time-difference';
+import FixtureDate from '../fixture-date';
 import FixtureResult from '../fixture-result';
 import AddToCalendar from '../add-to-calendar';
 import FixtureTeams from '../fixture-teams';
@@ -35,14 +35,11 @@ const Fixture = ({
   result,
   timeFrame
 }) => {
-  const fixtureClassName = status === 'FINISHED' ? 'old' : 'upcoming';
   return (
-    <div className={`fixture-container ${fixtureClassName}`}>
+    <div className="fixture-container">
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
       <FixtureResult {...result} />
-      <div className="fixture-date">
-        <TimeDifference timeStampString={date} />
-      </div>
+      <FixtureDate date={date} status={status} />
     </div>
   );
 };
