@@ -5,94 +5,74 @@ import FixtureTime from '../fixture-time';
 
 import './styles.css';
 
-const calculateTimeDifference = timeStampString => {
-  const timeStamp = new Date(timeStampString);
-  const currentTime = new Date().getTime();
+const calculateTimeDifference = (currentTime, timeStamp) => {
   const suffix = currentTime > timeStamp ? 'ago' : 'to go';
   const difference = timeStamp - currentTime;
   const deltaSeconds = Math.abs(Math.round(difference / 1000));
   const deltaMinutes = Math.abs(Math.round(deltaSeconds / 60));
   const deltaHours = Math.abs(Math.round(deltaMinutes / 60));
   const deltaDays = Math.abs(Math.round(deltaHours / 24));
+  const deltaWeeks = Math.abs(Math.round(deltaDays / 7));
+  const deltaMonths = Math.abs(Math.round(deltaWeeks / 4));
   let timeDelta, unit;
   if (deltaSeconds < 60) {
     timeDelta = parseInt(deltaSeconds);
     unit = 'second';
   } else if (deltaMinutes < 60) {
     timeDelta = parseInt(deltaMinutes);
-    unit = 'minute';
+    unit = 'min';
   } else if (deltaHours < 24) {
     timeDelta = parseInt(deltaHours);
     unit = 'hour';
-  } else if (deltaDays <= 7) {
+  } else if (deltaDays < 7) {
     timeDelta = parseInt(deltaDays);
     unit = 'day';
-  } else {
-    return;
+  } else if (deltaWeeks < 4) {
+    timeDelta = parseInt(deltaWeeks);
+    unit = 'week';
+  } else if (deltaMonths < 12) {
+    timeDelta = parseInt(deltaMonths);
+    unit = 'month';
   }
   switch (timeDelta) {
     case 0:
-      return {label: `moments ${suffix}`, difference, date: timeStamp};
+      return `moments ${suffix}`;
     case 1:
       switch (unit) {
+        case 'week':
+          return `a week ${suffix}`;
         case 'day':
-          switch (suffix) {
-            case 'ago':
-              return {label: 'a day ago', difference, date: timeStamp};
-            default:
-              return {label: '', difference, date: timeStamp};
-          }
+          return `a day ${suffix}`;
         case 'hour':
-          return {label: `an hour ${suffix}`, difference, date: timeStamp};
+          return `an hour ${suffix}`;
         default:
-          return {label: `moments ${suffix}`, difference, date: timeStamp};
+          return `moments ${suffix}`;
       }
     default:
       switch (suffix) {
         case 'second':
-          return {label: `moments ${suffix}`, difference, date: timeStamp};
+          return `moments ${suffix}`;
         default:
-          switch (unit) {
-            case 'day':
-              switch (suffix) {
-                case 'to go':
-                  return {
-                    label: '',
-                    difference,
-                    date: timeStamp
-                  };
-                default:
-                  return {
-                    label: `${timeDelta} ${unit}s ${suffix}`,
-                    difference,
-                    date: timeStamp
-                  };
-              }
-            default:
-              return {
-                label: `${timeDelta} ${unit}s ${suffix}`,
-                difference,
-                date: timeStamp
-              };
-          }
+          return `${timeDelta} ${unit}s ${suffix}`;
       }
   }
 };
 
 const FixtureDate = ({ date, status }) => {
-  const timeDifference = calculateTimeDifference(date);
-  if (!timeDifference) {
-    return <div />;
-  }
-  const { label, difference, date: actualDate } = timeDifference;
-  if (!label || status === 'FINISHED') {
-    return <FixtureTime timeDifference={difference} fixtureTime={actualDate} />
+  const currentTime = new Date();
+  const fixtureTime = new Date(date);
+  const timeDifferenceLabel = calculateTimeDifference(currentTime, fixtureTime);
+  if (!timeDifferenceLabel) {
+    return <FixtureTime currentTime={currentTime} fixtureTime={fixtureTime} />
   }
 
   return (
     <div className="fixture-date">
-      <FixtureTime timeDifference={difference} fixtureTime={actualDate} />
-      <TimeDifference label={label} />
+      <FixtureTime
+        currentTime={currentTime}
+        fixtureTime={fixtureTime}
+      />
+      <TimeDifference label={timeDifferenceLabel} />
     </div>
   );
 };
