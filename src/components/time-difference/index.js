@@ -8,7 +8,7 @@ const TimeDifference = ({ label }) => {
   }
   return (
     <div className="time-difference">
-      ({label})
+      [{label}]
     </div>
   );
 };
