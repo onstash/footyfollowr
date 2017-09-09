@@ -5,6 +5,15 @@
   margin-top: 20px;
 }
 
+.fixtures-error {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  height: 100%;
+}
+
 .fixtures-heading {
   display: flex;
   justify-content: center;
