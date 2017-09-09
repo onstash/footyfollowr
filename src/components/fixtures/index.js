@@ -9,13 +9,35 @@ import './styles.css';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
-const FixturesError = () => (
-  <div className="fixtures-container">
-    <h2 className="fixtures-heading">
-      No fixtures up ahead, Master Wayne.
-    </h2>
+const FixturesListError = () => (
+  <div className="fixtures-error">
+    No fixtures for selected time period, Master Wayne.
   </div>
 );
+
+const FixturesList = ({ fixtures, timeFrame, team, dayFixtures }) => {
+  if (Object.keys(fixtures).length === 0) {
+    return <FixturesListError />;
+  }
+  return (
+    <div className="fixtures">
+      {
+        Object.keys(fixtures).map(fixtureDay => {
+          const dayFixtures = fixtures[fixtureDay];
+          return (
+            <DayFixtures
+              key={fixtureDay}
+              timeFrame={timeFrame}
+              team={team}
+              fixtureDay={fixtureDay}
+              fixtures={dayFixtures}
+            />
+          );
+        })
+      }
+    </div>
+  );
+};
 
 const collateFixtures = fixtures => {
   const oldFixtures = {};
@@ -206,10 +228,6 @@ class Fixtures extends React.Component {
 
     const fixtures = timeFrame.indexOf('n') === -1 ? oldFixtures : upcomingFixtures;
 
-    if (Object.keys(fixtures).length === 0) {
-      return <FixturesError />;
-    }
-
     return (
       <div className="fixtures-container">
         <h2 className="fixtures-heading">
@@ -239,22 +257,12 @@ class Fixtures extends React.Component {
             }
           </select>
         </div>
-        <div className="fixtures">
-          {
-            Object.keys(fixtures).map(fixtureDay => {
-              const dayFixtures = fixtures[fixtureDay];
-              return (
-                <DayFixtures
-                  key={fixtureDay}
-                  timeFrame={timeFrame}
-                  team={team}
-                  fixtureDay={fixtureDay}
-                  fixtures={dayFixtures}
-                />
-              );
-            })
-          }
-        </div>
+        <FixturesList
+          fixtures={fixtures}
+          timeFrame={timeFrame}
+          team={team}
+          dayFixtures
+        />
       </div>
     );
   }
