@@ -1,0 +1,88 @@
+.fa-competition-container {
+  @extend fa-box-shadow;
+  padding: 1rem;
+  margin-top: 20px;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  @include mobile {
+    margin: 20px 10px 10px 10px;
+  }
+}
+
+.fa-competition-caption {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: $blackText;
+}
+
+.fa-competition-games {
+  display: flex;
+  margin-top: 20px;
+  width: 310px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: row;
+  justify-content: space-between;
+  color: $blackText;
+  font-weight: 400;
+}
+
+.fa-competition-match-day {
+  display: flex;
+  margin-top: 20px;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+  color: $blackText;
+  font-weight: 400;
+}
+
+.fa-competition-match-day-value {
+  display: flex;
+  flex-direction: row;
+}
+
+.fa-competition-divider {
+  padding: 4px 4px 4px 4px;
+}
+
+.fa-competition-current-match-day {
+  padding: 4px 4px 4px 4px;
+}
+
+.fa-competition-number-of-match-days {
+  color: $blackText;
+  padding: 4px 4px 4px 4px;
+}
+
+.fa-competition-helper-links {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.fa-competition-helper-link {
+  @extend fa-box-shadow;
+  padding: 1rem;
+  &:link, &:visited {
+    text-decoration: none;
+    color: $blackText;
+  }
+
+  &:hover {
+    color: white;
+    background-color: $blackBackground;
+    @include transition(background-color 0.5s);
+  }
+}
