@@ -7,12 +7,10 @@ import mixpanel from '../../utils/mixpanel';
 
 import teamLogos from '../../data/team-logos';
 
-import './styles.css';
-
 const Team = ({ name, crestUrl, shortName }) => (
-  <div className="team">
-    <img src={teamLogos[name] || crestUrl} className="team-logo" />
-    <div className="team-name">
+  <div className="fa-team">
+    <img src={teamLogos[name] || crestUrl} className="fa-team-logo" />
+    <div className="fa-team-name">
       { name }
     </div>
   </div>
@@ -53,8 +51,8 @@ class Teams extends React.Component {
 
     if (loading) {
       return (
-        <div className="teams-container">
-          <h2 className="teams-heading">
+        <div className="fa-teams-container">
+          <h2 className="fa-teams-heading">
             Loading teams...
           </h2>
         </div>
@@ -62,13 +60,13 @@ class Teams extends React.Component {
     }
 
     if (teams.length === 0) {
-      return <div className="teams-container">{"There's something wrong!"}</div>;
+      return <div className="fa-teams-container">{"There's something wrong!"}</div>;
     }
 
     return (
-      <div className="teams-container">
-        <h2 className="teams-heading">Teams</h2>
-        <div className="teams">
+      <div className="fa-teams-container">
+        <h2 className="fa-teams-heading">Teams</h2>
+        <div className="fa-teams">
           {
             teams.map((team, index) => <Team {...team} key={ index }/>)
           }
