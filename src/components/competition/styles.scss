@@ -67,7 +67,7 @@
 }
 
 .fa-competition-helper-links {
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -75,7 +75,7 @@
 
 .fa-competition-helper-link {
   @extend fa-box-shadow;
-  padding: 1rem;
+  padding: 1rem 0.75rem;
   &:link, &:visited {
     text-decoration: none;
     color: $blackText;
