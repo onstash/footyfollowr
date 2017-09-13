@@ -8,11 +8,9 @@ import Cache from '../../utils/cache';
 import fetchIPInformation from '../../utils/ip';
 import mixpanel from '../../utils/mixpanel';
 
-import './styles.css';
-
 const CompetitionsError = () => (
-  <div className="competitions-container">
-    <h2 className="competitions-heading">
+  <div className="fa-competitions-container">
+    <h2 className="fa-competitions-heading">
       There seems to be a problem, Master Wayne.
     </h2>
   </div>
@@ -20,8 +18,8 @@ const CompetitionsError = () => (
 
 const Competition = ({ caption, id }) => {
   return (
-    <Link to={ `/competitions/${id}` } className="competition-link-container">
-      <div className="competition-link">
+    <Link to={ `/competitions/${id}` } className="fa-competition-link-container">
+      <div className="fa-competition-link">
         { caption }
       </div>
     </Link>
@@ -69,11 +67,11 @@ class Competitions extends React.Component {
     }
 
     return (
-      <div className="competitions-container">
-        <h2 className="competitions-heading">
+      <div className="fa-competitions-container">
+        <h2 className="fa-competitions-heading">
           Competitions
         </h2>
-        <div className="competitions">
+        <div className="fa-competitions">
           {
             competitions.map((competition, index) =>
               <Competition {...competition} key={ index }/>)
