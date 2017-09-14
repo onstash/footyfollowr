@@ -3,8 +3,6 @@ import React from 'react';
 import TimeDifference from '../time-difference';
 import FixtureTime from '../fixture-time';
 
-import './styles.css';
-
 const calculateTimeDifference = (currentTime, timeStamp) => {
   const suffix = currentTime > timeStamp ? 'ago' : 'to go';
   const difference = timeStamp - currentTime;
@@ -67,7 +65,7 @@ const FixtureDate = ({ date, status }) => {
   }
 
   return (
-    <div className="fixture-date">
+    <div className="fa-fixture-date">
       <FixtureTime
         currentTime={currentTime}
         fixtureTime={fixtureTime}

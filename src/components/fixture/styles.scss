@@ -1,0 +1,13 @@
+.fa-fixture-container {
+  margin-top: 10px;
+  // padding-left: 10px;
+  // padding-right: 10px;
+  // padding-bottom: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  color: $blackText;
+  @extend fa-box-shadow;
+}

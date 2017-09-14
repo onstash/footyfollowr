@@ -4,13 +4,11 @@ import DataLayer from '../../data';
 
 import DayFixtures from '../day-fixtures';
 
-import './styles.css';
-
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
 const FixturesListError = () => (
-  <div className="fixtures-error">
+  <div className="fa-fixtures-error">
     No fixtures for selected time period, Master Wayne.
   </div>
 );
@@ -20,7 +18,7 @@ const FixturesList = ({ fixtures, timeFrame, team, dayFixtures }) => {
     return <FixturesListError />;
   }
   return (
-    <div className="fixtures">
+    <div className="fa-fixtures">
       {
         Object.keys(fixtures).map(fixtureDay => {
           const dayFixtures = fixtures[fixtureDay];
@@ -223,17 +221,17 @@ class Fixtures extends React.Component {
     } = this.state;
 
     if (loading) {
-      return <h2 className="placeholder-message">Loading fixtures...</h2>;
+      return <h2 className="fa-placeholder-message">Loading fixtures...</h2>;
     }
 
     const fixtures = timeFrame.indexOf('n') === -1 ? oldFixtures : upcomingFixtures;
 
     return (
-      <div className="fixtures-container">
-        <h2 className="fixtures-heading">
+      <div className="fa-fixtures-container">
+        <h2 className="fa-fixtures-heading">
           Fixtures
         </h2>
-        <div className="fixtures-filter">
+        <div className="fa-fixtures-filter">
           <select
             onChange={(event) => this.handleTimeFrameSelection(event)}
           >
