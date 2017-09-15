@@ -2,8 +2,6 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-import './styles.css';
-
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
@@ -11,8 +9,8 @@ const range = (start, end) =>
   Array.from({length: (end - start)}, (v, k) => k + start);
 
 const LeagueTableError = () => (
-  <div className="league-table-container">
-    <h2 className="league-table-heading">
+  <div className="fa-league-table-container">
+    <h2 className="fa-league-table-heading">
       {"The table isn't ready, Master Wayne."}
     </h2>
   </div>
@@ -29,29 +27,29 @@ const LeagueTableEntry = ({
   points
 }) => {
   return (
-    <tr>
-      <td data-label="Position" className="position">
+    <tr className="fa-league-table-body-row">
+      <td data-label="Position" className="fa-position">
         {position}
       </td>
-      <td data-label="Team" className="teamname">
-        {teamName}
+      <td data-label="Team" className="fa-team-name">
+        {teamName.replace(' FC', '')}
       </td>
-      <td data-label="Wins" className="points">
+      <td data-label="Wins" className="fa-points">
         {wins}
       </td>
-      <td data-label="Losses" className="points">
+      <td data-label="Losses" className="fa-points">
         {losses}
       </td>
-      <td data-label="Draws" className="points">
+      <td data-label="Draws" className="fa-points">
         {draws}
       </td>
-      <td data-label="Goal Difference" className="points">
+      <td data-label="Goal Difference" className="fa-points">
         {goalDifference}
       </td>
-      <td data-label="Goals Against" className="points">
+      <td data-label="Goals Against" className="fa-points">
         {goalsAgainst}
       </td>
-      <td data-label="Points" className="points">
+      <td data-label="Points" className="fa-points">
         {points}
       </td>
     </tr>
@@ -135,8 +133,8 @@ class LeagueTable extends React.Component {
 
     if (loading) {
       return (
-        <div className="league-table-container">
-          <h2 className="league-table-heading">
+        <div className="fa-league-table-container">
+          <h2 className="fa-league-table-heading">
             Loading table...
           </h2>
         </div>
@@ -148,13 +146,13 @@ class LeagueTable extends React.Component {
     }
 
     return (
-      <div className="league-table-container">
-        <h2 className="league-table-heading">{league}</h2>
-        <div className="league-table-match-day">
-          <div className="league-table-match-day-label">
+      <div className="fa-league-table-container">
+        <h2 className="fa-league-table-heading">{league}</h2>
+        <div className="fa-league-table-match-day">
+          <div className="fa-league-table-match-day-label">
            Match day:
           </div>
-          <div className="league-table-match-day-value">
+          <div className="fa-league-table-match-day-value">
             <select
               value={matchDay}
               onChange={(event) => this.handleSelection(event)}
@@ -169,20 +167,20 @@ class LeagueTable extends React.Component {
             </select>
           </div>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th className="position" scope="col" />
-              <th className="teamname" scope="col">Team</th>
-              <th className="points" scope="col">W</th>
-              <th className="points" scope="col">L</th>
-              <th className="points" scope="col">D</th>
-              <th className="points" scope="col">GD</th>
-              <th className="points" scope="col">GA</th>
-              <th className="points" scope="col">P</th>
+        <table className="fa-league-table">
+          <thead className="fa-league-table-head">
+            <tr className="fa-league-table-head-row">
+              <th className="fa-position" scope="col" />
+              <th className="fa-team-name" scope="col">Team</th>
+              <th className="fa-points" scope="col">W</th>
+              <th className="fa-points" scope="col">L</th>
+              <th className="fa-points" scope="col">D</th>
+              <th className="fa-points" scope="col">GD</th>
+              <th className="fa-points" scope="col">GA</th>
+              <th className="fa-points" scope="col">P</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="fa-league-table-body">
             {
               standing.map((row, index) => <LeagueTableEntry key={index} {...row} />)
             }

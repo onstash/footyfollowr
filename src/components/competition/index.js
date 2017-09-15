@@ -7,10 +7,8 @@ import { Link } from 'react-router-dom';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
-import './styles.css';
-
 const CompetitionError = () => (
-  <h2 className="competition-container">
+  <h2 className="fa-competition-container">
     There seems to be a problem, Master Wayne.
   </h2>
 );
@@ -70,35 +68,41 @@ class Competition extends React.Component {
     const { id } = this.props.match.params;
 
     return (
-      <div className="competition-container">
-        <h2 className="caption">
+      <div className="fa-competition-container">
+        <h2 className="fa-competition-caption">
           { caption }
         </h2>
-        <h3 className="games">
-          <div className="games-label">Number of games:</div>
-          <div className="games-value">{ numberOfGames }</div>
+        <h3 className="fa-competition-games">
+          <div className="fa-competition-games-label">Total no. of games to be played:</div>
+          <div className="fa-competition-games-value">{ numberOfGames }</div>
         </h3>
-        <h4 className="match-day">
-          <div className="match-day-label">Match day:</div>
-          <div className="match-day-value">
-            <div className="current-match-day">
+        <h4 className="fa-competition-match-day">
+          <div className="fa-competition-match-day-label">Match day:</div>
+          <div className="fa-competition-match-day-value">
+            <div className="fa-competition-current-match-day">
               { currentMatchday }
             </div>
-            <div className="divider">/</div>
-            <div className="number-of-match-days">
+            <div className="fa-competition-divider">/</div>
+            <div className="fa-competition-number-of-match-days">
               { numberOfMatchdays }
             </div>
           </div>
         </h4>
-        <div className="competition-links">
-          <Link to={ `/competitions/${id}/teams` } className="link-container">
-            <div className="link">Teams</div>
+        <div className="fa-competition-helper-links">
+          <Link
+            to={ `/competitions/${id}/teams` }
+            className="fa-competition-helper-link">
+            Teams
           </Link>
-          <Link to={ `/competitions/${id}/fixtures` } className="link-container">
-            <div className="link">Fixtures</div>
+          <Link
+            to={ `/competitions/${id}/fixtures` }
+            className="fa-competition-helper-link">
+            Fixtures
           </Link>
-          <Link to={ `/competitions/${id}/league-table` } className="link-container">
-            <div className="link">League Table</div>
+          <Link
+            to={ `/competitions/${id}/league-table` }
+            className="fa-competition-helper-link">
+            League Table
           </Link>
         </div>
       </div>

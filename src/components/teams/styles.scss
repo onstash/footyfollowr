@@ -1,0 +1,43 @@
+.fa-teams-container {
+  @include desktop {
+    margin-top: 20px;
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.fa-team {
+  @extend fa-box-shadow;
+  padding: 1rem;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  @include mobile {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.fa-teams-heading {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.fa-team-logo {
+  height: 48px;
+  width: 48px;
+}
+
+.fa-team-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: $blackText;
+  font-size: 20px;
+}

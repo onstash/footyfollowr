@@ -1,0 +1,58 @@
+.fa-fixture-teams {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  @include mobile {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.fa-home-team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 39%;
+  @include mobile {
+    width: 60%;
+  }
+}
+
+.fa-away-team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 39%;
+  @include mobile {
+    width: 60%;
+  }
+}
+
+.fa-team-crest {
+  width: 48px;
+  height: 48px;
+}
+
+.fa-divider {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  @include mobile {
+    font-size: 0.9rem;
+  }
+}

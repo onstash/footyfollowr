@@ -1,0 +1,14 @@
+.fa-day-fixtures-container {
+  margin-top: 20px;
+}
+
+.fa-day-fixtures {
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  @include mobile {
+    width: 100%;
+  }
+}

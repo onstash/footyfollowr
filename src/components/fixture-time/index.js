@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './styles.css';
-
 class FixtureTime extends React.Component {
   constructor() {
     super();
@@ -24,7 +22,7 @@ class FixtureTime extends React.Component {
 
   render() {
     const { time } = this.state;
-    return time ? <div className="fixture-time">{time}</div> : <div />;
+    return time ? <div className="fa-fixture-time">{time}</div> : <div />;
   }
 }
 

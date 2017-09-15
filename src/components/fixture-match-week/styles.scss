@@ -1,0 +1,13 @@
+.fa-fixture-match-week {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 90px;
+  margin-left: auto;
+  margin-right: auto;
+  // @include mobile {
+  //   width: 100px;
+  //   margin-top: 20px;
+  // }
+}

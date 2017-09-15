@@ -1,22 +1,20 @@
 import React from 'react';
 
-import './styles.css';
-
 const FullTimeScore = ({ goalsHomeTeam, goalsAwayTeam }) => {
   if (goalsHomeTeam === null || goalsAwayTeam === null) {
     return <div />;
   }
 
   return (
-    <div className="ft-score">
-      <h4 className="ft-score-label">
+    <div className="fa-ft-score">
+      <h4 className="fa-ft-score-label">
         FT:
       </h4>
-      <div className="ft-score-values">
-        <div className="ft-home-team">
+      <div className="fa-ft-score-values">
+        <div className="fa-ft-home-team">
           { goalsHomeTeam }
         </div>
-        <div className="ft-home-team">
+        <div className="fa-ft-home-team">
           { goalsAwayTeam }
         </div>
       </div>
@@ -30,15 +28,15 @@ const HalfTimeScore = ({ goalsHomeTeam, goalsAwayTeam }) => {
   }
 
   return (
-    <div className="ht-score">
-      <h4 className="ht-score-label">
+    <div className="fa-ht-score">
+      <h4 className="fa-ht-score-label">
         HT:
       </h4>
-      <div className="ht-score-values">
-        <div className="ht-home-team">
+      <div className="fa-ht-score-values">
+        <div className="fa-ht-home-team">
           { goalsHomeTeam || 0 }
         </div>
-        <div className="ht-home-team">
+        <div className="fa-ht-home-team">
           { goalsAwayTeam || 0 }
         </div>
       </div>
@@ -47,19 +45,26 @@ const HalfTimeScore = ({ goalsHomeTeam, goalsAwayTeam }) => {
 };
 
 const FixtureResult = ({ goalsHomeTeam, goalsAwayTeam, halfTime: halfTimeScore }) => {
-  if (goalsHomeTeam === null || goalsAwayTeam === null) {
-    return <div />;
+  if (goalsHomeTeam !== null && goalsAwayTeam !== null) {
+    return (
+      <div className="fa-fixture-result">
+        <FullTimeScore
+          goalsHomeTeam={goalsHomeTeam}
+          goalsAwayTeam={goalsAwayTeam}
+        />
+      </div>
+    );
   }
 
-  return (
-    <div className="fixture-result">
-      <FullTimeScore
-        goalsHomeTeam={goalsHomeTeam}
-        goalsAwayTeam={goalsAwayTeam}
-      />
+  if (halfTimeScore) {
+    return (
+      <div className="fa-fixture-result">
       <HalfTimeScore {...halfTimeScore} />
-    </div>
-  );
+      </div>
+    );
+  }
+
+  return <div />;
 };
 
 export default FixtureResult;

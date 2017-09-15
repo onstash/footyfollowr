@@ -2,32 +2,30 @@ import React from 'react';
 
 import teamLogos from '../../data/team-logos';
 
-import './styles.css';
-
 const FixtureTeams = ({ homeTeam, awayTeam }) => {
   return (
-    <div className="fixture-teams">
-      <div className="home-team">
+    <div className="fa-fixture-teams">
+      <div className="fa-home-team">
         <img
           src={teamLogos[homeTeam]}
-          alt={homeTeam}
-          className="crest"
+          alt={homeTeam.replace(' FC', '')}
+          className="fa-team-crest"
         />
-        <div className="name">
-          { homeTeam }
+        <div className="fa-name">
+          { homeTeam.replace(' FC', '') }
         </div>
       </div>
-      <div className="divider">
+      <div className="fa-divider">
         vs
       </div>
-      <div className="away-team">
+      <div className="fa-away-team">
         <img
           src={teamLogos[awayTeam]}
-          alt={homeTeam}
-          className="crest"
+          alt={awayTeam.replace(' FC', '')}
+          className="fa-team-crest"
         />
-        <div className="name">
-          { awayTeam }
+        <div className="fa-name">
+          { awayTeam.replace(' FC', '') }
         </div>
       </div>
     </div>

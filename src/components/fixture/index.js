@@ -5,9 +5,6 @@ import FixtureResult from '../fixture-result';
 import AddToCalendar from '../add-to-calendar';
 import FixtureTeams from '../fixture-teams';
 
-import './styles.css';
-
-
 // const showCalendar = timeFrame !== 'p7';
 // const calendarProps = showCalendar ? {
 //   event: {
@@ -36,7 +33,7 @@ const Fixture = ({
   timeFrame
 }) => {
   return (
-    <div className="fixture-container">
+    <div className="fa-fixture-container">
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
       <FixtureResult {...result} />
       <FixtureDate date={date} status={status} />
