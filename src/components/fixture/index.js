@@ -1,9 +1,12 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import FixtureDate from '../fixture-date';
 import FixtureResult from '../fixture-result';
 import AddToCalendar from '../add-to-calendar';
 import FixtureTeams from '../fixture-teams';
+
 
 // const showCalendar = timeFrame !== 'p7';
 // const calendarProps = showCalendar ? {
@@ -23,21 +26,51 @@ import FixtureTeams from '../fixture-teams';
 //   <AddToCalendar {...calendarProps} />
 // </div>
 
-const Fixture = ({
-  homeTeamName,
-  awayTeamName,
-  date,
-  matchday,
-  status,
-  result,
-  timeFrame
+const FixtureWrapper = ({
+  className,
+  source,
+  fixtureID,
+  children
 }) => {
+  if (source === 'MatchFixture') {
+    return (
+      <div className="fa-match-fixture-container">
+        {children}
+      </div>
+    );
+  }
+
   return (
-    <div className="fa-fixture-container">
+    <Link
+      to={`/fixtures/${fixtureID}`}
+      className="fa-fixture-container"
+    >
+      {children}
+    </Link>
+  );
+};
+
+const Fixture = (props) => {
+  console.log('Fixture props', props);
+  const {
+    homeTeamName,
+    awayTeamName,
+    date,
+    matchday,
+    status,
+    result,
+    timeFrame,
+    className,
+    source,
+    fixtureID
+  } = props;
+  console.log('Fixture', homeTeamName, awayTeamName);
+  return (
+    <FixtureWrapper className={className} source={source} fixtureID={fixtureID}>
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
       <FixtureResult {...result} />
       <FixtureDate date={date} status={status} />
-    </div>
+    </FixtureWrapper>
   );
 };
 

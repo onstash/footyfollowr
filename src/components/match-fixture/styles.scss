@@ -1,0 +1,17 @@
+.fa-match-fixture-container {
+  margin-top: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  color: $blackText;
+  @extend fa-box-shadow;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  @include mobile {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
