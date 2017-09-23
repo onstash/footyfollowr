@@ -13,9 +13,20 @@ const DayFixtures = ({ fixtureDay, fixtures, team, timeFrame }) => {
       <FixtureMatchWeek number={fixtureDay} />
       <div className="fa-day-fixtures">
         {
-          filteredFixtures.map((fixture, index) =>
-            <Fixture {...fixture} key={ index } timeFrame={timeFrame} />
-          )
+          filteredFixtures.map((fixture, index) => {
+            const { _links: { self: { href: fixtureLink } } } = fixture;
+            const fixtureLinkParts = fixtureLink.split("/");
+            const fixtureID = Number(fixtureLinkParts[fixtureLinkParts.length - 1]);
+            return (
+              <Fixture
+                {...fixture}
+                key={ index }
+                timeFrame={timeFrame}
+                fixtureID={fixtureID}
+                source="DayFixtures"
+              />
+            );
+          })
         }
       </div>
     </div>

@@ -9,6 +9,7 @@ import Onboarding from './components/onboarding';
 import Competition from './components/competition';
 import Teams from './components/teams';
 import Fixtures from './components/fixtures';
+import MatchFixture from './components/match-fixture';
 import LeagueTable from './components/league-table';
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <Route exact path="/fixtures/:fixtureID" component={ MatchFixture }/>
           <Route exact path="/competitions/:id/league-table" component={ LeagueTable }/>
           <Route exact path="/competitions/:id/fixtures" component={ Fixtures }/>
           <Route exact path="/competitions/:id/teams" component={ Teams }/>

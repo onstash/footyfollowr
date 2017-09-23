@@ -10,4 +10,13 @@
   background-color: white;
   color: $blackText;
   @extend fa-box-shadow;
+  @include transition(background-color 0.5s);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.fa-fixture-container:hover {
+  color: white;
+  background-color: $greyText;
+  text-decoration: none;
 }
