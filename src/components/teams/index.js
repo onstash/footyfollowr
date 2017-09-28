@@ -1,11 +1,13 @@
 import React from 'react';
 
 import DataLayer from '../../data';
+import Loader from '../loader';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
 import teamLogos from '../../data/team-logos';
+
 
 const Team = ({ name, crestUrl, shortName }) => (
   <div className="fa-team">

@@ -7,6 +7,8 @@ import DayFixtures from '../day-fixtures';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
+import Loader from '../loader';
+
 const FixturesListError = () => (
   <div className="fa-fixtures-error">
     No fixtures for selected time period, Master Wayne.
@@ -221,7 +223,7 @@ class Fixtures extends React.Component {
     } = this.state;
 
     if (loading) {
-      return <h2 className="fa-placeholder-message">Loading fixtures...</h2>;
+      return <Loader message="Loading league fixtures..." />;
     }
 
     const fixtures = timeFrame.indexOf('n') === -1 ? oldFixtures : upcomingFixtures;

@@ -3,6 +3,7 @@ import React from 'react';
 import DataLayer from '../../data';
 
 import Fixture from '../fixture';
+import Loader from '../loader';
 
 class MatchFixture extends React.Component {
   constructor() {
@@ -27,7 +28,7 @@ class MatchFixture extends React.Component {
       loading
     } = this.state;
     if (loading) {
-      return <h2>Loading fixture</h2>
+      return <Loader message="Loading fixture..." />;
     }
 
     return (

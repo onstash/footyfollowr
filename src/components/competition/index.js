@@ -3,6 +3,7 @@ import React from 'react';
 import DataLayer from '../../data';
 
 import { Link } from 'react-router-dom';
+import Loader from '../loader';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
@@ -44,13 +45,7 @@ class Competition extends React.Component {
     const { loading, competition } = this.state;
 
     if (loading) {
-      return (
-        <div className="competition-container">
-          <h2 className="caption">
-            Loading competition...
-          </h2>
-        </div>
-      );
+      return <Loader message="Loading competition..." />;
     }
 
     if (!competition) {
