@@ -51,7 +51,6 @@ const FixtureWrapper = ({
 };
 
 const Fixture = (props) => {
-  console.log('Fixture props', props);
   const {
     homeTeamName,
     awayTeamName,
@@ -64,7 +63,6 @@ const Fixture = (props) => {
     source,
     fixtureID
   } = props;
-  console.log('Fixture', homeTeamName, awayTeamName);
   return (
     <FixtureWrapper className={className} source={source} fixtureID={fixtureID}>
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />

@@ -3,6 +3,7 @@ import React from 'react';
 import DataLayer from '../../data';
 
 import { Link } from 'react-router-dom';
+import Loader from '../loader';
 
 import Cache from '../../utils/cache';
 import fetchIPInformation from '../../utils/ip';
@@ -53,13 +54,7 @@ class Competitions extends React.Component {
     const { loading, competitions } = this.state;
 
     if (loading) {
-      return (
-        <div className="competitions-container">
-          <h2 className="competitions-heading">
-            Loading competitions...
-          </h2>
-        </div>
-      );
+      return <Loader message="Loading competitions..." />;
     }
 
     if (!competitions) {
