@@ -2,6 +2,8 @@ import base64 from 'base-64'; //'./lib/base64';
 
 import config from '../api/config';
 
+const NODE_ENV = process.env.NODE_ENV;
+
 const sendRequest = (urlPath, payload) => {
   let b64 = null;
   try {
@@ -12,7 +14,9 @@ const sendRequest = (urlPath, payload) => {
   return fetch(`https://api.mixpanel.com${urlPath}/?data=${b64}`)
     .then(response => response.text())
     .then(r => {
-      console.log('mixpanel.sendRequest[internal]', urlPath, payload, r);
+      if (NODE_ENV === 'development') {
+        console.log('mixpanel.sendRequest[internal]', urlPath, payload, r);
+      }
     })
     .catch(console.log);
 };
@@ -22,15 +26,25 @@ const _track = (event, properties = {}) => {
       event,
       properties: Object.assign(properties, { token: config.mixpanel.token })
     })
-    .then(() => console.log('/track', event, properties))
-    .catch(e => console.log(e, event));
+    .then(() => {
+      if (NODE_ENV === 'development') {
+        console.log('/track', event, properties);
+      }
+    })
+    .catch(e => {
+      if (NODE_ENV === 'development') {
+        console.log(e, event);
+      }
+    });
 };
 
 const track = (distinctID, event, properties = {}) => {
   if (!distinctID) {
-    console.error('distinctID cannot be', distinctID);
-    console.log('event', event);
-    console.log('properties', properties);
+    if (NODE_ENV === 'development') {
+      console.error('distinctID cannot be', distinctID);
+      console.log('event', event);
+      console.log('properties', properties);
+    }
   }
   _track(event, Object.assign({ distinct_id: distinctID }, properties));
 };

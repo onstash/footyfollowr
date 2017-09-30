@@ -1,5 +1,5 @@
 export default {
-  "Cagliari Calcio": "http://upload.wikimedia.org/wikipedia/de/3/3d/Cagliari_Calcio.svg", 
+  "Cagliari Calcio": "http://upload.wikimedia.org/wikipedia/de/3/3d/Cagliari_Calcio.svg",
   "Swansea City FC": "http://upload.wikimedia.org/wikipedia/de/a/ab/Swansea_City_Logo.svg",
   "Bolton Wanderers FC": "https://upload.wikimedia.org/wikipedia/en/8/82/Bolton_Wanderers_FC_logo.svg",
   "SD Eibar": "http://upload.wikimedia.org/wikipedia/en/7/75/SD_Eibar_logo.svg",
@@ -176,7 +176,6 @@ export default {
   "Corinthians": "https://upload.wikimedia.org/wikipedia/en/9/99/Corintians_logo.jpg",
   "Stade de Reims": "http://upload.wikimedia.org/wikipedia/de/9/9e/Stade_Reims_Logo.svg",
   "SC Paderborn 07": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-  "FC Bourg-en-Bresse P\u00e9ronnas": "https://upload.wikimedia.org/wikipedia/en/2/2b/Football_Bourg-en-Bresse_P%C3%A9ronnas_01.png",
   "AS Bari": "http://upload.wikimedia.org/wikipedia/de/6/66/AS_Bari.svg",
   "Norwich City FC": "http://upload.wikimedia.org/wikipedia/de/8/8c/Norwich_City.svg",
   "Port Vale FC": "https://upload.wikimedia.org/wikipedia/en/5/5f/Port_Vale_logo.svg",

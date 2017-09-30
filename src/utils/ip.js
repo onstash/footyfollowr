@@ -2,6 +2,8 @@ import { get } from '../api/fetch-wrapper';
 import Cache from './cache';
 import mixpanel from './mixpanel';
 
+const NODE_ENV = process.env.NODE_ENV;
+
 const requestOptions = {
   url: 'https://freegeoip.net/json/',
 };
@@ -9,7 +11,9 @@ const requestOptions = {
 const _fetchIPInformation = () => {
   return get(requestOptions)
     .catch(error => {
-      console.log('Error while fetching IP information', error);
+      if (NODE_ENV === 'development') {
+        console.log('Error while fetching IP information', error);
+      }
       return Promise.reject({ message: "Could not fetch IP information" });
     });
 };
@@ -29,7 +33,9 @@ const fetchIPInformation = () => {
           return ipData;
         })
         .catch(error => {
-          console.log('Error setting cache for IP_INFORMATION', error);
+          if (NODE_ENV === 'development') {
+            console.log('Error setting cache for IP_INFORMATION', error);
+          }
           return Promise.reject(error);
         });
     });

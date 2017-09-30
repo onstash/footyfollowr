@@ -25,14 +25,8 @@ class Onboarding extends React.Component {
       if (!onboardingShown) {
         setOnboardingShown();
       }
-      const onFetchIPSuccess = ({ data: ipData }) => {
-        const { ip: distinctID } = ipData;
-        const profileProperties = Object.assign(
-          { distinct_id: distinctID },
-          ipData
-        );
+      const onFetchIPSuccess = ({ data: { ip: distinctID } }) =>
         Cache.set(Cache.keys.MIXPANEL_DISTINCT_ID, distinctID);
-      };
       const onFetchIPFailure = () => {};
       fetchIPInformation().then(onFetchIPSuccess, onFetchIPFailure);
     });

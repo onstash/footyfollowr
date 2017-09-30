@@ -63,9 +63,11 @@ const keys = {
   ONBOARDING_SHOWN: 'OnboardingShown'
 };
 
-export default Cache = {
+const Cache = {
   get,
   set,
   keys,
   generateCacheKey
 };
+
+export default Cache;

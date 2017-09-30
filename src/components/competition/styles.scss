@@ -1,15 +1,17 @@
 .fa-competition-container {
   @extend fa-box-shadow;
   background-color: white;
-  padding: 1rem;
-  margin-top: 20px;
-  max-width: 550px;
+  padding: 1rem 0;
+  margin-top: 30px;
+  width: 550px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-direction: column;
   @include mobile {
-    margin: 10px 10px;
+    width: 95%;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
 
@@ -64,26 +66,4 @@
 .fa-competition-number-of-match-days {
   color: $blackText;
   padding: 4px 4px 4px 4px;
-}
-
-.fa-competition-helper-links {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.fa-competition-helper-link {
-  @extend fa-box-shadow;
-  padding: 1rem 0.75rem;
-  &:link, &:visited {
-    text-decoration: none;
-    color: $blackText;
-  }
-
-  &:hover {
-    color: white;
-    background-color: $blackBackground;
-    @include transition(background-color 0.5s);
-  }
 }
