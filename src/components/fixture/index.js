@@ -4,46 +4,24 @@ import FixtureDate from '../fixture-date';
 import FixtureResult from '../fixture-result';
 import FixtureTeams from '../fixture-teams';
 
-const FixtureWrapper = ({
-  className,
+const Fixture = ({
+  homeTeamName,
+  awayTeamName,
+  date,
+  status,
+  result,
   source,
-  fixtureID,
-  children
+  fixtureID
 }) => {
-  if (source === 'MatchFixture') {
-    return (
-      <div className="fa-match-fixture-container">
-        {children}
-      </div>
-    );
-  }
-
+  const timeDifferenceInMins = (new Date() - new Date(date)) / (1000 * 60);
+  const isGameLive = timeDifferenceInMins > 0 && timeDifferenceInMins < 115;
+  const className = isGameLive ? 'fa-fixture-container-live' : 'fa-fixture-container';
   return (
-    <div
-      className="fa-fixture-container"
-    >
-      {children}
-    </div>
-  );
-};
-
-const Fixture = (props) => {
-  const {
-    homeTeamName,
-    awayTeamName,
-    date,
-    status,
-    result,
-    className,
-    source,
-    fixtureID
-  } = props;
-  return (
-    <FixtureWrapper className={className} source={source} fixtureID={fixtureID}>
+    <div className={className}>
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
-      <FixtureResult {...result} />
+      <FixtureResult {...result} timeDifferenceInMins={timeDifferenceInMins} />
       <FixtureDate date={date} status={status} />
-    </FixtureWrapper>
+    </div>
   );
 };
 

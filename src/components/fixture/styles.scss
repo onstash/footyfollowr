@@ -7,12 +7,17 @@
   background-color: white;
   color: $blackText;
   @extend fa-box-shadow;
-  @include transition(background-color 0.5s);
   text-decoration: none;
 }
 
-.fa-fixture-container:hover {
+.fa-fixture-container-live {
+  margin-bottom: 10px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #38AC5F;
   color: white;
-  background-color: $greyText;
+  @extend fa-box-shadow;
   text-decoration: none;
 }
