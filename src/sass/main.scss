@@ -4,6 +4,7 @@
 @import './media-query-breakpoints';
 @import './box-shadow';
 @import './transition';
+@import './placeholder-animation';
 
 @import '../components/competitions/styles';
 @import '../components/competition/styles';
@@ -21,3 +22,4 @@
 @import '../components/match-fixture/styles';
 @import '../components/loader/styles';
 @import '../components/champions-league-table/styles';
+@import '../components/placeholder-competition/styles';

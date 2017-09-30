@@ -3,6 +3,7 @@ import React from 'react';
 import DataLayer from '../../data';
 
 import Loader from '../loader';
+import PlaceholderCompetition from '../placeholder-competition';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
@@ -70,7 +71,7 @@ class Competition extends React.Component {
   render() {
     const { loading, competition } = this.state;
     if (loading) {
-      return <Loader message="Loading competition..." />;
+      return <PlaceholderCompetition />;
     }
 
     const {
