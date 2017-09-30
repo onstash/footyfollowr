@@ -7,6 +7,7 @@ import Competition from '../competition';
 import Teams from '../teams';
 import Fixtures from '../fixtures';
 import LeagueTable from '../league-table';
+import ChampionsLeagueTable from '../champions-league-table';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
@@ -83,6 +84,9 @@ class Competitions extends React.Component {
       return <CompetitionsError />;
     }
 
+    const { name } = selected;
+    const Table = name.indexOf('Champions League') !== -1 ? ChampionsLeagueTable : LeagueTable;
+
     return (
       <div className="fa-competitions-container">
         <nav className="fa-competitions-scrollable-tabs">
@@ -104,7 +108,7 @@ class Competitions extends React.Component {
             <Fixtures {...selected} />
           </div>
           <div className="fa-competitions-data-level-one">
-            <LeagueTable {...selected} />
+            <Table {...selected} />
             <Teams {...selected} />
           </div>
         </div>
