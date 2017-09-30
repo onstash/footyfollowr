@@ -45,12 +45,12 @@ const FullTimeScore = ({ goalsHomeTeam, goalsAwayTeam }) => {
 // };
 
 const FixtureResult = ({ goalsHomeTeam, goalsAwayTeam, halfTime: halfTimeScore, timeDifferenceInMins }) => {
-  if (timeDifferenceInMins < 45) {
-    return <div className="fa-fixture-result-live">LIVE</div>;
-  }
-
   if (timeDifferenceInMins > 45 && timeDifferenceInMins < 60) {
     return <div className="fa-fixture-result-live">HALF-TIME</div>;
+  }
+
+  if (timeDifferenceInMins < 115 && timeDifferenceInMins > 0) {
+    return <div className="fa-fixture-result-live">LIVE</div>;
   }
 
   // if (timeDifferenceInMins <= 90 || halfTimeScore) {
@@ -61,7 +61,7 @@ const FixtureResult = ({ goalsHomeTeam, goalsAwayTeam, halfTime: halfTimeScore, 
   //   );
   // }
 
-  if (timeDifferenceInMins > 90 && goalsHomeTeam !== null && goalsAwayTeam !== null) {
+  if (timeDifferenceInMins > 115 && goalsHomeTeam !== null && goalsAwayTeam !== null) {
     return (
       <div className="fa-fixture-result">
         <FullTimeScore
