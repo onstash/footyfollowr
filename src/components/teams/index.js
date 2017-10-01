@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DataLayer from '../../data';
-import Loader from '../loader';
+import PlaceholderTeams from '../placeholder-teams';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
@@ -74,7 +74,7 @@ class Teams extends React.Component {
     const { loading, teams } = this.state;
 
     if (loading) {
-      return <Loader message="Loading teams..." />;
+      return <PlaceholderTeams />;
     }
 
     if (teams.length === 0) {

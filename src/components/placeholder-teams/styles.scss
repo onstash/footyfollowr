@@ -1,0 +1,43 @@
+.fa-placeholder-teams-container {
+  @include desktop {
+    margin-top: 20px;
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.fa-placeholder-team {
+  @extend fa-box-shadow;
+  padding: 1rem;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  @include mobile {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.fa-placeholder-teams-heading {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.fa-placeholder-team-logo {
+  @include placeholder-animation(48px, 48px);
+}
+
+.fa-placeholder-team-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  @include placeholder-animation(20px, 120px);
+}
