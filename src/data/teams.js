@@ -1,28 +1,48 @@
 import { fetchCompetitionTeams as _fetchCompetitionTeams } from '../api/methods';
-
 import Cache from '../utils/cache';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const fetchCompetitionTeams = competitionID => {
-    const key = Cache.generateCacheKey(Cache.keys.TEAMS, competitionID);
-    return Cache
-      .get(key)
-      .then(response => {
-        // console.log('response (cache)', response);
-        _fetchCompetitionTeams(competitionID)
-          .then(apiResponse => Cache.set(key, apiResponse))
-          .catch(error => console.log('error (api)', error));
-        return response;
-      }).catch(error => {
-        // console.log('error (cache)', error);
-        return _fetchCompetitionTeams(competitionID)
-          .then(apiResponse => {
-            // console.log('api response', apiResponse);
-            Cache
-              .set(key, apiResponse)
-              .catch(error => console.log('error (cache)', error));
-            return apiResponse;
-          }).catch(Promise.reject);
-      });
+  if (isDevelopment) {
+    console.log('Data layer fetchCompetitionFixtures');
+  }
+  return _fetchCompetitionTeams(competitionID)
+    .then(apiResponse => {
+      if (isDevelopment) {
+        console.log('api response', apiResponse);
+      }
+      Cache.set(Cache.keys.TEAMS, apiResponse)
+        .catch(error => {
+          if (isDevelopment) {
+            console.log('error (Cache.set)', error);
+          }
+        });
+      return apiResponse;
+    }).catch(error => {
+      if (isDevelopment) {
+        console.log('error (_fetchFixture())', error);
+      }
+      return Cache
+        .get(Cache.keys.TEAMS)
+        .then(response => {
+          if (isDevelopment) {
+            console.log('response (cache)', response);
+          }
+          _fetchCompetitionTeams(competitionID)
+            .then(apiResponse => Cache.set(Cache.keys.TEAMS, apiResponse))
+            .catch(error => {
+              if (isDevelopment) {
+                console.log('error (api)', error);
+              }
+            });
+          return response;
+        }).catch(error => {
+          if (isDevelopment) {
+            console.log('error (cache)', error);
+          }
+          return Promise.reject(error);
+        });
+    });
 };
 
 export default fetchCompetitionTeams;
