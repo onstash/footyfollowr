@@ -1,0 +1,6 @@
+.fa-placeholder-time-difference {
+  margin-top: 20px;
+  @include placeholder-animation(15px, 25%);
+  margin-left: auto;
+  margin-right: auto;
+}

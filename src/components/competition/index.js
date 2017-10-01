@@ -2,7 +2,6 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-import Loader from '../loader';
 import PlaceholderCompetition from '../placeholder-competition';
 
 import Cache from '../../utils/cache';

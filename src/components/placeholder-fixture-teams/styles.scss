@@ -1,4 +1,4 @@
-.fa-fixture-teams {
+.fa-placeholder-fixture-teams {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -12,7 +12,7 @@
   }
 }
 
-.fa-home-team {
+.fa-placeholder-home-team, .fa-placeholder-away-team {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,38 +23,18 @@
   }
 }
 
-.fa-away-team {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 39%;
-  @include mobile {
-    width: 60%;
-  }
+.fa-placeholder-team-crest {
+  @include placeholder-animation(48px, 48px);
 }
 
-.fa-team-crest {
-  width: 48px;
-  height: 48px;
-}
-
-.fa-divider {
+.fa-placeholder-divider {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.fa-name {
+.fa-placeholder-name {
   margin-top: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-  text-align: center;
-  @include mobile {
-    font-size: 0.9rem;
-  }
+  @include placeholder-animation(15px, 40px);
 }

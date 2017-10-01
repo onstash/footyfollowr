@@ -7,7 +7,7 @@ import DayFixtures from '../day-fixtures';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
-import Loader from '../loader';
+import PlaceholderFixtures from '../placeholder-fixtures';
 
 const FixturesListError = () => (
   <div className="fa-fixtures-error">
@@ -267,7 +267,7 @@ class Fixtures extends React.Component {
     } = this.state;
 
     if (loading) {
-      return <Loader message="Loading league fixtures..." />;
+      return <PlaceholderFixtures />;
     }
 
     const fixtures = timeFrame.indexOf('n') === -1 ? oldFixtures : upcomingFixtures;
