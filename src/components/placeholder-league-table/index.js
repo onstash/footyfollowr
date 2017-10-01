@@ -3,7 +3,7 @@ import React from 'react';
 const PlaceholderLeagueTableRow = () => (
   <tr className="fa-placeholder-league-table-body-row">
     <td data-label="Position" className="fa-placeholder-position" />
-    <td data-label="Team" className="fa-placeholder-team-name" />
+    <td data-label="Team" className="fa-placeholder-table-team-name" />
     <td data-label="Wins" className="fa-placeholder-points" />
     <td data-label="Losses" className="fa-placeholder-points" />
     <td data-label="Draws" className="fa-placeholder-points" />
@@ -24,7 +24,7 @@ const PlaceholderLeagueTable = () => (
       <thead className="fa-placeholder-league-table-head">
         <tr className="fa-placeholder-league-table-head-row">
           <th className="fa-placeholder-position-label" scope="col" />
-          <th className="fa-placeholder-team-name-label" scope="col">Team</th>
+          <th className="fa-placeholder-table-team-name-label" scope="col">Team</th>
           <th className="fa-placeholder-points-label" scope="col">W</th>
           <th className="fa-placeholder-points-label" scope="col">L</th>
           <th className="fa-placeholder-points-label" scope="col">D</th>
