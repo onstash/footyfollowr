@@ -2,7 +2,7 @@
 //   line-height: 1.25;
 // }
 
-.fa-champions-league-table-container {
+.fa-placeholder-champions-league-table-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,13 +14,13 @@
   padding-bottom: 20px;
 }
 
-.fa-champions-league-table-groups {
+.fa-placeholder-champions-league-table-groups {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.fa-champions-league-table-group-container {
+.fa-placeholder-champions-league-table-group-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,11 +32,11 @@
   }
 }
 
-.fa-champions-league-table-group-name {
-  font-size: 1.3rem;
+.fa-placeholder-champions-league-table-group-name {
+  @include placeholder-animation(30px, 50px);
 }
 
-.fa-champions-league-table-heading {
+.fa-placeholder-champions-league-table-heading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +46,7 @@
   }
 }
 
-.fa-champions-league-table-match-day {
+.fa-placeholder-champions-league-table-match-day {
   display: flex;
   flex-direction: row;
   margin-left: auto;
@@ -59,20 +59,14 @@
   }
 }
 
-.fa-champions-league-table-match-day-value {
-  select {
-    width: 60px;
-    @include mobile {
-      width: 40px;
-    };
+.fa-placeholder-champions-league-table-match-day-value {
+  @include placeholder-animation(20px, 120px);
+  @include mobile {
+    @include placeholder-animation(20px, 90px);
   }
 }
 
-.fa-champions-league-table-sub-container {
-  // background-color: pink;
-}
-
-.fa-champions-league-table-group {
+.fa-placeholder-champions-league-table-group {
   @extend fa-box-shadow;
   margin-top: 20px;
   border-collapse: collapse;
@@ -83,12 +77,12 @@
   background-color: white;
 }
 
-.fa-champions-league-table-head-row, .fa-league-table-body-row {
+.fa-placeholder-champions-league-table-head-row, .fa-league-table-body-row {
   border: 1px solid #CCC;
   padding: 0.35em;
 }
 
-.fa-champions-position, .fa-points {
+.fa-placeholder-champions-position, .fa-points {
   padding: 1rem;
   text-align: center;
   @include mobile {
@@ -96,7 +90,7 @@
   };
 }
 
-.fa-champions-team-name {
+.fa-placeholder-champions-team-name {
   padding: 1rem;
   text-align: center;
   font-size: 0.95rem;
@@ -106,7 +100,7 @@
   }
 }
 
-.fa-champions-league-table-head {
+.fa-placeholder-champions-league-table-head {
   font-size: .85em;
   letter-spacing: .1em;
   text-transform: uppercase;

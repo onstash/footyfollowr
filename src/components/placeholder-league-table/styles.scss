@@ -1,0 +1,113 @@
+// body {
+//   line-height: 1.25;
+// }
+
+.fa-placeholder-league-table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 550px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  @include mobile {
+    margin: 10px;
+  }
+}
+
+.fa-placeholder-league-table-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  @include mobile {
+    font-size: 1.3rem;
+  }
+}
+
+.fa-placeholder-league-table-match-day {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  width: 30%;
+  margin-top: 20px;
+  @include mobile {
+    width: 40%;
+    margin-top: 10px;
+  }
+}
+
+.fa-placeholder-league-table-match-day-value {
+  @include placeholder-animation(20px, 80px);
+  @include mobile {
+    @include placeholder-animation(20px, 60px);
+  };
+}
+
+.fa-placeholder-league-table-sub-container {
+  background-color: pink;
+}
+
+.fa-placeholder-league-table {
+  @extend fa-box-shadow;
+  margin-top: 20px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background-color: white;
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.fa-placeholder-league-table-head-row, .fa-placeholder-league-table-body-row {
+  border: 1px solid #CCC;
+  padding: 0.35em 1.5rem;
+}
+
+.fa-placeholder-position-label, .fa-placeholder-points-label {
+  padding: 1rem 1.4rem;
+  text-align: center;
+  @include mobile {
+    padding: 0.05rem;
+  };
+}
+
+.fa-placeholder-team-name-label {
+  padding: 1rem 3rem;
+  text-align: center;
+  font-size: 0.95rem;
+  @include mobile {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+  }
+}
+
+.fa-placeholder-position, .fa-placeholder-points {
+  padding: 1rem;
+  text-align: center;
+  @include placeholder-animation(15px, 5px);
+  @include mobile {
+    padding: 0.05rem;
+  };
+}
+
+.fa-placeholder-team-name {
+  padding: 1rem 3rem;
+  text-align: center;
+  font-size: 0.95rem;
+  @include placeholder-animation(20px, 30px);
+  @include mobile {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+  }
+}
+
+.fa-league-table-head {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}

@@ -5,7 +5,7 @@ import DataLayer from '../../data';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
-import Loader from '../loader';
+import PlaceholderLeagueTable from '../placeholder-league-table';
 
 const range = (start, end) =>
   Array.from({length: (end - start)}, (v, k) => k + start);
@@ -142,7 +142,7 @@ class LeagueTable extends React.Component {
     const { loading, standing, matchDay, matchDays } = this.state;
 
     if (loading) {
-      return <Loader message="Loading league standings..." />;
+      return <PlaceholderLeagueTable />;
     }
 
     if (standing.length === 0) {
