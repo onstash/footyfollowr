@@ -2,7 +2,6 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-import Loader from '../loader';
 import Competition from '../competition';
 import Teams from '../teams';
 import Fixtures from '../fixtures';
@@ -77,7 +76,7 @@ class Competitions extends React.Component {
     const { loading, competitions, selected } = this.state;
 
     if (loading) {
-      return <Loader message="Loading competitions..." />;
+      return <div className="fa-competitions-container">Loading</div>;
     }
 
     if (!competitions) {
