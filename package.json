@@ -9,7 +9,6 @@
     "node-sass-chokidar": "^0.0.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-transition-group": "^2.2.0",
     "source-map-explorer": "^1.4.0"
   },
   "devDependencies": {
