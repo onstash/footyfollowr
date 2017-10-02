@@ -7,12 +7,13 @@ const fetchCompetitionFixtures = (competitionID, filterParam) => {
   if (isDevelopment) {
     console.log('Data layer fetchCompetitionFixtures');
   }
+  const cacheKey = `FIXTURE-${competitionID}-${filterParam}`;
   return _fetchCompetitionFixtures(competitionID, filterParam)
     .then(apiResponse => {
       if (isDevelopment) {
         console.log('api response', apiResponse);
       }
-      Cache.set(Cache.keys.FIXTURES, apiResponse)
+      Cache.set(cacheKey, apiResponse)
         .catch(error => {
           if (isDevelopment) {
             console.log('error (Cache.set)', error);
@@ -24,13 +25,13 @@ const fetchCompetitionFixtures = (competitionID, filterParam) => {
         console.log('error (_fetchFixture())', error);
       }
       return Cache
-        .get(Cache.keys.FIXTURES)
+        .get(cacheKey)
         .then(response => {
           if (isDevelopment) {
             console.log('response (cache)', response);
           }
           _fetchCompetitionFixtures(competitionID, filterParam)
-            .then(apiResponse => Cache.set(Cache.keys.FIXTURES, apiResponse))
+            .then(apiResponse => Cache.set(cacheKey, apiResponse))
             .catch(error => {
               if (isDevelopment) {
                 console.log('error (api)', error);

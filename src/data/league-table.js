@@ -8,12 +8,13 @@ const fetchCompetitionLeagueTable = (competitionID, filterParam) => {
   if (isDevelopment) {
     console.log('Data layer fetchCompetitionFixtures');
   }
+  const cacheKey = `LEAGUE_TABLE-${competitionID}-${filterParam}`;
   return _fetchCompetitionLeagueTable(competitionID, filterParam)
     .then(apiResponse => {
       if (isDevelopment) {
         console.log('api response', apiResponse);
       }
-      Cache.set(Cache.keys.LEAGUE_TABLE, apiResponse)
+      Cache.set(cacheKey, apiResponse)
         .catch(error => {
           if (isDevelopment) {
             console.log('error (Cache.set)', error);
@@ -25,13 +26,13 @@ const fetchCompetitionLeagueTable = (competitionID, filterParam) => {
         console.log('error (_fetchFixture())', error);
       }
       return Cache
-        .get(Cache.keys.LEAGUE_TABLE)
+        .get(cacheKey)
         .then(response => {
           if (isDevelopment) {
             console.log('response (cache)', response);
           }
           _fetchCompetitionLeagueTable(competitionID, filterParam)
-            .then(apiResponse => Cache.set(Cache.keys.LEAGUE_TABLE, apiResponse))
+            .then(apiResponse => Cache.set(cacheKey, apiResponse))
             .catch(error => {
               if (isDevelopment) {
                 console.log('error (api)', error);

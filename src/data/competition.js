@@ -7,13 +7,14 @@ const fetchCompetition = competitionID => {
   if (isDevelopment) {
     console.log('Data layer fetchCompetition');
   }
+  const cacheKey = `COMPETITION-${competitionID}`;
   return _fetchCompetition(competitionID)
     .then(apiResponse => {
       if (isDevelopment) {
         console.log('api response', apiResponse);
       }
       Cache
-        .set(Cache.keys.COMPETITION, apiResponse)
+        .set(cacheKey, apiResponse)
         .catch(error => {
           if (isDevelopment) {
             console.log('error (Cache.set)', error);
@@ -25,13 +26,13 @@ const fetchCompetition = competitionID => {
         console.log('error (_fetchCompetition())', error);
       }
       return Cache
-        .get(Cache.keys.COMPETITION)
+        .get(cacheKey)
         .then(response => {
           if (isDevelopment) {
             console.log('response (cache)', response);
           }
           _fetchCompetition(competitionID)
-            .then(apiResponse => Cache.set(Cache.keys.COMPETITION, apiResponse))
+            .then(apiResponse => Cache.set(cacheKey, apiResponse))
             .catch(error => {
               if (isDevelopment) {
                 console.log('error (api)', error);
