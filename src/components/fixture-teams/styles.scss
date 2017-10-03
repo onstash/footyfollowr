@@ -47,11 +47,13 @@
 }
 
 .fa-name {
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
+  text-align: center;
   @include mobile {
     font-size: 0.9rem;
   }

@@ -1,0 +1,106 @@
+.fa-onboarding-container {
+  max-width: 550px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include mobile {
+    margin: 10px;
+  };
+}
+
+.fa-jumbotron {
+  margin-top: 20px;
+  padding-top: 1em;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 2rem;
+  text-align: center;
+  border: 1px solid #666;
+  border-radius: 5px;
+  color: #333;
+  background-color: white;
+  @include mobile {
+    margin-top: 10px;
+  };
+}
+
+.fa-welcome-message {
+  font-size: 30px;
+  margin-top: 20px;
+  font-weight: 600;
+  color: #444;
+  @include mobile {
+    font-size: 25px;
+    margin-top: 10px;
+  };
+}
+
+.fa-explanation {
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #333;
+  @include mobile {
+    margin-top: 10px;
+    font-size: 16px;
+  };
+}
+
+.fa-features {
+  margin-left: 40px;
+  margin-right: 40px;
+  @include mobile {
+    margin-left: 0px;
+    margin-right: 0px;
+  };
+}
+
+.fa-features-label {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  @include mobile {
+    margin-top: 10px;
+    font-size: 18px;
+  };
+}
+
+.fa-features-list {
+  text-align: justify;
+}
+
+.fa-feature {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #666;
+  @include mobile {
+    margin-top: 15px;
+    line-height: 1.4;
+  };
+}
+
+.fa-onboarding-button {
+  margin-top: 20px;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #333;
+  background-color: #FFFFFF;
+  color: #333;
+  @include mobile {
+    width: 40%;
+  };
+}
+
+.fa-onboarding-button:hover {
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  @include transition(background-color 0.5s);
+}

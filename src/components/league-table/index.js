@@ -5,7 +5,7 @@ import DataLayer from '../../data';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
-import Loader from '../loader';
+import PlaceholderLeagueTable from '../placeholder-league-table';
 
 const range = (start, end) =>
   Array.from({length: (end - start)}, (v, k) => k + start);
@@ -68,54 +68,25 @@ class LeagueTable extends React.Component {
       matchDay: null,
       matchDays: [1]
     };
+    this._fetchCompetitionLeagueTableData = this.fetchCompetitionLeagueTableData.bind(this);
+    this.mounted = false;
   }
 
-  componentDidMount() {
-    const { matchDay } = this.state;
-    this.setState(() => ({ loading: true }));
-    DataLayer.fetchCompetitionLeagueTable(
-      this.props.match.params.id, matchDay
-    ).then(response => {
-      Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
-        .then(distinctID => {
-          const eventProperties = {
-            id: this.props.match.params.id,
-            matchDay
-          };
-          mixpanel.track(
-            distinctID,
-            'LeagueTable Viewed',
-            eventProperties
-          );
-        }).catch(console.error);
-      const {
-        leagueCaption: league,
-        standing,
-        matchday: matchDay
-      } = response.data;
-      const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
-      this.setState(() => ({
-        loading: false,
-        league, standing,
-        matchDay, matchDays
-      }));
-    })
-    .catch(error => {
-      this.setState(() => ({ loading: false }));
-    });
-  }
-
-  handleSelection(event) {
-    event.preventDefault();
-    const newMatchDay = event.target.value;
-    DataLayer.fetchCompetitionLeagueTable(
-      this.props.match.params.id, newMatchDay
-    ).then(response => {
+  fetchCompetitionLeagueTableData({competitionID, matchDay}) {
+    if (!competitionID) {
+      return;
+    }
+    if (this.mounted) {
+      this.setState(() => ({ loading: true }));
+    }
+    DataLayer.fetchCompetitionLeagueTable(competitionID, matchDay)
+      .then(response => {
         Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
           .then(distinctID => {
             const eventProperties = {
-              id: this.props.match.params.id,
-              matchDay: newMatchDay
+              id: competitionID,
+              name: this.props.name,
+              matchDay
             };
             mixpanel.track(
               distinctID,
@@ -123,18 +94,55 @@ class LeagueTable extends React.Component {
               eventProperties
             );
           }).catch(console.error);
-        const { standing } = response.data;
-        this.setState(() => ({ loading: false, standing, matchDay: newMatchDay }));
-      }).catch(error => {
-        this.setState(() => ({ loading: false, matchDay: newMatchDay }));
+        const {
+          leagueCaption: league,
+          standing,
+          matchday: matchDay
+        } = response.data;
+        const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
+        if (this.mounted) {
+          this.setState(() => ({
+            loading: false,
+            league, standing,
+            matchDay, matchDays
+          }));
+        }
+      })
+      .catch(error => {
+        if (this.mounted) {
+          this.setState(() => ({ loading: false, standing: [] }));
+        }
       });
   }
 
+  componentDidMount() {
+    this.mounted = true;
+    const { matchDay } = this.state;
+    const { id: competitionID } = this.props;
+    this._fetchCompetitionLeagueTableData({ competitionID, matchDay });
+  }
+
+  componentWillReceiveProps({ id: newCompetitionID }) {
+    const { id: oldCompetitionID } = this.props;
+    if (newCompetitionID === oldCompetitionID) {
+      return;
+    }
+    const { matchDay } = this.state;
+    this._fetchCompetitionLeagueTableData({ competitionID: newCompetitionID, matchDay });
+  }
+
+  handleSelection(event) {
+    event.preventDefault();
+    const newMatchDay = event.target.value;
+    const { id: competitionID } = this.props;
+    this._fetchCompetitionLeagueTableData({ competitionID, matchDay: newMatchDay });
+  }
+
   render() {
-    const { loading, standing, league, matchDay, matchDays } = this.state;
+    const { loading, standing, matchDay, matchDays } = this.state;
 
     if (loading) {
-      return <Loader message="Loading league standings..." />;
+      return <PlaceholderLeagueTable />;
     }
 
     if (standing.length === 0) {
@@ -143,10 +151,10 @@ class LeagueTable extends React.Component {
 
     return (
       <div className="fa-league-table-container">
-        <h2 className="fa-league-table-heading">{league}</h2>
+        <h2 className="fa-league-table-heading">League Table</h2>
         <div className="fa-league-table-match-day">
           <div className="fa-league-table-match-day-label">
-           Match day:
+           Week:
           </div>
           <div className="fa-league-table-match-day-value">
             <select

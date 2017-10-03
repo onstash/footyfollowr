@@ -1,0 +1,6 @@
+.fa-placeholder-fixture-time {
+  margin-top: 20px;
+  @include placeholder-animation(15px, 50%);
+  margin-left: auto;
+  margin-right: auto;
+}

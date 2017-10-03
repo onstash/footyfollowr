@@ -1,11 +1,16 @@
 {
-  "short_name": "MyFootballApp",
-  "name": "My Football App to keep track of leagues",
+  "short_name": "Footyfollowr",
+  "name": "Follow football without the fuss",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
-      "type": "image/png"
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    },
+    {
+        "src": "/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
     }
   ],
   "start_url": "./index.html",

@@ -2,27 +2,35 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-import { Link } from 'react-router-dom';
-import Loader from '../loader';
+import PlaceholderCompetition from '../placeholder-competition';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
 const CompetitionError = () => (
-  <h2 className="fa-competition-container">
-    There seems to be a problem, Master Wayne.
-  </h2>
+  <div className="fa-competition-container">
+    <div className="fa-competition-caption">
+      There seems to be a problem, Master Wayne.
+    </div>
+  </div>
 );
 
 class Competition extends React.Component {
   constructor() {
     super();
-    this.state = { loading: false, competition: {} };
+    this.state = { loading: false, competition: {}, competitionID: null };
+    this._fetchCompetitionData = this.fetchCompetitionData.bind(this);
+    this.mounted = false;
   }
 
-  componentDidMount() {
-    this.setState(() => ({ loading: true }));
-    DataLayer.fetchCompetition(this.props.match.params.id)
+  fetchCompetitionData(competitionID) {
+    if (!competitionID) {
+      return;
+    }
+    if (this.mounted) {
+      this.setState(() => ({ loading: true }));
+    }
+    DataLayer.fetchCompetition(competitionID)
       .then(response => {
         const { data: competition } = response;
         const { caption: name } = competition;
@@ -31,36 +39,50 @@ class Competition extends React.Component {
             mixpanel.track(
               distinctID,
               'Competition Viewed',
-              { name, id: this.props.match.params.id }
+              { name, id: competitionID }
             );
           }).catch(console.error);
-        this.setState(() => ({ loading: false, competition }));
+        if (this.mounted) {
+          this.setState(() => ({ loading: false, competition, competitionID }));
+        }
       })
       .catch(error => {
-        this.setState(() => ({ loading: false }));
+        if (this.mounted) {
+          this.setState(() => ({ loading: false, competition: {}, competitionID }));
+        }
       });
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    const { id: competitionID } = this.props;
+    this._fetchCompetitionData(competitionID);
+  }
+
+  componentWillReceiveProps({ id: newCompetitionID }) {
+    const { id: oldCompetitionID } = this.props;
+    if (newCompetitionID === oldCompetitionID) {
+      return;
+    }
+    this._fetchCompetitionData(newCompetitionID);
   }
 
   render() {
     const { loading, competition } = this.state;
-
     if (loading) {
-      return <Loader message="Loading competition..." />;
-    }
-
-    if (!competition) {
-      return <CompetitionError />;
+      return <PlaceholderCompetition />;
     }
 
     const {
       caption,
-      league,
       numberOfGames,
       numberOfMatchdays,
       currentMatchday
     } = competition;
 
-    const { id } = this.props.match.params;
+    if (!competition || !numberOfGames || !numberOfMatchdays || !currentMatchday) {
+      return <CompetitionError />;
+    }
 
     return (
       <div className="fa-competition-container">
@@ -83,23 +105,6 @@ class Competition extends React.Component {
             </div>
           </div>
         </h4>
-        <div className="fa-competition-helper-links">
-          <Link
-            to={ `/competitions/${id}/teams` }
-            className="fa-competition-helper-link">
-            Teams
-          </Link>
-          <Link
-            to={ `/competitions/${id}/fixtures` }
-            className="fa-competition-helper-link">
-            Fixtures
-          </Link>
-          <Link
-            to={ `/competitions/${id}/league-table` }
-            className="fa-competition-helper-link">
-            League Table
-          </Link>
-        </div>
       </div>
     );
   }

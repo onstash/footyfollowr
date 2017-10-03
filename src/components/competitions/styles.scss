@@ -1,6 +1,6 @@
 .fa-competitions-container {
   margin-top: 20px;
-  max-width: 550px;
+  max-width: 750px;
   margin-left: auto;
   margin-right: auto;
 
@@ -20,37 +20,79 @@
   font-size: 2rem;
 }
 
-.fa-competitions {
-  margin-top: 20px;
+// display: flex;
+// align-items: center;
+// position: fixed;
+// height: 3rem;
+// top: 0px;
+// left: 0px;
+// right: 0px;
+// background-color: white;
+// width: 100%;
+// margin-left: 0;
+// margin-right: 0;
+// padding: 1rem;
+// box-shadow: 0 1px 3px #CCC, 0 1px 2px #CCC;
+
+.fa-competitions-scrollable-tabs {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: 0 0 4px #ccc;
+    overflow: scroll;
+
+    ul {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        color: #666;
+    }
+
+    div {
+      text-decoration: none;
+      color: inherit;
+      padding: 1rem 1.5rem;
+      display: inline-block;
+      outline: none;
+      cursor: pointer;
+
+      &:hover {
+          $hover-color: #F8F8F8;
+          background-color: $hover-color;
+          border-bottom: 2px solid $hover-color;
+      }
+
+      &.fa-competition-link-selected {
+          color: $blackText;
+          border-bottom: 2px solid $blackText;
+      }
+    }
 }
 
-.fa-competition-link-container {
-  &:link, &:visited {
-    text-decoration: none;
-    color: $blackText;
-  }
+.fa-competitions-data {
+  margin-top: 80px;
 }
-
-.fa-competition-link {
-  @extend fa-box-shadow;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 2.5rem;
-  background-color: white;
-  font-size: 1.1rem;
-
-  @include mobile {
-    margin: 8px 8px 8px 8px;
-  }
-
-  &:hover {
-    background-color: $blackBackground;
-    color: white;
-    @include transition(background-color 0.5s);
-  }
-}
+//
+// .fa-competitions-data-level-one, .fa-competitions-data-level-two {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   background-color: pink;
+//   @include mobile {
+//     flex-direction: column;
+//     justify-content: center;
+//   }
+// }

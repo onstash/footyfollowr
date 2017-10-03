@@ -14,22 +14,22 @@ const calculateTimeDifference = (currentTime, timeStamp) => {
   const deltaMonths = Math.abs(Math.round(deltaWeeks / 4));
   let timeDelta, unit;
   if (deltaSeconds < 60) {
-    timeDelta = parseInt(deltaSeconds);
+    timeDelta = parseInt(deltaSeconds, 10);
     unit = 'second';
   } else if (deltaMinutes < 60) {
-    timeDelta = parseInt(deltaMinutes);
+    timeDelta = parseInt(deltaMinutes, 10);
     unit = 'min';
   } else if (deltaHours < 24) {
-    timeDelta = parseInt(deltaHours);
+    timeDelta = parseInt(deltaHours, 10);
     unit = 'hour';
   } else if (deltaDays < 7) {
-    timeDelta = parseInt(deltaDays);
+    timeDelta = parseInt(deltaDays, 10);
     unit = 'day';
   } else if (deltaWeeks < 4) {
-    timeDelta = parseInt(deltaWeeks);
+    timeDelta = parseInt(deltaWeeks, 10);
     unit = 'week';
   } else if (deltaMonths < 12) {
-    timeDelta = parseInt(deltaMonths);
+    timeDelta = parseInt(deltaMonths, 10);
     unit = 'month';
   }
   switch (timeDelta) {

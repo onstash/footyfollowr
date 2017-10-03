@@ -1,0 +1,67 @@
+// .fa-placeholder-message {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 20px;
+// }
+//
+// .fa-fixtures-error {
+//   margin-top: 3rem;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 20px;
+//   height: 100%;
+// }
+
+.fa-placeholder-fixtures-container {
+  max-width: 550px;
+  margin: 20px auto;
+  @include mobile {
+    margin: 10px;
+  }
+}
+
+.fa-placeholder-fixtures-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-placeholder-fixtures-filter-time-frame, .fa-placeholder-fixtures-filter-team {
+  // width: 120px;
+  @include placeholder-animation(20px, 120px);
+  @include mobile {
+    // width: 90px;
+    @include placeholder-animation(20px, 90px);
+  }
+}
+
+.fa-placeholder-fixtures-filter {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-around;
+  align-items: center;
+  width: 550px;
+  margin-top: 20px;
+  @include mobile {
+    width: 85%;
+  }
+}
+
+.fa-placeholder-fixture-match-week-label-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-placeholder-fixture-match-week-label {
+  margin-top: 20px;
+  @include placeholder-animation(20px, 90px);
+}
+
+.fa-placeholder-fixtures-list {
+  margin-top: 20px;
+}

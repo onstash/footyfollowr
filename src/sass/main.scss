@@ -4,7 +4,9 @@
 @import './media-query-breakpoints';
 @import './box-shadow';
 @import './transition';
+@import './placeholder-animation';
 
+@import '../components/onboarding/styles';
 @import '../components/competitions/styles';
 @import '../components/competition/styles';
 @import '../components/teams/styles';
@@ -19,4 +21,15 @@
 @import '../components/fixture-teams/styles';
 @import '../components/league-table/styles';
 @import '../components/match-fixture/styles';
-@import '../components/loader/styles';
+@import '../components/champions-league-table/styles';
+
+@import '../components/placeholder-competition/styles';
+@import '../components/placeholder-fixtures/styles';
+@import '../components/placeholder-fixture/styles';
+@import '../components/placeholder-fixture-teams/styles';
+@import '../components/placeholder-fixture-date/styles';
+@import '../components/placeholder-fixture-time/styles';
+@import '../components/placeholder-time-difference/styles';
+@import '../components/placeholder-league-table/styles';
+@import '../components/placeholder-champions-league-table/styles';
+@import '../components/placeholder-teams/styles';

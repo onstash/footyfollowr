@@ -7,7 +7,7 @@ import DayFixtures from '../day-fixtures';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
-import Loader from '../loader';
+import PlaceholderFixtures from '../placeholder-fixtures';
 
 const FixturesListError = () => (
   <div className="fa-fixtures-error">
@@ -73,16 +73,23 @@ class Fixtures extends React.Component {
       team: null,
       teamID: null
     };
+    this._fetchCompetitionFixturesData = this.fetchCompetitionFixturesData.bind(this);
+    this._filterCompetitionFixtures = this.filterCompetitionFixtures.bind(this);
+    this.mounted = false;
   }
 
-  componentDidMount() {
-    const { timeFrame, team } = this.state;
-    this.setState(() => ({ loading: true }));
+  fetchCompetitionFixturesData({competitionID, timeFrame, team}) {
+    if (!competitionID || !timeFrame) {
+      return;
+    }
+    if (this.mounted) {
+      this.setState(() => ({ loading: true }));
+    }
     const competitionFixturesPromise = DataLayer.fetchCompetitionFixtures(
-      this.props.match.params.id, timeFrame
+      competitionID, timeFrame
     );
     const competitionTeamsPromise = DataLayer.fetchCompetitionTeams(
-      this.props.match.params.id
+      competitionID
     );
     Promise.all([
       competitionFixturesPromise,
@@ -104,7 +111,8 @@ class Fixtures extends React.Component {
         Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
           .then(distinctID => {
             const eventProperties = {
-              id: this.props.match.params.id,
+              id: competitionID,
+              name: this.props.name,
               timeFrame,
               currentTeam: team || 'All Teams',
             };
@@ -115,16 +123,85 @@ class Fixtures extends React.Component {
             );
           }).catch(console.error)
         const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
+        if (this.mounted) {
+          this.setState(() => ({
+            loading: false,
+            oldFixtures,
+            upcomingFixtures,
+            teams,
+            allTeams
+          }));
+        }
+      }).catch(error => {
+        if (this.mounted) {
+          this.setState(() => ({
+            loading: false,
+            oldFixtures: {},
+            upcomingFixtures: {},
+            teams: [],
+            allTeams: []
+          }));
+        }
+      });
+  }
+
+  filterCompetitionFixtures({competitionID, newTimeFrame, timeFrameLabel}) {
+    DataLayer.fetchCompetitionFixtures(
+      competitionID, newTimeFrame
+    ).then(response => {
+      const { data: fixturesData } = response;
+      const { fixtures } = fixturesData;
+      const { team } = this.state;
+      Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
+        .then(distinctID => {
+          const eventProperties = {
+            id: competitionID,
+            name: this.props.name,
+            timeFrame: newTimeFrame,
+            currentTeam: team || 'All Teams',
+            filter: 'TimeFrame'
+          };
+          mixpanel.track(
+            distinctID,
+            'Fixtures Filtered',
+            eventProperties
+          );
+        }).catch(console.error);
+      const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
+      if (this.mounted) {
         this.setState(() => ({
           loading: false,
           oldFixtures,
           upcomingFixtures,
-          teams,
-          allTeams
+          timeFrame: newTimeFrame,
+          timeFrameLabel
         }));
-      }).catch(error => {
-        this.setState(() => ({ loading: false }));
-      });
+      }
+    }).catch(error => {
+      if (this.mounted) {
+        this.setState(() => ({
+          loading: false,
+          timeFrame: newTimeFrame,
+          timeFrameLabel
+        }));
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    const { timeFrame, team } = this.state;
+    const { id: competitionID } = this.props;
+    this._fetchCompetitionFixturesData({competitionID, timeFrame, team});
+  }
+
+  componentWillReceiveProps({id: newCompetitionID}) {
+    const { id: oldCompetitionID } = this.props;
+    if (newCompetitionID === oldCompetitionID) {
+      return;
+    }
+    const { timeFrame, team } = this.state;
+    this._fetchCompetitionFixturesData({competitionID: newCompetitionID, timeFrame, team});
   }
 
   handleTimeFrameSelection(event) {
@@ -142,52 +219,18 @@ class Fixtures extends React.Component {
         timeFrameLabel = 'Next week';
         break;
     }
-    const { timeFrame: oldTimeFrame, teamID, allTeams } = this.state;
+    const { timeFrame: oldTimeFrame } = this.state;
     if (newTimeFrame === oldTimeFrame) {
       return;
     }
-
-    DataLayer.fetchCompetitionFixtures(
-      this.props.match.params.id, newTimeFrame
-    ).then(response => {
-      const { data: fixturesData } = response;
-      const { fixtures } = fixturesData;
-      const { team } = this.state;
-      Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
-        .then(distinctID => {
-          const eventProperties = {
-            id: this.props.match.params.id,
-            timeFrame: newTimeFrame,
-            currentTeam: team || 'All Teams',
-            filter: 'TimeFrame'
-          };
-          mixpanel.track(
-            distinctID,
-            'Fixtures Filtered',
-            eventProperties
-          );
-        }).catch(console.error);
-      const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
-      this.setState(() => ({
-        loading: false,
-        oldFixtures,
-        upcomingFixtures,
-        timeFrame: newTimeFrame,
-        timeFrameLabel
-      }));
-    }).catch(error => {
-      this.setState(() => ({
-        loading: false,
-        timeFrame: newTimeFrame,
-        timeFrameLabel
-      }));
-    });
+    const { id: competitionID } = this.props;
+    this._filterCompetitionFixtures({ competitionID, newTimeFrame, timeFrameLabel });
   }
 
   handleTeamSelection(event) {
     event.preventDefault();
     const teamID = event.target.value;
-    const { team, allTeams, timeFrame } = this.state;
+    const { team, allTeams } = this.state;
     const selectedTeam = allTeams[teamID];
     if (team === selectedTeam) {
       return;
@@ -207,7 +250,9 @@ class Fixtures extends React.Component {
           eventProperties
         );
       }).catch(console.error);
-    this.setState(() => ({ team: selectedTeam }));
+    if (this.mounted) {
+      this.setState(() => ({ team: selectedTeam }));
+    }
   }
 
   render() {
@@ -216,14 +261,13 @@ class Fixtures extends React.Component {
       upcomingFixtures,
       oldFixtures,
       timeFrame,
-      timeFrameLabel,
       fixtureFilters,
       teams,
       team
     } = this.state;
 
     if (loading) {
-      return <Loader message="Loading league fixtures..." />;
+      return <PlaceholderFixtures />;
     }
 
     const fixtures = timeFrame.indexOf('n') === -1 ? oldFixtures : upcomingFixtures;

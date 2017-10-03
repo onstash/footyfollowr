@@ -1,0 +1,107 @@
+// body {
+//   line-height: 1.25;
+// }
+
+.fa-placeholder-champions-league-table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.fa-placeholder-champions-league-table-groups {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fa-placeholder-champions-league-table-group-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  @include mobile {
+    margin: 10px;
+  }
+}
+
+.fa-placeholder-champions-league-table-group-name {
+  @include placeholder-animation(30px, 50px);
+}
+
+.fa-placeholder-champions-league-table-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  @include mobile {
+    font-size: 1.3rem;
+  }
+}
+
+.fa-placeholder-champions-league-table-match-day {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-around;
+  width: 17%;
+  margin-top: 10px;
+  @include mobile {
+    width: 30%;
+  }
+}
+
+.fa-placeholder-champions-league-table-match-day-value {
+  @include placeholder-animation(20px, 120px);
+  @include mobile {
+    @include placeholder-animation(20px, 90px);
+  }
+}
+
+.fa-placeholder-champions-league-table-group {
+  @extend fa-box-shadow;
+  margin-top: 20px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  @include mobile {
+    width: 100%;
+  }
+  background-color: white;
+}
+
+.fa-placeholder-champions-league-table-head-row, .fa-league-table-body-row {
+  border: 1px solid #CCC;
+  padding: 0.35em;
+}
+
+.fa-placeholder-champions-position, .fa-points {
+  padding: 1rem;
+  text-align: center;
+  @include mobile {
+    padding: 0.05rem;
+  };
+}
+
+.fa-placeholder-champions-team-name {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  @include mobile {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+  }
+}
+
+.fa-placeholder-champions-league-table-head {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
