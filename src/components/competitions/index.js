@@ -69,6 +69,7 @@ class Competitions extends React.Component {
   }
 
   selectCompetition({ name, id }) {
+    window.scrollTo(0, 0);
     this.setState(() => ({ selected: {name, id} }));
   }
 
