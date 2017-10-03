@@ -4,6 +4,7 @@ import {
   checkIfOnboardingShown,
   setOnboardingShown
 } from '../../utils/onboarding';
+import DataLayer from '../../data';
 
 import Competitions from '../competitions';
 
@@ -18,6 +19,7 @@ class Onboarding extends React.Component {
   }
 
   componentWillMount() {
+    DataLayer.fetchCompetitions().catch(error => {});
     checkIfOnboardingShown().then(onboardingShown => {
       this.setState(() => ({ onboardingShown }));
       if (!onboardingShown) {
