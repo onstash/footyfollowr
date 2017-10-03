@@ -19,8 +19,8 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "surge-deploy-prod": "HTTPS=true NODE_ENV=production yarn build && cp build/index.html build/200.html && surge --domain https://footballapp.onstash.me build/",
-    "surge-deploy-test": "TEST=true HTTPS=true NODE_ENV=production yarn build && cp build/index.html build/200.html && surge --domain https://footballapp-staging.onstash.me build/",
+    "surge-deploy-prod": "HTTPS=true NODE_ENV=production yarn build && cp build/index.html build/200.html && surge --domain https://footyfollowr.onstash.me build/",
+    "surge-deploy-test": "TEST=true HTTPS=true NODE_ENV=production yarn build && cp build/index.html build/200.html && surge --domain https://footyfollowr-staging.onstash.me build/",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
