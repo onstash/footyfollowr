@@ -11,8 +11,6 @@ import Cache from '../../utils/cache';
 import fetchIPInformation from '../../utils/ip';
 import mixpanel from '../../utils/mixpanel';
 
-import './styles.css';
-
 class Onboarding extends React.Component {
   constructor() {
     super();
@@ -49,45 +47,38 @@ class Onboarding extends React.Component {
     }
 
     return (
-      <div className="onboarding-container">
-        <div className="welcome-message">
-          Welcome to MyFootballApp
+      <div className="fa-onboarding-container">
+        <div className="fa-welcome-message">
+          Welcome to Footyfollowr
         </div>
-        <div className="jumbotron">
-          <div className="explanation">
-            A simple app to track different Football leagues such as
-            English Premier League, Serie A, Ligue 1, Bundesliga etc.
+        <div className="fa-jumbotron">
+          <div className="fa-explanation">
+            Follow football leagues without the fuss
           </div>
-          <div className="features">
-            <div className="features-label">
+          <div className="fa-features">
+            <div className="fa-features-label">
               Features include:
             </div>
-            <div className="features-list">
-              <div className="feature">
-                View upcoming (and past) fixtures in the league
+            <div className="fa-features-list">
+              <div className="fa-feature">
+                Know past, live & upcoming fixtures of your favourite teams
               </div>
-              <div className="feature">
-                View fixtures for your favourite team
+              <div className="fa-feature">
+                Know league table standings of your favourite teams
               </div>
-              <div className="feature">
-                View league table standings
+              <div className="fa-feature">
+                Know all the teams playing in the league
               </div>
-              <div className="feature">
-                View league table standings for specific match days
-              </div>
-              <div className="feature">
-                View list of teams in the league
-              </div>
-              <div className="feature">
-                View total number of games in the league
+              <div className="fa-feature">
+                Know the current stage of different leagues
               </div>
             </div>
           </div>
           <div
-            className="onboarding-button"
+            className="fa-onboarding-button"
             onClick={event => this.handleOnboardingButton(event)}
           >
-            OKAY, GREAT!
+            AWESOME!
           </div>
         </div>
       </div>
