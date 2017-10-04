@@ -1,12 +1,8 @@
-// .animated-background {
-//   @include placeholder-animation(20px, inherit);
-// }
-
 .fa-placeholder-competition-container {
   @extend fa-box-shadow;
   background-color: white;
-  padding: 1rem 0;
   margin-top: 30px;
+  padding: 1rem 0;
   width: 550px;
   margin-left: auto;
   margin-right: auto;
@@ -19,22 +15,8 @@
   }
 }
 
-.fa-placeholder-competition-caption {
-  margin-top: 20px;
-  @include placeholder-animation(40px, 50%);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.fa-placeholder-competition-games {
-  margin-top: 30px;
-  @include placeholder-animation(30px, 60%);
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .fa-placeholder-competition-match-day {
-  margin-top: 30px;
+  margin-top: 20px;
   @include placeholder-animation(25px, 55%);
   margin-left: auto;
   margin-right: auto;
