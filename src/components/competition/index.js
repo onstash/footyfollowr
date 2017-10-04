@@ -85,7 +85,7 @@ class Competition extends React.Component {
     return (
       <div className="fa-competition-container">
         <h4 className="fa-competition-match-day">
-          <div className="fa-competition-match-day-label">Match week:</div>
+          <div className="fa-competition-match-day-label">Week:</div>
           <div className="fa-competition-match-day-value">
             <b className="fa-competition-current-match-day">
               { currentMatchday }
