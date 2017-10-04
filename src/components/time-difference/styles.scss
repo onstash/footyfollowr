@@ -5,6 +5,9 @@
   align-items: center;
   margin-top: 20px;
   font-size: 0.95rem;
+  text-align: center;
+  color: #999;
+  font-weight: 400;
   @include mobile {
     font-size: 0.9rem;
   }
