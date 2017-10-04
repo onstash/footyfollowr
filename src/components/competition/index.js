@@ -9,7 +9,7 @@ import mixpanel from '../../utils/mixpanel';
 
 const CompetitionError = () => (
   <div className="fa-competition-container">
-    <div className="fa-competition-caption">
+    <div className="fa-competition-error">
       There seems to be a problem, Master Wayne.
     </div>
   </div>

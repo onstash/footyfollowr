@@ -7,6 +7,16 @@
   }
 }
 
+.fa-teams-error {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  height: 100%;
+  text-align: center;
+}
+
 .fa-team {
   @extend fa-box-shadow;
   padding: 1rem;

@@ -12,9 +12,9 @@ const range = (start, end) =>
 
 const LeagueTableError = () => (
   <div className="fa-league-table-container">
-    <h2 className="fa-league-table-heading">
-      {"The table isn't ready, Master Wayne."}
-    </h2>
+    <div className="fa-league-table-error">
+      The table is not ready, Master Wayne.
+    </div>
   </div>
 );
 
