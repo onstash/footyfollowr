@@ -10,6 +10,8 @@ import ChampionsLeagueTable from '../champions-league-table';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
+import smoothScrollPolyfill from '../../utils/smooth-scroll';
+smoothScrollPolyfill();
 
 const CompetitionsError = () => (
   <div className="fa-competitions-container">
@@ -69,8 +71,15 @@ class Competitions extends React.Component {
   }
 
   selectCompetition({ name, id }) {
-    window.scrollTo(0, 0);
-    this.setState(() => ({ selected: {name, id} }));
+    const delta = Math.abs(window.innerHeight - window.pageYOffset);
+    if (delta) {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        this.setState(() => ({ selected: {name, id} }));
+      }, delta / 10);
+    } else {
+      this.setState(() => ({ selected: {name, id} }));
+    }
   }
 
   render() {
