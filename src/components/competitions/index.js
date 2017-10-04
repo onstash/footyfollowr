@@ -9,6 +9,7 @@ import Fixtures from '../fixtures';
 import LeagueTable from '../league-table';
 import ChampionsLeagueTable from '../champions-league-table';
 
+import competitionLabels from '../../data/competition-labels';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 import smoothScrollPolyfill from '../../utils/smooth-scroll';
@@ -28,7 +29,7 @@ class Competitions extends React.Component {
     this.state = {
       loading: false,
       competitions: [],
-      selected: {name: 'Premier League 2017/18', id: 445}
+      selected: {name: 'English Premier League', id: 445}
     };
     this._selectCompetition = this.selectCompetition.bind(this);
   }
@@ -49,7 +50,14 @@ class Competitions extends React.Component {
             }
           });
           mixpanel.track(distinctID, 'Competitions Viewed');
-          this.setState(() => ({ loading: false, competitions }));
+          this.setState(() => ({
+            loading: false,
+            competitions: competitions.map(competition => {
+              const { caption } = competition;
+              const newCaption = competitionLabels[caption];
+              return Object.assign({}, competition, { caption: newCaption });
+            })
+          }));
         });
       }).catch(error => {
         this.setState(() => ({ loading: false }));
