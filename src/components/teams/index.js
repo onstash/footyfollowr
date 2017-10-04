@@ -8,6 +8,13 @@ import mixpanel from '../../utils/mixpanel';
 
 import teamLogos from '../../data/team-logos';
 
+const TeamsError = () => (
+  <div className="fa-teams-container">
+    <div className="fa-teams-error">
+      It seems like there are no teams playing, Master Wayne.
+    </div>
+  </div>
+);
 
 const Team = ({ name, crestUrl, shortName }) => (
   <div className="fa-team">
@@ -78,13 +85,7 @@ class Teams extends React.Component {
     }
 
     if (teams.length === 0) {
-      return (
-        <div className="fa-teams-container">
-          <h2 className="fa-teams-heading">
-            {"It seems like there are no teams playing, Master Wayne."}
-          </h2>
-        </div>
-      );
+      return <TeamsError />;
     }
 
     return (
