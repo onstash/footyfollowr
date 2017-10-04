@@ -1,5 +1,7 @@
 import React from 'react';
 
+import generateDateString from '../../utils/date';
+
 class FixtureTime extends React.Component {
   constructor() {
     super();
@@ -11,12 +13,12 @@ class FixtureTime extends React.Component {
     const dayDifference = Math.abs(currentTime.getDate() - fixtureTime.getDate());
     if (dayDifference > 1) {
       this.setState(() => ({
-        time: `${fixtureTime.toDateString()} at ${fixtureTime.toTimeString()}`
+        time: generateDateString(fixtureTime)
       }))
     } else if (dayDifference === 0) {
-      this.setState(() => ({ time: `Today at ${fixtureTime.toTimeString()}` }));
+      this.setState(() => ({ time: `Today at ${generateDateString(fixtureTime, true)}` }));
     } else if (dayDifference === 1) {
-      this.setState(() => ({ time: `Tomorrow at ${fixtureTime.toTimeString()}` }));
+      this.setState(() => ({ time: `Tomorrow at ${generateDateString(fixtureTime, true)}` }));
     }
   }
 
