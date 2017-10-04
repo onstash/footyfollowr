@@ -3,6 +3,7 @@ import React from 'react';
 import DataLayer from '../../data';
 
 import Competition from '../competition';
+import CompetitionsScrollableTabs from '../competitions-scrollable-tabs';
 import Teams from '../teams';
 import Fixtures from '../fixtures';
 import LeagueTable from '../league-table';
@@ -20,21 +21,6 @@ const CompetitionsError = () => (
     </h2>
   </div>
 );
-
-const CompetitionLink = ({ caption, id, selected, selectCompetition }) => {
-  const { id: selectedCompetitionID } = selected;
-  const className = selectedCompetitionID === id ? 'fa-competition-link-selected' : 'fa-competition-link';
-  return (
-    <li>
-      <div
-        className={className}
-        onClick={() => selectCompetition({ name: caption, id })}
-      >
-        { caption }
-      </div>
-    </li>
-  );
-};
 
 class Competitions extends React.Component {
   constructor() {
@@ -98,19 +84,11 @@ class Competitions extends React.Component {
 
     return (
       <div className="fa-competitions-container">
-        <nav className="fa-competitions-scrollable-tabs">
-          <ul>
-            {
-              competitions.map((competition, index) =>
-                <CompetitionLink
-                  {...competition}
-                  key={ index }
-                  selected={selected}
-                  selectCompetition={this._selectCompetition}
-                />)
-            }
-          </ul>
-        </nav>
+        <CompetitionsScrollableTabs
+          competitions={competitions}
+          selected={selected}
+          selectCompetition={this._selectCompetition}
+        />
         <div className="fa-competitions-data">
           <div className="fa-competitions-data-level-one">
             <Competition {...selected} />
