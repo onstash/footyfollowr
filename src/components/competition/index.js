@@ -74,31 +74,22 @@ class Competition extends React.Component {
     }
 
     const {
-      caption,
-      numberOfGames,
       numberOfMatchdays,
       currentMatchday
     } = competition;
 
-    if (!competition || !numberOfGames || !numberOfMatchdays || !currentMatchday) {
+    if (!competition || !numberOfMatchdays || !currentMatchday) {
       return <CompetitionError />;
     }
 
     return (
       <div className="fa-competition-container">
-        <h2 className="fa-competition-caption">
-          { caption }
-        </h2>
-        <h3 className="fa-competition-games">
-          <div className="fa-competition-games-label">Total no. of games to be played:</div>
-          <div className="fa-competition-games-value">{ numberOfGames }</div>
-        </h3>
         <h4 className="fa-competition-match-day">
-          <div className="fa-competition-match-day-label">Match day:</div>
+          <div className="fa-competition-match-day-label">Match week:</div>
           <div className="fa-competition-match-day-value">
-            <div className="fa-competition-current-match-day">
+            <b className="fa-competition-current-match-day">
               { currentMatchday }
-            </div>
+            </b>
             <div className="fa-competition-divider">/</div>
             <div className="fa-competition-number-of-match-days">
               { numberOfMatchdays }

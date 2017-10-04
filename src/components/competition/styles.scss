@@ -1,7 +1,6 @@
 .fa-competition-container {
   @extend fa-box-shadow;
   background-color: white;
-  padding: 1rem 0;
   margin-top: 30px;
   width: 550px;
   margin-left: auto;
@@ -15,31 +14,11 @@
   }
 }
 
-.fa-competition-caption {
-  font-size: 1.5rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: $blackText;
-}
-
-.fa-competition-games {
-  display: flex;
-  margin-top: 20px;
-  width: 310px;
-  margin-left: auto;
-  margin-right: auto;
-  flex-direction: row;
-  justify-content: space-between;
-  color: $blackText;
-  font-weight: 400;
-}
-
 .fa-competition-match-day {
   display: flex;
   margin-top: 20px;
-  width: 150px;
+  padding: 1rem;
+  width: 170px;
   margin-left: auto;
   margin-right: auto;
   flex-direction: row;
@@ -47,6 +26,7 @@
   justify-content: space-between;
   align-items: center;
   color: $blackText;
+  font-size: 18px;
   font-weight: 400;
 }
 
@@ -60,10 +40,11 @@
 }
 
 .fa-competition-current-match-day {
-  padding: 4px 4px 4px 4px;
+  padding: 4px;
+  font-weight: bolder;
 }
 
 .fa-competition-number-of-match-days {
   color: $blackText;
-  padding: 4px 4px 4px 4px;
+  padding: 4px;
 }
