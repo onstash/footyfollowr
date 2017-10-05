@@ -61,7 +61,7 @@ class Fixtures extends React.Component {
       loading: false,
       oldFixtures: {},
       upcomingFixtures: {},
-      timeFrame: 'n7',
+      timeFrame: 'n14',
       timeFrameLabel: 'Next week',
       fixtureFilters: [
         { label: 'Upcoming fixtures', timeFrame: 'n14' },
