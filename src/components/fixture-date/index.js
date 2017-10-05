@@ -22,7 +22,7 @@ const calculateTimeDifference = (currentTime, timeStamp) => {
   } else if (deltaHours < 24) {
     timeDelta = parseInt(deltaHours, 10);
     unit = 'hour';
-  } else if (deltaDays < 7) {
+  } else if (deltaDays < 7 || (deltaDays > 7 && deltaDays < 14)) {
     timeDelta = parseInt(deltaDays, 10);
     unit = 'day';
   } else if (deltaWeeks < 4) {
