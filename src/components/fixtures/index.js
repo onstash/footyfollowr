@@ -64,9 +64,8 @@ class Fixtures extends React.Component {
       timeFrame: 'n7',
       timeFrameLabel: 'Next week',
       fixtureFilters: [
-        { label: 'Next week', timeFrame: 'n7' },
-        { label: 'Next 2 weeks', timeFrame: 'n14' },
-        { label: 'Previous week', timeFrame: 'p7' }
+        { label: 'Upcoming fixtures', timeFrame: 'n14' },
+        { label: 'Recently concluded fixtures', timeFrame: 'p7' }
       ],
       allTeams: {},
       teams: [],
@@ -210,13 +209,10 @@ class Fixtures extends React.Component {
     let timeFrameLabel;
     switch (newTimeFrame) {
       case 'p7':
-        timeFrameLabel = 'Previous week';
+        timeFrameLabel = 'Recently concluded fixtures';
         break;
       case 'n14':
-        timeFrameLabel = 'Next 2 weeks';
-        break;
-      default:
-        timeFrameLabel = 'Next week';
+        timeFrameLabel = 'Upcoming fixtures';
         break;
     }
     const { timeFrame: oldTimeFrame } = this.state;
@@ -279,6 +275,7 @@ class Fixtures extends React.Component {
         </h2>
         <div className="fa-fixtures-filter">
           <select
+            className="fa-fixtures-time-filter"
             onChange={(event) => this.handleTimeFrameSelection(event)}
           >
             {
@@ -290,6 +287,7 @@ class Fixtures extends React.Component {
             }
           </select>
           <select
+            className="fa-fixtures-team-filter"
             onChange={(event) => this.handleTeamSelection(event)}
           >
             {

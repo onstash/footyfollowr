@@ -21,11 +21,10 @@
   align-items: center;
 }
 
-select {
-  width: 120px;
-  @include mobile {
-    width: 90px;
-  }
+.fa-fixtures-time-filter, .fa-fixtures-team-filter {
+  width: 150px;
+  padding: 0.5rem 0.5rem;
+  background-color: white;
 }
 
 .fa-fixtures-container {
