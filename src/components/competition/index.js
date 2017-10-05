@@ -8,9 +8,9 @@ import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
 const CompetitionError = () => (
-  <div className="fa-competition-container">
+  <div className="fa-competition-error-container">
     <div className="fa-competition-error">
-      There seems to be a problem, Master Wayne.
+      No competition info available, Master Wayne.
     </div>
   </div>
 );
@@ -84,7 +84,7 @@ class Competition extends React.Component {
 
     return (
       <div className="fa-competition-container">
-        <h4 className="fa-competition-match-day">
+        <div className="fa-competition-match-day">
           <div className="fa-competition-match-day-label">Week:</div>
           <div className="fa-competition-match-day-value">
             <b className="fa-competition-current-match-day">
@@ -95,7 +95,7 @@ class Competition extends React.Component {
               { numberOfMatchdays }
             </div>
           </div>
-        </h4>
+        </div>
       </div>
     );
   }
