@@ -39,21 +39,25 @@
   margin-left: auto;
   margin-right: auto;
   justify-content: space-around;
-  width: 30%;
   margin-top: 20px;
   @include mobile {
-    width: 40%;
     margin-top: 10px;
   }
 }
 
+.fa-league-table-match-day-label {
+  padding: 0.25rem;
+}
+
 .fa-league-table-match-day-value {
-  select {
-    width: 60px;
-    @include mobile {
-      width: 40px;
-    };
-  }
+  padding: 0.25rem;
+  background-color: white;
+  margin-left: 15px;
+  width: 45px;
+  @include mobile {
+    margin-left: 10px;
+    width: 40px;
+  };
 }
 
 .fa-league-table-sub-container {
