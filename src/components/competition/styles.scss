@@ -2,31 +2,32 @@
   @extend fa-box-shadow;
   background-color: white;
   margin-top: 30px;
-  width: 550px;
+  width: 200px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-direction: column;
-  @include mobile {
-    width: 95%;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+}
+
+.fa-competition-error-container {
+  margin-top: 30px;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .fa-competition-error {
-  margin-top: 20px;
-  margin-bottom: 20px;
   padding: 1rem;
-  color: #777;
-  font-size: 18px;
+  color: $blackText;
+  font-size: 16px;
   font-weight: 400;
   text-align: center;
 }
 
 .fa-competition-match-day {
   display: flex;
-  margin-top: 20px;
   padding: 1rem;
   margin-left: auto;
   margin-right: auto;
