@@ -72,7 +72,7 @@ class LeagueTable extends React.Component {
     this.mounted = false;
   }
 
-  fetchCompetitionLeagueTableData({competitionID, matchDay}) {
+  fetchCompetitionLeagueTableData({competitionID, matchDay, replaceMatchDays}) {
     if (!competitionID) {
       return;
     }
@@ -99,13 +99,21 @@ class LeagueTable extends React.Component {
           standing,
           matchday: matchDay
         } = response.data;
-        const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
         if (this.mounted) {
-          this.setState(() => ({
-            loading: false,
-            league, standing,
-            matchDay, matchDays
-          }));
+          if (replaceMatchDays === true) {
+            const matchDays = matchDay > 1 ? range(1, matchDay + 1) : [1];
+            this.setState(() => ({
+              loading: false,
+              league, standing,
+              matchDay, matchDays
+            }));
+          } else {
+            this.setState(() => ({
+              loading: false,
+              league, standing,
+              matchDay
+            }));
+          }
         }
       })
       .catch(error => {
@@ -119,7 +127,11 @@ class LeagueTable extends React.Component {
     this.mounted = true;
     const { matchDay } = this.state;
     const { id: competitionID } = this.props;
-    this._fetchCompetitionLeagueTableData({ competitionID, matchDay });
+    this._fetchCompetitionLeagueTableData({
+      competitionID,
+      matchDay,
+      replaceMatchDays: true
+    });
   }
 
   componentWillReceiveProps({ id: newCompetitionID }) {
@@ -156,20 +168,19 @@ class LeagueTable extends React.Component {
           <div className="fa-league-table-match-day-label">
            Week:
           </div>
-          <div className="fa-league-table-match-day-value">
-            <select
-              value={matchDay}
-              onChange={(event) => this.handleSelection(event)}
-            >
-              {
-                matchDays.map((matchDayValue, index) =>
-                  <option value={`${matchDayValue}`} key={index}>
-                    {matchDayValue}
-                  </option>
-                )
-              }
-            </select>
-          </div>
+          <select
+            className="fa-league-table-match-day-value"
+            value={matchDay}
+            onChange={(event) => this.handleSelection(event)}
+          >
+            {
+              matchDays.map((matchDayValue, index) =>
+                <option value={`${matchDayValue}`} key={index}>
+                  {matchDayValue}
+                </option>
+              )
+            }
+          </select>
         </div>
         <table className="fa-league-table">
           <thead className="fa-league-table-head">
