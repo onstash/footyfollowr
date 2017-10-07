@@ -1,8 +1,16 @@
 import React from 'react';
 
+import PlaceholderCompetitionScrollableTabs from '../placeholder-competition-scrollable-tabs';
+import PlaceholderCompetitionCard from '../placeholder-competition-card';
+import PlaceholderFixtures from '../placeholder-fixtures';
+
 const PlaceholderCompetition = () => (
   <div className="fa-placeholder-competition-container">
-    <div className="fa-placeholder-competition-match-day" />
+    <PlaceholderCompetitionScrollableTabs />
+    <PlaceholderCompetitionCard />
+    <div className="fa-placeholder-competition-data">
+      <PlaceholderFixtures />
+    </div>
   </div>
 );
 
