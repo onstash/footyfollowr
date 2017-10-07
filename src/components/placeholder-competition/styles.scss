@@ -1,17 +1,4 @@
 .fa-placeholder-competition-container {
-  @extend fa-box-shadow;
-  background-color: white;
-  margin-top: 30px;
-  padding: 1rem 0;
-  width: 200px;
-  margin-left: auto;
-  margin-right: auto;
   display: flex;
   flex-direction: column;
-}
-
-.fa-placeholder-competition-match-day {
-  @include placeholder-animation(25px, 55%);
-  margin-left: auto;
-  margin-right: auto;
 }

@@ -4,10 +4,6 @@ import DataLayer from '../../data';
 
 import Competition from '../competition';
 import CompetitionsScrollableTabs from '../competitions-scrollable-tabs';
-import Teams from '../teams';
-import Fixtures from '../fixtures';
-import LeagueTable from '../league-table';
-import ChampionsLeagueTable from '../champions-league-table';
 
 import competitionLabels from '../../data/competition-labels';
 import Cache from '../../utils/cache';
@@ -87,9 +83,6 @@ class Competitions extends React.Component {
       return <CompetitionsError />;
     }
 
-    const { name } = selected;
-    const Table = name.indexOf('Champions League') !== -1 ? ChampionsLeagueTable : LeagueTable;
-
     return (
       <div className="fa-competitions-container">
         <CompetitionsScrollableTabs
@@ -98,14 +91,7 @@ class Competitions extends React.Component {
           selectCompetition={this._selectCompetition}
         />
         <div className="fa-competitions-data">
-          <div className="fa-competitions-data-level-one">
-            <Competition {...selected} />
-            <Fixtures {...selected} />
-          </div>
-          <div className="fa-competitions-data-level-one">
-            <Table {...selected} />
-            <Teams {...selected} />
-          </div>
+          <Competition {...selected} />
         </div>
       </div>
     );

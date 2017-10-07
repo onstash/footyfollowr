@@ -3,6 +3,12 @@ import React from 'react';
 import DataLayer from '../../data';
 
 import PlaceholderCompetition from '../placeholder-competition';
+import Teams from '../teams';
+import Fixtures from '../fixtures';
+import LeagueTable from '../league-table';
+import ChampionsLeagueTable from '../champions-league-table';
+import CompetitionCard from '../competition-card';
+import CompetitionScrollableTabs from '../competition-scrollable-tabs';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
@@ -15,11 +21,31 @@ const CompetitionError = () => (
   </div>
 );
 
+const CompetitionData = ({ caption, name, id, selected: { name: selectedName } }) => {
+  if (selectedName === 'Fixtures') {
+    return <Fixtures name={name} id={id} />;
+  }
+  if (selectedName === 'Teams') {
+    return <Teams name={name} id={id} />;
+  }
+  const Table = caption.indexOf('Champions League') !== -1 ? ChampionsLeagueTable : LeagueTable;
+  return <Table name={name} id={id} />;
+};
+
 class Competition extends React.Component {
   constructor() {
     super();
-    this.state = { loading: false, competition: {}, competitionID: null };
-    this._fetchCompetitionData = this.fetchCompetitionData.bind(this);
+    this.state = {
+      loading: false,
+      competition: {},
+      competitionID: null,
+      selected: { name: 'Fixtures' },
+      competitionData: [
+        { name: 'Fixtures' },
+        { name: 'Table' },
+        { name: 'Teams' }
+      ]
+    };
     this.mounted = false;
   }
 
@@ -56,7 +82,7 @@ class Competition extends React.Component {
   componentDidMount() {
     this.mounted = true;
     const { id: competitionID } = this.props;
-    this._fetchCompetitionData(competitionID);
+    this.fetchCompetitionData(competitionID);
   }
 
   componentWillReceiveProps({ id: newCompetitionID }) {
@@ -64,16 +90,21 @@ class Competition extends React.Component {
     if (newCompetitionID === oldCompetitionID) {
       return;
     }
-    this._fetchCompetitionData(newCompetitionID);
+    this.fetchCompetitionData(newCompetitionID);
+  }
+
+  selectCompetitionData(name) {
+    this.setState(() => ({ selected: { name } }));
   }
 
   render() {
-    const { loading, competition } = this.state;
+    const { loading, competition, competitionData, selected } = this.state;
     if (loading) {
       return <PlaceholderCompetition />;
     }
 
     const {
+      caption,
       numberOfMatchdays,
       currentMatchday
     } = competition;
@@ -82,19 +113,26 @@ class Competition extends React.Component {
       return <CompetitionError />;
     }
 
+    const { name, id } = this.props;
+
     return (
       <div className="fa-competition-container">
-        <div className="fa-competition-match-day">
-          <div className="fa-competition-match-day-label">Week:</div>
-          <div className="fa-competition-match-day-value">
-            <b className="fa-competition-current-match-day">
-              { currentMatchday }
-            </b>
-            <div className="fa-competition-divider">/</div>
-            <div className="fa-competition-number-of-match-days">
-              { numberOfMatchdays }
-            </div>
-          </div>
+        <CompetitionScrollableTabs
+          competitionData={competitionData}
+          selected={selected}
+          selectCompetitionData={name => this.selectCompetitionData(name)}
+        />
+        <CompetitionCard
+          currentMatchday={currentMatchday}
+          numberOfMatchdays={numberOfMatchdays}
+        />
+        <div className="fa-competition-data">
+          <CompetitionData
+            caption={caption}
+            name={name}
+            id={id}
+            selected={selected}
+          />
         </div>
       </div>
     );

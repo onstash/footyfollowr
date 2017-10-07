@@ -1,0 +1,15 @@
+.fa-placeholder-competition-card {
+  @extend fa-box-shadow;
+  background-color: white;
+  margin-top: 40px;
+  padding: 1.2rem 0;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fa-placeholder-competition-match-day {
+  @include placeholder-animation(25px, 55%);
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,47 @@
+.fa-competition-scrollable-tabs {
+    position: fixed;
+    z-index: 1000;
+    top: 55px;
+    left: 0px;
+    right: 0px;
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: 0 0 4px #ccc;
+    overflow: scroll;
+
+    ul {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        color: #666;
+    }
+
+    div {
+      text-decoration: none;
+      color: inherit;
+      padding: 1rem 1.5rem;
+      display: inline-block;
+      outline: none;
+      cursor: pointer;
+
+      &:hover {
+          $hover-color: #F8F8F8;
+          background-color: $hover-color;
+          border-bottom: 2px solid $hover-color;
+      }
+
+      &.fa-competition-data-link-selected {
+          color: $blackText;
+          border-bottom: 2px solid $blackText;
+      }
+    }
+}
