@@ -42,7 +42,18 @@ class Teams extends React.Component {
     }
     DataLayer.fetchCompetitionTeams(competitionID)
       .then(response => {
-        const { data: { teams } } = response;
+        const { data: { teams: _teams } } = response;
+        const teams = []
+          .concat(_teams)
+          .sort(({ name: teamAName }, { name: teamBName }) => {
+            if (teamAName < teamBName) {
+              return -1;
+            }
+            if (teamAName > teamBName) {
+              return 1;
+            }
+            return 0;
+          });
         Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
           .then(distinctID => {
             const eventProperties = {
