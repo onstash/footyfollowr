@@ -3,11 +3,22 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 90px;
   margin-left: auto;
   margin-right: auto;
-  // @include mobile {
-  //   width: 100px;
-  //   margin-top: 20px;
-  // }
+  width: 60px;
+}
+
+.fa-fixture-match-week-label {
+  padding: 0.25rem;
+}
+
+.fa-fixture-match-week-value {
+  padding: 0.25rem;
+  background-color: white;
+  margin-left: 15px;
+  width: 45px;
+  @include mobile {
+    margin-left: 6px;
+    width: 40px;
+  };
 }
