@@ -5,7 +5,8 @@ import DataLayer from '../../data';
 import Competition from '../competition';
 import CompetitionsScrollableTabs from '../competitions-scrollable-tabs';
 
-import competitionLabels from '../../data/competition-labels';
+import leagueLabels from '../../data/league-labels';
+import leagueRankings from '../../data/league-rankings';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 import smoothScrollPolyfill from '../../utils/smooth-scroll';
@@ -39,20 +40,25 @@ class Competitions extends React.Component {
       .then(distinctID => {
         return DataLayer.fetchCompetitions().then(response => {
           const { data: _competitions } = response;
-          const competitions = [_competitions[1], _competitions[0]];
-          _competitions.forEach((competition, index) => {
-            if (index > 1) {
-              competitions.push(competition);
-            }
-          });
+          const competitions = []
+            .concat(_competitions)
+            .sort(({ caption: teamAName }, { caption: teamBName }) => {
+              const teamARank = leagueRankings[teamAName];
+              const teamBRank = leagueRankings[teamBName];
+              return teamARank < teamBRank ? -1 : 1;
+            })
+            .map(competition => {
+              const { caption } = competition;
+              const newCaption = leagueLabels[caption];
+              return newCaption ? Object.assign({}, competition, { caption: newCaption }) : null;
+            })
+            .filter(competition => {
+              return competition ? true : false;
+            });
           mixpanel.track(distinctID, 'Competitions Viewed');
           this.setState(() => ({
             loading: false,
-            competitions: competitions.map(competition => {
-              const { caption } = competition;
-              const newCaption = competitionLabels[caption];
-              return Object.assign({}, competition, { caption: newCaption });
-            })
+            competitions
           }));
         });
       }).catch(error => {
