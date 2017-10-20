@@ -3,6 +3,7 @@ import React from 'react';
 import FixtureDate from '../fixture-date';
 import FixtureResult from '../fixture-result';
 import FixtureTeams from '../fixture-teams';
+import FixtureSubscription from '../fixture-subscription';
 
 const Fixture = ({
   homeTeamName,
@@ -21,6 +22,7 @@ const Fixture = ({
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
       <FixtureResult {...result} timeDifferenceInMins={timeDifferenceInMins} />
       <FixtureDate date={date} status={status} />
+      <FixtureSubscription fixtureID={fixtureID} date={date} />
     </div>
   );
 };
