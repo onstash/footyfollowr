@@ -48,7 +48,34 @@ class FixtureSubscription extends React.Component {
   }
 
   onClick() {
-    this.setState(() => ({ hasSubscribed: !this.state.hasSubscribed }));
+    firebaseMessaging.requestPermission()
+      .then(() => {
+        return firebaseMessaging.getToken();
+      })
+      .then(fcmToken => {
+        const { fixtureID, homeTeamName, awayTeamName, date } = this.props;
+        const payload = {
+          fcm_token: fcmToken,
+          fixture_data: {
+            fixture_id: fixtureID,
+            home_team: homeTeamName,
+            away_team: awayTeamName,
+            date
+          }
+        };
+        return subscribeToNotifications(payload);
+      })
+      .then(({ message }) => {
+        alert(JSON.stringify({ message }));
+        if (message === "Fixture subscribed successfully") {
+          Cache.set(Cache.keys.NOTIFICATIONS_PERMISSIONS_REQUESTED, true);
+        }
+        this.setState(() => ({ hasSubscribed: !this.state.hasSubscribed }));
+      })
+      .catch(error => {
+        console.log('[firebase] error', error);
+        alert(JSON.stringify(error));
+      });
   }
 
   render() {
