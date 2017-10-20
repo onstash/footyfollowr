@@ -1,7 +1,7 @@
 import apiRequest from './api-request';
 
 import config from './config';
-import { post } from './fetch-wrapper';
+import { get, post } from './fetch-wrapper';
 
 const addQueryParam = (
   endpoint,
@@ -109,17 +109,20 @@ const subscribeToNotifications = payload => post({
   url: `${config.notificationsAPI.baseURL}/api/v1/subscribe`,
   data: payload
 }).then(response => {
-  console.error('11111111response', response);
   return response.statusCode === 200 ? response : Promise.reject(response);
 });
 
-const checkSubscription = payload => post({
-  url: `${config.notificationsAPI.baseURL}/api/v1/check`,
-  data: payload
-}).then(response => {
-  console.error('11111111response', response);
-  return response.statusCode === 200 ? response.data : Promise.reject(response);
-});
+const checkSubscription = ({ fixtureID, fcmToken }) => {
+  const endpoint = [
+    `${config.notificationsAPI.baseURL}`,
+    `/api/v1/check/${fixtureID}/${fcmToken}`
+  ].join('');
+  return get({ url: endpoint })
+    .then(response => {
+      console.error('response', response);
+      return response.statusCode === 200 ? response.data : Promise.reject(response);
+    });
+};
 
 export {
   fetchCompetitions,
