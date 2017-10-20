@@ -13,6 +13,13 @@ export const get = requestOptions => {
     let jsonResponse = null;
     try {
       jsonResponse = JSON.parse(textResponse);
+      const { data } = jsonResponse;
+      if (data) {
+        return Object.assign(
+          {},
+          { data, statusCode }
+        );
+      }
       return Object.assign(
         {},
         { data: jsonResponse, statusCode }
