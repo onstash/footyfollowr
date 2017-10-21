@@ -23,15 +23,15 @@ const Fixture = ({
   const NotificationToggle = showNotificationsToggle ? FixtureSubscription : Dummy;
   return (
     <div className={className}>
-      <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
-      <FixtureResult {...result} timeDifferenceInMins={timeDifferenceInMins} />
-      <FixtureDate date={date} status={status} />
       <NotificationToggle
         fixtureID={fixtureID}
         date={date}
         homeTeamName={homeTeamName}
         awayTeamName={awayTeamName}
       />
+      <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
+      <FixtureResult {...result} timeDifferenceInMins={timeDifferenceInMins} />
+      <FixtureDate date={date} status={status} />
     </div>
   );
 };
