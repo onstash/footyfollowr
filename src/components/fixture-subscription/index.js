@@ -16,12 +16,14 @@ firebaseMessaging.onMessage(payload => {
 const Toggled = () => (
   <img
     className="fa-fixture-subscription-icon"
+    alt="notifications-button-toggled"
     src={require('./notifications-button-toggled.png')} />
 );
 
 const Untoggled = () => (
   <img
     className="fa-fixture-subscription-icon"
+    alt="notifications-button-untoggled"
     src={require('./notifications-button.png')} />
 );
 
