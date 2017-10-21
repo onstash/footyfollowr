@@ -8,7 +8,9 @@ const firebaseMessaging = messaging();
 
 firebaseMessaging.onMessage(payload => {
   console.log('payload', payload);
-  alert(`Reminder: ${payload.notification.title} starts in 5 minutes`);
+  if (payload.notification) {
+    alert(`${payload.notification.title}`);
+  }
 });
 
 const Toggled = () => (
