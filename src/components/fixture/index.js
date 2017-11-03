@@ -19,7 +19,7 @@ const Fixture = ({
   const timeDifferenceInMins = (new Date() - new Date(date)) / (1000 * 60);
   const isGameLive = timeDifferenceInMins > 0 && timeDifferenceInMins < 115;
   const className = isGameLive ? 'fa-fixture-container-live' : 'fa-fixture-container';
-  const showNotificationsToggle = isGameLive === false && status === 'SCHEDULED';
+  const showNotificationsToggle = isGameLive === false && status !== 'FINISHED';
   const NotificationToggle = showNotificationsToggle ? FixtureSubscription : Dummy;
   return (
     <div className={className}>
