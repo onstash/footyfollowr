@@ -46,9 +46,7 @@ class FixtureSubscription extends React.Component {
         console.log('hasSubscribed', hasSubscribed);
         this.setState(() => ({ hasSubscribed }));
       })
-      .catch(error => {
-        // alert(JSON.stringify(error));
-      });
+      .catch(error => {});
   }
 
   onClick() {
@@ -70,15 +68,15 @@ class FixtureSubscription extends React.Component {
         return subscribeToNotifications(payload);
       })
       .then(({ message }) => {
-        alert(JSON.stringify({ message }));
         if (message === "Fixture subscribed successfully") {
           Cache.set(Cache.keys.NOTIFICATIONS_PERMISSIONS_REQUESTED, true);
+          this.setState(() => ({ hasSubscribed: true }));
+        } else if (message === "Fixture unsubscribed successfully") {
+          this.setState(() => ({ hasSubscribed: false }));
         }
-        this.setState(() => ({ hasSubscribed: !this.state.hasSubscribed }));
       })
       .catch(error => {
         console.log('[firebase] error', error);
-        alert(JSON.stringify(error));
       });
   }
 
