@@ -11,11 +11,11 @@ const getDaySuffix = day => {
   const dayString = `${day}`;
   const dayStringLength = dayString.length;
   switch (dayString[dayStringLength - 1]) {
-    case 1:
+    case '1':
       return 'st';
-    case 2:
+    case '2':
       return 'nd';
-    case 3:
+    case '3':
       return 'rd';
     default:
       return 'th'
