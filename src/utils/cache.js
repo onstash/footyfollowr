@@ -56,7 +56,8 @@ const keys = {
   COMPETITIONS: 'Competitions',
   MIXPANEL_DISTINCT_ID: 'MixpanelDistinctID',
   IP_INFORMATION: 'IPInformation',
-  ONBOARDING_SHOWN: 'OnboardingShown'
+  ONBOARDING_SHOWN: 'OnboardingShown',
+  NOTIFICATIONS_PERMISSIONS_REQUESTED: 'NotificationsPermissionsRequested'
 };
 
 const Cache = {

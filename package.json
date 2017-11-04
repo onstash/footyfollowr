@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "base-64": "^0.1.0",
+    "firebase": "^4.6.0",
     "isomorphic-fetch": "^2.2.1",
     "localStorage": "^1.0.3",
     "node-sass-chokidar": "^0.0.3",

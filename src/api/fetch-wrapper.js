@@ -13,6 +13,13 @@ export const get = requestOptions => {
     let jsonResponse = null;
     try {
       jsonResponse = JSON.parse(textResponse);
+      const { data } = jsonResponse;
+      if (data) {
+        return Object.assign(
+          {},
+          { data, statusCode }
+        );
+      }
       return Object.assign(
         {},
         { data: jsonResponse, statusCode }
@@ -22,5 +29,35 @@ export const get = requestOptions => {
       console.log('textResponse', textResponse);
       return Promise.reject(error);
     }
+  });
+};
+
+export const post = requestOptions => {
+  let statusCode;
+  const headers = Object.assign(
+    {},
+    { 'Content-Type': 'application/json' },
+    requestOptions.headers
+  );
+  const body = JSON.stringify(requestOptions.data);
+  return fetch(requestOptions.url, {
+    headers,
+    body,
+    method: 'post'
+  })
+  .then(response => {
+    statusCode = response.status;
+    return response.text();
+  })
+  .then(textResponse => {
+    let jsonResponse = null;
+    try {
+      jsonResponse = JSON.parse(textResponse);
+    } catch(e) {
+      console.log('response', textResponse, 'payload', requestOptions);
+      return Promise.reject(textResponse);
+    }
+    jsonResponse.statusCode = statusCode;
+    return jsonResponse;
   });
 };

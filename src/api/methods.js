@@ -1,5 +1,8 @@
 import apiRequest from './api-request';
 
+import config from './config';
+import { get, post } from './fetch-wrapper';
+
 const addQueryParam = (
   endpoint,
   queryParam,
@@ -102,6 +105,25 @@ const fetchTeamFixtures = (id, timeFrame='', venue='', season='') => {
 
 const fetchTeamPlayers = id => apiRequest(`/teams/${id}/players`);
 
+const subscribeToNotifications = payload => post({
+  url: `${config.notificationsAPI.baseURL}/api/v1/subscribe`,
+  data: payload
+}).then(response => {
+  return response.statusCode === 200 ? response : Promise.reject(response);
+});
+
+const checkSubscription = ({ fixtureID, fcmToken }) => {
+  const endpoint = [
+    `${config.notificationsAPI.baseURL}`,
+    `/api/v1/check/${fixtureID}/${fcmToken}`
+  ].join('');
+  return get({ url: endpoint })
+    .then(response => {
+      console.error('response', response);
+      return response.statusCode === 200 ? response.data : Promise.reject(response);
+    });
+};
+
 export {
   fetchCompetitions,
   fetchCompetition,
@@ -111,5 +133,7 @@ export {
   fetchFixtures,
   fetchFixture,
   fetchTeamFixtures,
-  fetchTeamPlayers
+  fetchTeamPlayers,
+  subscribeToNotifications,
+  checkSubscription
 };
