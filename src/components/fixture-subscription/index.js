@@ -27,10 +27,18 @@ const Untoggled = () => (
     src={require('./notifications-button.png')} />
 );
 
+const ToggleLoading = () => (
+  <div className="fa-fixture-subscription-loading">
+    (Loading)
+  </div>
+);
+
+const Dummy = () => <div />;
+
 class FixtureSubscription extends React.Component {
   constructor() {
     super();
-    this.state = { hasSubscribed: false };
+    this.state = { hasSubscribed: false, loading: true };
     this._onClick = this.onClick.bind(this);
   }
 
@@ -40,13 +48,16 @@ class FixtureSubscription extends React.Component {
       .then(() => firebaseMessaging.getToken())
       .then(fcmToken => {
         const { fixtureID } = this.props;
+        this.setState(() => ({ loading: true }));
         return checkSubscription({ fixtureID, fcmToken });
       })
       .then(({ has_subscribed: hasSubscribed }) => {
-        console.log('hasSubscribed', hasSubscribed);
-        this.setState(() => ({ hasSubscribed }));
+        this.setState(() => ({ hasSubscribed, loading: false }));
       })
-      .catch(error => {});
+      .catch(error => {
+        console.error(error);
+        this.setState(() => ({ loading: false }));
+      });
   }
 
   onClick() {
@@ -55,6 +66,7 @@ class FixtureSubscription extends React.Component {
         return firebaseMessaging.getToken();
       })
       .then(fcmToken => {
+        this.setState(() => ({ loading: true }));
         const { fixtureID, homeTeamName, awayTeamName, date } = this.props;
         const payload = {
           fcm_token: fcmToken,
@@ -70,23 +82,28 @@ class FixtureSubscription extends React.Component {
       .then(({ message }) => {
         if (message === "Fixture subscribed successfully") {
           Cache.set(Cache.keys.NOTIFICATIONS_PERMISSIONS_REQUESTED, true);
-          this.setState(() => ({ hasSubscribed: true }));
+          this.setState(() => ({ hasSubscribed: true, loading: false }));
         } else if (message === "Fixture unsubscribed successfully") {
-          this.setState(() => ({ hasSubscribed: false }));
+          this.setState(() => ({ hasSubscribed: false, loading: false }));
         }
       })
       .catch(error => {
+        this.setState(() => ({ loading: false }));
         console.log('[firebase] error', error);
       });
   }
 
   render() {
-    const { hasSubscribed } = this.state;
+    const { hasSubscribed, loading } = this.state;
     const SubscriptionComponent = hasSubscribed ? Toggled : Untoggled;
+    const SubscriptionLoadingComponent = loading ? ToggleLoading : Dummy;
     return (
       <div className="fa-fixture-subscription-container">
-        <div className="fa-fixture-subscription" onClick={this._onClick}>
-          <SubscriptionComponent />
+        <div className="fa-fixture-subscription-icon-container">
+          <div className="fa-fixture-subscription" onClick={this._onClick}>
+            <SubscriptionComponent />
+          </div>
+          <SubscriptionLoadingComponent />
         </div>
       </div>
     );

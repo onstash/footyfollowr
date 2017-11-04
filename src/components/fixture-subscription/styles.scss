@@ -5,9 +5,15 @@
 }
 
 .fa-fixture-subscription-icon {
-  // background-color: pink;
   cursor: pointer;
   padding: 1rem;
   width: 28px;
   height: 28px;
+}
+
+.fa-fixture-subscription-loading {
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  color: #999;
 }
