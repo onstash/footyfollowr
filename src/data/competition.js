@@ -4,46 +4,46 @@ import Cache from '../utils/cache';
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const fetchCompetition = competitionID => {
-  if (isDevelopment) {
-    console.log('Data layer fetchCompetition');
-  }
   const cacheKey = `COMPETITION-${competitionID}`;
-  return _fetchCompetition(competitionID)
-    .then(apiResponse => {
-      if (isDevelopment) {
-        console.log('api response', apiResponse);
+  return Cache.get(cacheKey)
+    .then(({ apiResponse, updatedAt }) => {
+      const currentTime = new Date();
+      if (((currentTime - new Date(updatedAt)) / 1000) < 900) {
+        return apiResponse;
       }
-      Cache
-        .set(cacheKey, apiResponse)
-        .catch(error => {
-          if (isDevelopment) {
-            console.log('error (Cache.set)', error);
-          }
+      return _fetchCompetition(competitionID)
+        .then(apiResponse => {
+          const cacheData = {
+            apiResponse,
+            updatedAt: (new Date()).getTime()
+          };
+          Cache
+            .set(cacheKey, cacheData)
+            .catch(error => {
+              if (isDevelopment) {
+                console.log('error (Cache.set)', error);
+              }
+            });
+          return apiResponse
         });
-      return apiResponse;
     }).catch(error => {
       if (isDevelopment) {
         console.log('error (_fetchCompetition())', error);
       }
-      return Cache
-        .get(cacheKey)
-        .then(response => {
-          if (isDevelopment) {
-            console.log('response (cache)', response);
-          }
-          _fetchCompetition(competitionID)
-            .then(apiResponse => Cache.set(cacheKey, apiResponse))
+      return _fetchCompetition(competitionID)
+        .then(apiResponse => {
+          const cacheData = {
+            apiResponse,
+            updatedAt: (new Date()).getTime()
+          };
+          Cache
+            .set(cacheKey, cacheData)
             .catch(error => {
               if (isDevelopment) {
-                console.log('error (api)', error);
+                console.log('error (Cache.set)', error);
               }
             });
-          return response;
-        }).catch(error => {
-          if (isDevelopment) {
-            console.log('error (cache)', error);
-          }
-          return Promise.reject(error);
+          return apiResponse
         });
     });
 };

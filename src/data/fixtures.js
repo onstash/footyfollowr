@@ -8,41 +8,42 @@ const fetchCompetitionFixtures = (competitionID, filterParam) => {
     console.log('Data layer fetchCompetitionFixtures');
   }
   const cacheKey = `FIXTURE-${competitionID}-${filterParam}`;
-  return _fetchCompetitionFixtures(competitionID, filterParam)
-    .then(apiResponse => {
-      if (isDevelopment) {
-        console.log('api response', apiResponse);
+  return Cache.get(cacheKey)
+    .then(({apiResponse, updatedAt}) => {
+      const currentTime = new Date();
+      if (((currentTime - new Date(updatedAt)) / 1000) < 900) {
+        return apiResponse;
       }
-      Cache.set(cacheKey, apiResponse)
-        .catch(error => {
-          if (isDevelopment) {
-            console.log('error (Cache.set)', error);
-          }
-        });
-      return apiResponse;
-    }).catch(error => {
-      if (isDevelopment) {
-        console.log('error (_fetchFixture())', error);
-      }
-      return Cache
-        .get(cacheKey)
-        .then(response => {
-          if (isDevelopment) {
-            console.log('response (cache)', response);
-          }
-          _fetchCompetitionFixtures(competitionID, filterParam)
-            .then(apiResponse => Cache.set(cacheKey, apiResponse))
+      return _fetchCompetitionFixtures(competitionID, filterParam)
+        .then(apiResponse => {
+          const cacheData = {
+            apiResponse,
+            updatedAt: (new Date()).getTime()
+          };
+          Cache
+            .set(cacheKey, cacheData)
             .catch(error => {
               if (isDevelopment) {
-                console.log('error (api)', error);
+                console.log('error (Cache.set)', error);
               }
             });
-          return response;
-        }).catch(error => {
-          if (isDevelopment) {
-            console.log('error (cache)', error);
-          }
-          return Promise.reject(error);
+          return apiResponse
+        });
+    }).catch(error => {
+      return _fetchCompetitionFixtures(competitionID, filterParam)
+        .then(apiResponse => {
+          const cacheData = {
+            apiResponse,
+            updatedAt: (new Date()).getTime()
+          };
+          Cache
+            .set(cacheKey, cacheData)
+            .catch(error => {
+              if (isDevelopment) {
+                console.log('error (Cache.set)', error);
+              }
+            });
+          return apiResponse
         });
     });
 };
