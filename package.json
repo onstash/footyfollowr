@@ -6,6 +6,8 @@
     "base-64": "^0.1.0",
     "firebase": "^4.6.0",
     "localStorage": "^1.0.3",
+    "preact": "^8.2.6",
+    "preact-compat": "^3.17.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "smoothscroll-polyfill": "^0.4.0",
