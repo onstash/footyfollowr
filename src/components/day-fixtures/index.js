@@ -62,6 +62,7 @@ const DayFixtures = ({ fixtureDay, fixtures, team, timeFrame }) => {
             // );
             return (
               <AsyncComponentLoader
+                key={ index }
          		loadComponentModule={Fixture}
          		componentProps={{timeFrame, fixtureID, source: "DayFixtures", ...fixture}}
          		componentName="Fixture"

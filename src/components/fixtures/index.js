@@ -40,6 +40,7 @@ const FixturesList = ({ fixtures, timeFrame, team, dayFixtures }) => {
           // );
           return (
             <AsyncComponentLoader
+              key={fixtureDay}
               loadComponentModule={DayFixtures}
               componentProps={{key: fixtureDay, timeFrame, team, fixtureDay, fixtures: dayFixtures}}
               componentName="DayFixtures"
@@ -321,7 +322,6 @@ class Fixtures extends React.Component {
           fixtures={fixtures}
           timeFrame={timeFrame}
           team={team}
-          dayFixtures
         />
       </div>
     );
