@@ -2,16 +2,32 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-import PlaceholderCompetition from '../placeholder-competition';
-import Teams from '../teams';
-import Fixtures from '../fixtures';
-import LeagueTable from '../league-table';
-import ChampionsLeagueTable from '../champions-league-table';
-import CompetitionCard from '../competition-card';
-import CompetitionScrollableTabs from '../competition-scrollable-tabs';
+// import PlaceholderCompetition from '../placeholder-competition';
+// import Fixtures from '../fixtures';
+// import Teams from '../teams';
+// import LeagueTable from '../league-table';
+// import ChampionsLeagueTable from '../champions-league-table';
+
+// import CompetitionCard from '../competition-card';
+// import CompetitionScrollableTabs from '../competition-scrollable-tabs';
+import AsyncComponentLoader from '../async-component-loader';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
+
+const PlaceholderCompetition = () =>
+    import(/* webpackChunkName: "placeholder-competition" */'../placeholder-competition');
+const CompetitionCard = () =>
+    import(/* webpackChunkName: "competition-card" */'../competition-card');
+const CompetitionScrollableTabs = () =>
+    import(/* webpackChunkName: "competition-scrollable-tabs" */'../competition-scrollable-tabs');
+const Fixtures = () =>
+    import(/* webpackChunkName: "fixtures" */'../fixtures');
+const LeagueTable = () =>
+    import(/* webpackChunkName: "league-table" */'../league-table');
+const ChampionsLeagueTable = () =>
+    import(/* webpackChunkName: "champions-league-table" */'../champions-league-table');
+const Teams = () => import(/* webpackChunkName: "teams" */'../teams');
 
 const CompetitionError = () => (
   <div className="fa-competition-error-container">
@@ -23,13 +39,34 @@ const CompetitionError = () => (
 
 const CompetitionData = ({ caption, name, id, selected: { name: selectedName } }) => {
   if (selectedName === 'Fixtures') {
-    return <Fixtures name={name} id={id} />;
+    return (
+      <AsyncComponentLoader
+        loadComponentModule={Fixtures}
+        componentProps={{name, id}}
+        componentName="Fixtures"
+      />
+    );
+    // return <Fixtures name={name} id={id} />;
   }
   if (selectedName === 'Teams') {
-    return <Teams name={name} id={id} />;
+    return (
+      <AsyncComponentLoader
+        loadComponentModule={Teams}
+        componentProps={{name, id}}
+        componentName="Teams"
+      />
+    );
+    // return <Teams name={name} id={id} />;
   }
   const Table = caption.indexOf('Champions League') !== -1 ? ChampionsLeagueTable : LeagueTable;
-  return <Table name={name} id={id} />;
+  return (
+    <AsyncComponentLoader
+      loadComponentModule={Table}
+      componentProps={{name, id}}
+      componentName="Table"
+    />
+  );
+  // return <Table name={name} id={id} />;
 };
 
 class Competition extends React.Component {
@@ -100,7 +137,13 @@ class Competition extends React.Component {
   render() {
     const { loading, competition, competitionData, selected } = this.state;
     if (loading) {
-      return <PlaceholderCompetition />;
+      // return <PlaceholderCompetition />;
+      return (
+        <AsyncComponentLoader
+          loadComponentModule={PlaceholderCompetition}
+          componentName="PlaceholderCompetition"
+        />
+      );
     }
 
     const {
@@ -115,16 +158,39 @@ class Competition extends React.Component {
 
     const { name, id } = this.props;
 
+    // return (
+    //   <div className="fa-competition-container">
+    //     <CompetitionScrollableTabs
+    //       competitionData={competitionData}
+    //       selected={selected}
+    //       selectCompetitionData={name => this.selectCompetitionData(name)}
+    //     />
+    //     <CompetitionCard
+    //       currentMatchday={currentMatchday}
+    //       numberOfMatchdays={numberOfMatchdays}
+    //     />
+    //     <div className="fa-competition-data">
+    //       <CompetitionData
+    //         caption={caption}
+    //         name={name}
+    //         id={id}
+    //         selected={selected}
+    //       />
+    //     </div>
+    //   </div>
+    // );
+
     return (
       <div className="fa-competition-container">
-        <CompetitionScrollableTabs
-          competitionData={competitionData}
-          selected={selected}
-          selectCompetitionData={name => this.selectCompetitionData(name)}
+        <AsyncComponentLoader
+          loadComponentModule={CompetitionScrollableTabs}
+          componentProps={{competitionData, selected, selectCompetitionData: name => this.selectCompetitionData(name)}}
+          componentName="CompetitionScrollableTabs"
         />
-        <CompetitionCard
-          currentMatchday={currentMatchday}
-          numberOfMatchdays={numberOfMatchdays}
+        <AsyncComponentLoader
+          loadComponentModule={CompetitionCard}
+          componentProps={{currentMatchday, numberOfMatchdays}}
+          componentName="CompetitionCard"
         />
         <div className="fa-competition-data">
           <CompetitionData

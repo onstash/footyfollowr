@@ -5,15 +5,17 @@
   "dependencies": {
     "base-64": "^0.1.0",
     "firebase": "^4.6.0",
-    "isomorphic-fetch": "^2.2.1",
     "localStorage": "^1.0.3",
-    "node-sass-chokidar": "^0.0.3",
+    "preact": "^8.2.6",
+    "preact-compat": "^3.17.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "smoothscroll-polyfill": "^0.4.0"
+    "smoothscroll-polyfill": "^0.4.0",
+    "unfetch": "^3.0.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7"
+    "react-scripts": "1.0.7",
+    "node-sass-chokidar": "^0.0.3"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/App.scss -o src/",

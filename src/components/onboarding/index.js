@@ -6,11 +6,16 @@ import {
 } from '../../utils/onboarding';
 import DataLayer from '../../data';
 
-import Competitions from '../competitions';
+// import Competitions from '../competitions';
 
 import Cache from '../../utils/cache';
 import fetchIPInformation from '../../utils/ip';
 import mixpanel from '../../utils/mixpanel';
+
+import AsyncComponentLoader from '../async-component-loader';
+
+const Competitions = () =>
+	import(/* webpackChunkName: 'competitions' */'../competitions');
 
 class Onboarding extends React.Component {
   constructor() {
@@ -45,7 +50,13 @@ class Onboarding extends React.Component {
   render() {
     const { onboardingShown } = this.state;
     if (onboardingShown) {
-      return <Competitions />;
+      // return <Competitions />;
+      return (
+	    <AsyncComponentLoader
+	      loadComponentModule={Competitions}
+	      componentName="Competitions"
+	    />
+	  );
     }
 
     return (

@@ -2,15 +2,22 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-import Competition from '../competition';
-import CompetitionsScrollableTabs from '../competitions-scrollable-tabs';
+// import Competition from '../competition';
+// import CompetitionsScrollableTabs from '../competitions-scrollable-tabs';
 
 import leagueLabels from '../../data/league-labels';
 import leagueRankings from '../../data/league-rankings';
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 import smoothScrollPolyfill from '../../utils/smooth-scroll';
+import AsyncComponentLoader from '../async-component-loader';
 smoothScrollPolyfill();
+
+
+const CompetitionsScrollableTabs = () =>
+	import(/* webpackChunkName: "competitions-scrollable-tabs" */'../competitions-scrollable-tabs');
+const Competition = () =>
+	import(/* webpackChunkName: "competition" */'../competition');
 
 const CompetitionsError = () => (
   <div className="fa-competitions-container">
@@ -89,15 +96,32 @@ class Competitions extends React.Component {
       return <CompetitionsError />;
     }
 
+    // return (
+    //   <div className="fa-competitions-container">
+    //     <CompetitionsScrollableTabs
+    //       competitions={competitions}
+    //       selected={selected}
+    //       selectCompetition={this._selectCompetition}
+    //     />
+    //     <div className="fa-competitions-data">
+    //       <Competition {...selected} />
+    //     </div>
+    //   </div>
+    // );
+
     return (
       <div className="fa-competitions-container">
-        <CompetitionsScrollableTabs
-          competitions={competitions}
-          selected={selected}
-          selectCompetition={this._selectCompetition}
+      	<AsyncComponentLoader
+          loadComponentModule={CompetitionsScrollableTabs}
+          componentProps={{competitions, selected, selectCompetition: this._selectCompetition}}
+          componentName="CompetitionsScrollableTabs"
         />
         <div className="fa-competitions-data">
-          <Competition {...selected} />
+          <AsyncComponentLoader
+            loadComponentModule={Competition}
+            componentProps={{...selected}}
+            componentName="Competition"
+          />
         </div>
       </div>
     );
