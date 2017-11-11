@@ -13,13 +13,13 @@ const fetchCompetitions = () => {
       if (isDevelopment) {
         console.log('response (cache)', response);
       }
-      _fetchCompetitions()
-        .then(apiResponse => Cache.set(Cache.keys.COMPETITIONS, apiResponse))
-        .catch(error => {
-          if (isDevelopment) {
-            console.log('error (api)', error);
-          }
-        });
+      // _fetchCompetitions()
+      //   .then(apiResponse => Cache.set(Cache.keys.COMPETITIONS, apiResponse))
+      //   .catch(error => {
+      //     if (isDevelopment) {
+      //       console.log('error (api)', error);
+      //     }
+      //   });
       return response;
     }).catch(error => {
       if (isDevelopment) {
