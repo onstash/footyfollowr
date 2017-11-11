@@ -5,11 +5,11 @@
   "dependencies": {
     "base-64": "^0.1.0",
     "firebase": "^4.6.0",
-    "isomorphic-fetch": "^2.2.1",
     "localStorage": "^1.0.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "smoothscroll-polyfill": "^0.4.0"
+    "smoothscroll-polyfill": "^0.4.0",
+    "unfetch": "^3.0.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.7",

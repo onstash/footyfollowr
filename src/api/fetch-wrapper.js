@@ -1,4 +1,5 @@
-import 'isomorphic-fetch';
+// import 'isomorphic-fetch';
+import fetch from 'unfetch';
 
 export const get = requestOptions => {
   let statusCode;
