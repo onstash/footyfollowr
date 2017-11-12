@@ -1,9 +1,8 @@
 import config from '../api/config';
-// import firebase from 'firebase';
-import { initializeApp, messaging } from 'firebase';
-const { firebase: firebaseConfig } = config;
-// firebase.initializeApp(firebaseConfig);
-initializeApp(firebaseConfig);
+import firebaseApp from 'firebase/app';
+import 'firebase/messaging';
 
-// export default firebase;
+const { initializeApp, messaging } = firebaseApp;
+const { firebase: firebaseConfig } = config;
+initializeApp(firebaseConfig);
 export default messaging;
