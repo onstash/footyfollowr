@@ -21,11 +21,6 @@
   align-items: center;
 }
 
-.fa-fixtures-time-filter, .fa-fixtures-team-filter {
-  width: 150px;
-  padding: 0.5rem 0.5rem;
-  background-color: white;
-}
 
 .fa-fixtures-container {
   margin: 20px 0;
@@ -44,6 +39,61 @@
   width: 550px;
   margin-top: 20px;
   @include mobile {
-    width: 85%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.fa-fixtures-time-filter-container {
+    display: flex;
+    align-items: center;
+    @include mobile {
+        justify-content: flex-start;
+    }
+}
+
+.fa-fixtures-team-filter-container {
+    display: flex;
+    align-items: center;
+    @include mobile {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+}
+
+.fa-fixtures-time-filter-label, .fa-fixtures-team-filter-label {
+    color: #778;
+}
+
+fa-fixtures-filter {
+    appearance: none;
+    font-size: 12px;
+    padding: 0.5rem 0.5rem;
+    background-color: white;
+    text-align: center;
+    &:active {
+        outline: none;
+    }
+}
+
+.fa-fixtures-time-filter {
+  @extend fa-fixtures-filter;
+  width: 120px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  @include mobile {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+}
+
+.fa-fixtures-team-filter {
+  @extend fa-fixtures-filter;
+  width: 130px;
+  margin-left: 1rem;
+  @include mobile {
+    margin-left: 1rem;
+    margin-right: 0;
   }
 }

@@ -64,8 +64,8 @@ class Fixtures extends React.Component {
       timeFrame: 'n14',
       timeFrameLabel: 'Next week',
       fixtureFilters: [
-        { label: 'Upcoming fixtures', timeFrame: 'n14' },
-        { label: 'Recently concluded fixtures', timeFrame: 'p7' }
+        { label: "Upcoming weeks", timeFrame: 'n14' },
+        { label: "Previous weeks", timeFrame: 'p7' }
       ],
       allTeams: {},
       teams: [],
@@ -209,10 +209,10 @@ class Fixtures extends React.Component {
     let timeFrameLabel;
     switch (newTimeFrame) {
       case 'p7':
-        timeFrameLabel = 'Recently concluded fixtures';
+        timeFrameLabel = "Previous weeks";
         break;
       case 'n14':
-        timeFrameLabel = 'Upcoming fixtures';
+        timeFrameLabel = "Upcoming weeks";
         break;
     }
     const { timeFrame: oldTimeFrame } = this.state;
@@ -274,30 +274,40 @@ class Fixtures extends React.Component {
           Fixtures
         </h2>
         <div className="fa-fixtures-filter">
-          <select
-            className="fa-fixtures-time-filter"
-            onChange={(event) => this.handleTimeFrameSelection(event)}
-          >
-            {
-              fixtureFilters.map(({ label, timeFrame: value }, index) =>
-                <option value={value} key={index}>
-                  {label}
-                </option>
-              )
-            }
-          </select>
-          <select
-            className="fa-fixtures-team-filter"
-            onChange={(event) => this.handleTeamSelection(event)}
-          >
-            {
-              teams.map(({ label, value }, index) =>
-                <option value={value} key={index}>
-                  {label}
-                </option>
-              )
-            }
-          </select>
+          <div className="fa-fixtures-time-filter-container">
+              <div className="fa-fixtures-time-filter-label">
+                Filter by time:
+              </div>
+              <select
+                className="fa-fixtures-time-filter"
+                onChange={(event) => this.handleTimeFrameSelection(event)}
+              >
+                {
+                  fixtureFilters.map(({ label, timeFrame: value }, index) =>
+                    <option value={value} key={index}>
+                      {label}
+                    </option>
+                  )
+                }
+              </select>
+          </div>
+          <div className="fa-fixtures-team-filter-container">
+                <div className="fa-fixtures-team-filter-label">
+                    Filter by team:
+                </div>
+                <select
+                    className="fa-fixtures-team-filter"
+                    onChange={(event) => this.handleTeamSelection(event)}
+                >
+                    {
+                        teams.map(({ label, value }, index) =>
+                            <option value={value} key={index}>
+                                {label.replace(" FC", "")}
+                            </option>
+                        )
+                    }
+                </select>
+          </div>
         </div>
         <FixturesList
           fixtures={fixtures}
