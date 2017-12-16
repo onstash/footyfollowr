@@ -9,6 +9,10 @@ const DayFixtures = ({ fixtureDay, fixtures, team, timeFrame }) => {
     }) => awayTeamName === team || homeTeamName === team
   ) : fixtures;
 
+  if (!filteredFixtures.length) {
+    return null;
+  }
+
   return (
     <div className="fa-day-fixtures-container">
       <FixtureMatchWeek number={fixtureDay} />
