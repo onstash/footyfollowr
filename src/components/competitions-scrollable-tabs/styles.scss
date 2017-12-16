@@ -27,16 +27,17 @@
 
     div {
       text-decoration: none;
-      color: inherit;
+      color: #999;
       padding: 1rem 1.5rem;
       display: inline-block;
       outline: none;
       cursor: pointer;
+  	  border-bottom: 2px solid white;
 
       &:hover {
-          $hover-color: #F8F8F8;
-          background-color: $hover-color;
-          border-bottom: 2px solid $hover-color;
+          border-bottom: 2px solid $blackText;
+          color: $blackText;
+          @include transition(border 0.75s, color 0.75s);
       }
 
       &.fa-competition-link-selected {
