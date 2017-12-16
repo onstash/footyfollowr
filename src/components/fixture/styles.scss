@@ -1,23 +1,19 @@
+fa-fixture-container {
+	margin-bottom: 10px;
+  	padding: 1.5rem 0;
+  	display: flex;
+  	flex-direction: column;
+  	justify-content: space-between;
+  	background-color: white;
+  	text-decoration: none;
+}
+
 .fa-fixture-container {
-  margin-bottom: 10px;
-  padding: 1.5rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: white;
-  color: $blackText;
+  @extend fa-fixture-container;
   @extend fa-box-shadow;
-  text-decoration: none;
 }
 
 .fa-fixture-container-live {
-  margin-bottom: 10px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #38AC5F;
-  color: white;
-  @extend fa-box-shadow;
-  text-decoration: none;
+  @extend fa-fixture-container;
+  border: 2px solid $brandGreen;
 }

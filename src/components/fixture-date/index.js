@@ -56,11 +56,11 @@ const calculateTimeDifference = (currentTime, timeStamp) => {
   }
 };
 
-const FixtureDate = ({ date, status }) => {
+const FixtureDate = ({ date, status, isGameLive }) => {
   const currentTime = new Date();
   const fixtureTime = new Date(date);
   const timeDifferenceLabel = calculateTimeDifference(currentTime, fixtureTime);
-  if (!timeDifferenceLabel) {
+  if (!timeDifferenceLabel || isGameLive) {
     return <FixtureTime currentTime={currentTime} fixtureTime={fixtureTime} />
   }
 
