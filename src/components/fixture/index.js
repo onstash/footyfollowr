@@ -31,7 +31,7 @@ const Fixture = ({
       />
       <FixtureTeams homeTeam={homeTeamName} awayTeam={awayTeamName} />
       <FixtureResult {...result} timeDifferenceInMins={timeDifferenceInMins} />
-      <FixtureDate date={date} status={status} />
+      <FixtureDate date={date} status={status} isGameLive={isGameLive} />
     </div>
   );
 };
