@@ -2,17 +2,12 @@ import React from 'react';
 
 import DataLayer from '../../data';
 
-// import DayFixtures from '../day-fixtures';
 
 import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
-// import PlaceholderFixtures from '../placeholder-fixtures';
-import AsyncComponentLoader from '../async-component-loader';
-const PlaceholderFixtures = () =>
-    import(/* webpackChunkName: "placeholder-fixtures" */'../placeholder-fixtures');
-const DayFixtures = () =>
-    import(/* webpackChunkName: "day-fixtures" */'../day-fixtures');
+import PlaceholderFixtures from '../placeholder-fixtures';
+import DayFixtures from '../day-fixtures';
 
 const FixturesListError = () => (
   <div className="fa-fixtures-error">
@@ -29,21 +24,13 @@ const FixturesList = ({ fixtures, timeFrame, team, dayFixtures }) => {
       {
         Object.keys(fixtures).map(fixtureDay => {
           const dayFixtures = fixtures[fixtureDay];
-          // return (
-          //   <DayFixtures
-          //     key={fixtureDay}
-          //     timeFrame={timeFrame}
-          //     team={team}
-          //     fixtureDay={fixtureDay}
-          //     fixtures={dayFixtures}
-          //   />
-          // );
           return (
-            <AsyncComponentLoader
+            <DayFixtures
               key={fixtureDay}
-              loadComponentModule={DayFixtures}
-              componentProps={{key: fixtureDay, timeFrame, team, fixtureDay, fixtures: dayFixtures}}
-              componentName="DayFixtures"
+              timeFrame={timeFrame}
+              team={team}
+              fixtureDay={fixtureDay}
+              fixtures={dayFixtures}
             />
           );
         })
@@ -276,13 +263,7 @@ class Fixtures extends React.Component {
     } = this.state;
 
     if (loading) {
-      // return <PlaceholderFixtures />;
-      return (
-        <AsyncComponentLoader
-          loadComponentModule={PlaceholderFixtures}
-          componentName="PlaceholderFixtures"
-        />
-      );
+      return <PlaceholderFixtures />;
     }
 
     const fixtures = timeFrame.indexOf('n') === -1 ? oldFixtures : upcomingFixtures;
