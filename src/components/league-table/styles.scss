@@ -9,7 +9,7 @@
   margin-left: auto;
   margin-right: auto;
   @include mobile {
-    margin: 10px;
+    margin: 0px;
   }
 }
 
@@ -56,7 +56,7 @@
   width: 45px;
   @include mobile {
     margin-left: 6px;
-    width: 40px;
+    width: 42px;
   };
 }
 
@@ -81,12 +81,13 @@
 }
 
 .fa-position, .fa-points {
-  padding: 1rem;
-  text-align: center;
+  padding: 0 1rem;
+  text-align: left;
   @include mobile {
-    padding: 0.05rem;
+    width: 7.6%;
   };
 }
+
 
 .fa-team-name {
   padding: 1rem;
