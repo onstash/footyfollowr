@@ -61,6 +61,7 @@
 
 .fa-champions-league-table-match-day-value {
   select {
+    margin-left: 10px;
     width: 60px;
     @include mobile {
       width: 40px;
