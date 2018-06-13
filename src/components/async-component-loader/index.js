@@ -10,10 +10,8 @@ export default class AsyncComponentLoader extends PureComponent {
     }
 
     loadComponent({ componentName, loadComponentModule }) {
-        console.error(new Date(), 'Loading componentName', componentName);
         loadComponentModule()
             .then(({ default: Component }) => {
-                console.error(new Date(), 'Loaded componentName', componentName);
                 this.setState(() => ({ Component }));
             }).catch(console.error);
     }
@@ -24,7 +22,6 @@ export default class AsyncComponentLoader extends PureComponent {
     }
 
     componentWillReceiveProps({ componentName, loadComponentModule }) {
-        console.error('AsyncComponentLoader componentWillReceiveProps');
         this.loadComponent({ componentName, loadComponentModule });
     }
 

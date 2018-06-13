@@ -7,7 +7,6 @@ import Cache from '../../utils/cache';
 const firebaseMessaging = messaging();
 
 firebaseMessaging.onMessage(payload => {
-  console.log('payload', payload);
   if (payload.notification) {
     alert(`${payload.notification.title}`);
   }
