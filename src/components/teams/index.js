@@ -43,8 +43,7 @@ class Teams extends React.Component {
     DataLayer.fetchCompetitionTeams(competitionID)
       .then(response => {
         const { data: { teams: _teams } } = response;
-        const teams = []
-          .concat(_teams)
+        const teams = [..._teams]
           .sort(({ name: teamAName }, { name: teamBName }) => {
             if (teamAName < teamBName) {
               return -1;
