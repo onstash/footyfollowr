@@ -88,7 +88,7 @@ class Competition extends React.Component {
               'Competition Viewed',
               { name, id: competitionID }
             );
-          }).catch(console.error);
+          }).catch(e => {});
         if (this.mounted) {
           this.setState(() => ({ loading: false, competition, competitionID }));
         }

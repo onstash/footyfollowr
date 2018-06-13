@@ -120,7 +120,7 @@ class Fixtures extends React.Component {
               'Fixtures Viewed',
               eventProperties
             );
-          }).catch(console.error)
+          }).catch(e => {})
         const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
         if (this.mounted) {
           this.setState(() => ({
@@ -165,7 +165,7 @@ class Fixtures extends React.Component {
             'Fixtures Filtered',
             eventProperties
           );
-        }).catch(console.error);
+        }).catch(e => {});
       const { oldFixtures, upcomingFixtures } = collateFixtures(fixtures);
       if (this.mounted) {
         this.setState(() => ({
@@ -245,7 +245,7 @@ class Fixtures extends React.Component {
           'Fixtures Filtered',
           eventProperties
         );
-      }).catch(console.error);
+      }).catch(e => {});
     if (this.mounted) {
       this.setState(() => ({ team: selectedTeam }));
     }

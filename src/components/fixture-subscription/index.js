@@ -54,7 +54,7 @@ class FixtureSubscription extends React.Component {
         this.setState(() => ({ hasSubscribed, loading: false }));
       })
       .catch(error => {
-        console.error(error);
+        console.log({ source: "FixtureSubscription", error });
         this.setState(() => ({ loading: false }));
       });
   }

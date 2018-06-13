@@ -81,6 +81,7 @@ class LeagueTable extends React.Component {
     }
     DataLayer.fetchCompetitionLeagueTable(competitionID, matchDay)
       .then(response => {
+        console.log({ response });
         Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
           .then(distinctID => {
             const eventProperties = {
@@ -93,7 +94,7 @@ class LeagueTable extends React.Component {
               'LeagueTable Viewed',
               eventProperties
             );
-          }).catch(console.error);
+          }).catch(e => {});
         const {
           leagueCaption: league,
           standing,

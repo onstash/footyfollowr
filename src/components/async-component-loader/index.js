@@ -7,13 +7,14 @@ export default class AsyncComponentLoader extends PureComponent {
             Component: null
         };
         this.loadComponent = this.loadComponent.bind(this);
+        this.unmounted = false;
     }
 
     loadComponent({ componentName, loadComponentModule }) {
         loadComponentModule()
             .then(({ default: Component }) => {
-                this.setState(() => ({ Component }));
-            }).catch(console.error);
+                !this.unmounted && this.setState(() => ({ Component }));
+            }).catch(e => {});
     }
 
     componentWillMount() {
@@ -23,6 +24,10 @@ export default class AsyncComponentLoader extends PureComponent {
 
     componentWillReceiveProps({ componentName, loadComponentModule }) {
         this.loadComponent({ componentName, loadComponentModule });
+    }
+
+    componentWillUnmount() {
+        this.unmounted = true;
     }
 
     render() {

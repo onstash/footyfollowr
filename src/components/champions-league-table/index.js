@@ -111,7 +111,7 @@ class ChampionsLeagueTable extends React.Component {
               'LeagueTable Viewed',
               eventProperties
             );
-          }).catch(console.error);
+          }).catch(e => {});
         const {
           leagueCaption: league,
           standings: _standings,
