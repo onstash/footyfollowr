@@ -1,7 +1,7 @@
 .fa-competition-scrollable-tabs {
     position: fixed;
     z-index: 1000;
-    top: 56px;
+    top: 54px;
     left: 0px;
     right: 0px;
     width: 280px;
@@ -15,6 +15,10 @@
     &::-webkit-scrollbar {
         width: 0 !important;
         height: 0 !important;
+    }
+
+    @include mobile {
+    	top: 56.5px;
     }
 
     ul {
