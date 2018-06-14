@@ -8,6 +8,7 @@ import mixpanel from '../../utils/mixpanel';
 
 import PlaceholderFixtures from '../placeholder-fixtures';
 import DayFixtures from '../day-fixtures';
+import fifaTeamRankings from '../../data/fifa-team-rankings';
 
 const FixturesListError = () => (
   <div className="fa-fixtures-error">
@@ -98,13 +99,31 @@ class Fixtures extends React.Component {
         const { data: { teams: teamsList } } = teamsResponse;
         const allTeams = {};
         const teams = [{ label: 'All teams', value: 'all-teams' }];
-        teamsList.forEach(team => {
-          const { name, _links: { self: { href: teamLink } } } = team;
-          const teamLinkParts = teamLink.split('/');
-          const teamID = teamLinkParts[teamLinkParts.length - 1];
-          allTeams[`${teamID}`] = name;
-          teams.push({ label: name, value: teamID });
-        });
+        const isCompetitionWorldCup = competitionID === 467;
+        teamsList
+            .sort(({ name: teamAName }, { name: teamBName }) => {
+                if (isCompetitionWorldCup) {
+                    if (fifaTeamRankings[teamAName] < fifaTeamRankings[teamBName]) {
+                      return -1;
+                    }
+                    return 1;
+                } else {
+                    if (teamAName < teamBName) {
+                      return -1;
+                    }
+                    if (teamAName > teamBName) {
+                      return 1;
+                    }
+                    return 0;
+                }
+            })
+            .forEach(team => {
+              const { name, _links: { self: { href: teamLink } } } = team;
+              const teamLinkParts = teamLink.split('/');
+              const teamID = teamLinkParts[teamLinkParts.length - 1];
+              allTeams[`${teamID}`] = name;
+              teams.push({ label: name, value: teamID });
+            });
         const { data: fixturesData } = fixturesResponse;
         const { fixtures } = fixturesData;
         Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
