@@ -190,9 +190,11 @@ class ChampionsLeagueTable extends React.Component {
       return <LeagueTableError />;
     }
 
+    const { label } = this.props;
+
     return (
       <div className="fa-champions-league-table-container">
-        <h2 className="fa-champions-league-table-heading">Champions League Table</h2>
+        <h2 className="fa-champions-league-table-heading">{label}</h2>
         <div className="fa-champions-league-table-match-day">
           <div className="fa-champions-league-table-match-day-label">
            Week:

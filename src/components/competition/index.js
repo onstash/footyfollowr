@@ -43,11 +43,13 @@ const CompetitionData = ({ caption, name, id, selected: { name: selectedName } }
       />
     );
   }
-  const Table = caption.indexOf('Champions League') !== -1 || caption.indexOf("World Cup 2018 Russia") === 0 ? ChampionsLeagueTable : LeagueTable;
+  const isChampionsLeague = caption.indexOf('Champions League') === 0;
+  const isWorldCup = caption.indexOf("World Cup 2018 Russia") === 0;
+  const Table = isChampionsLeague || isWorldCup ? ChampionsLeagueTable : LeagueTable;
   return (
     <AsyncComponentLoader
       loadComponentModule={Table}
-      componentProps={{name, id}}
+      componentProps={{name, id, label: isChampionsLeague ? "Champions League Standings" : "World Cup 2018 Standings"}}
       componentName="Table"
     />
   );
