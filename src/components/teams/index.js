@@ -18,7 +18,7 @@ const TeamsError = () => (
 
 const Team = ({ name, crestUrl, shortName }) => (
   <div className="fa-team">
-    <img src={teamLogos[name] || crestUrl} className="fa-team-logo" alt={name.replace(' FC', '')} />
+    <img src={teamLogos[name] || crestUrl} className="fa-team-crest" alt={name.replace(' FC', '')} />
     <div className="fa-team-name">
       { name.replace(' FC', '') }
     </div>
