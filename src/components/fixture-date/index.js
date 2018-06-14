@@ -7,7 +7,8 @@ import parse from 'date-fns/parse';
 import isFuture from 'date-fns/is_future';
 import distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 
-const calculateTimeDifference = (currentTime, timeStamp) => {
+const calculateTimeDifference = ({ timeStamp }) => {
+    const currentTime = new Date();
     if (isFuture(timeStamp)) {
         return `${distanceInWordsStrict(currentTime, timeStamp)} to go`;
     }
@@ -15,19 +16,15 @@ const calculateTimeDifference = (currentTime, timeStamp) => {
 };
 
 const FixtureDate = ({ date, status, isGameLive }) => {
-  const currentTime = new Date();
   const fixtureTime = parse(date);
-  const timeDifferenceLabel = calculateTimeDifference(currentTime, fixtureTime);
+  const timeDifferenceLabel = calculateTimeDifference({ timeStamp: fixtureTime });
   if (!timeDifferenceLabel || isGameLive) {
-    return <FixtureTime currentTime={currentTime} fixtureTime={fixtureTime} />
+    return <FixtureTime date={fixtureTime} />;
   }
 
   return (
     <div className="fa-fixture-date">
-      <FixtureTime
-        currentTime={currentTime}
-        fixtureTime={date}
-      />
+      <FixtureTime date={fixtureTime} />
       <TimeDifference label={timeDifferenceLabel} />
     </div>
   );
