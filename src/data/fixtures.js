@@ -4,9 +4,6 @@ import Cache from '../utils/cache';
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const fetchCompetitionFixtures = (competitionID, filterParam) => {
-  if (isDevelopment) {
-    console.log('Data layer fetchCompetitionFixtures');
-  }
   const cacheKey = `FIXTURE-${competitionID}-${filterParam}`;
   return Cache.get(cacheKey)
     .then(({apiResponse, updatedAt}) => {

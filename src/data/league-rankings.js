@@ -1,4 +1,5 @@
 export default {
+  "World Cup 2018 Russia": 0,
   "Premier League 2017/18": 1,
   "Primera Division 2017": 2,
   "Champions League 2017/18": 3,

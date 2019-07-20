@@ -12,6 +12,7 @@
   margin-right: auto;
   padding-top: 10px;
   padding-bottom: 20px;
+  border-radius: 3px;
 }
 
 .fa-champions-league-table-groups {
@@ -61,6 +62,7 @@
 
 .fa-champions-league-table-match-day-value {
   select {
+    margin-left: 10px;
     width: 60px;
     @include mobile {
       width: 40px;

@@ -27,13 +27,40 @@ const CompetitionsError = () => (
   </div>
 );
 
+const worldCupCompetitionData = {
+  "_links": {
+    "self": {
+      "href": "http://api.football-data.org/v1/competitions/467"
+    },
+    "teams": {
+      "href": "http://api.football-data.org/v1/competitions/467/teams"
+    },
+    "fixtures": {
+      "href": "http://api.football-data.org/v1/competitions/467/fixtures"
+    },
+    "leagueTable": {
+      "href": "http://api.football-data.org/v1/competitions/467/leagueTable"
+    }
+  },
+  "id": 467,
+  "caption": "World Cup 2018 Russia",
+  "league": "WC",
+  "year": "2018",
+  "currentMatchday": 1,
+  "numberOfMatchdays": 8,
+  "numberOfTeams": 32,
+  "numberOfGames": 64,
+  "lastUpdated": "2018-05-25T07:21:47Z"
+};
+
 class Competitions extends React.Component {
   constructor() {
     super();
     this.state = {
       loading: false,
       competitions: [],
-      selected: {name: 'English Premier League', id: 445}
+      // selected: {name: 'English Premier League', id: 445}
+      selected: {name: 'FIFA World Cup 2018', id: 467}
     };
     this._selectCompetition = this.selectCompetition.bind(this);
   }
@@ -47,8 +74,7 @@ class Competitions extends React.Component {
       .then(distinctID => {
         return DataLayer.fetchCompetitions().then(response => {
           const { data: _competitions } = response;
-          const competitions = []
-            .concat(_competitions)
+          const competitions = [worldCupCompetitionData, ..._competitions]
             .sort(({ caption: teamAName }, { caption: teamBName }) => {
               const teamARank = leagueRankings[teamAName];
               const teamBRank = leagueRankings[teamBName];

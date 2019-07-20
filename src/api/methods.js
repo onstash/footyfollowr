@@ -119,7 +119,6 @@ const checkSubscription = ({ fixtureID, fcmToken }) => {
   ].join('');
   return get({ url: endpoint })
     .then(response => {
-      console.error('response', response);
       return response.statusCode === 200 ? response.data : Promise.reject(response);
     });
 };

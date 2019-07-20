@@ -7,6 +7,7 @@ import Cache from '../../utils/cache';
 import mixpanel from '../../utils/mixpanel';
 
 import teamLogos from '../../data/team-logos';
+import fifaTeamRankings from '../../data/fifa-team-rankings';
 
 const TeamsError = () => (
   <div className="fa-teams-container">
@@ -18,7 +19,7 @@ const TeamsError = () => (
 
 const Team = ({ name, crestUrl, shortName }) => (
   <div className="fa-team">
-    <img src={teamLogos[name] || crestUrl} className="fa-team-logo" alt={name.replace(' FC', '')} />
+    <img src={teamLogos[name] || crestUrl} className="fa-team-crest" alt={name.replace(' FC', '')} />
     <div className="fa-team-name">
       { name.replace(' FC', '') }
     </div>
@@ -43,16 +44,23 @@ class Teams extends React.Component {
     DataLayer.fetchCompetitionTeams(competitionID)
       .then(response => {
         const { data: { teams: _teams } } = response;
-        const teams = []
-          .concat(_teams)
+        const isCompetitionWorldCup = competitionID === 467;
+        const teams = [..._teams]
           .sort(({ name: teamAName }, { name: teamBName }) => {
-            if (teamAName < teamBName) {
-              return -1;
+            if (isCompetitionWorldCup) {
+                if (fifaTeamRankings[teamAName] < fifaTeamRankings[teamBName]) {
+                  return -1;
+                }
+                return 1;
+            } else {
+                if (teamAName < teamBName) {
+                  return -1;
+                }
+                if (teamAName > teamBName) {
+                  return 1;
+                }
+                return 0;
             }
-            if (teamAName > teamBName) {
-              return 1;
-            }
-            return 0;
           });
         Cache.get(Cache.keys.MIXPANEL_DISTINCT_ID)
           .then(distinctID => {

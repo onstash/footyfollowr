@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "base-64": "^0.1.0",
+    "date-fns": "^1.29.0",
     "firebase": "^4.6.0",
     "localStorage": "^1.0.3",
     "preact": "^8.2.6",
@@ -14,8 +15,8 @@
     "unfetch": "^3.0.0"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7",
-    "node-sass-chokidar": "^0.0.3"
+    "node-sass-chokidar": "^0.0.3",
+    "react-scripts": "1.0.7"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/App.scss -o src/",

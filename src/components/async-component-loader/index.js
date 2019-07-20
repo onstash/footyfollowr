@@ -7,15 +7,14 @@ export default class AsyncComponentLoader extends PureComponent {
             Component: null
         };
         this.loadComponent = this.loadComponent.bind(this);
+        this.unmounted = false;
     }
 
     loadComponent({ componentName, loadComponentModule }) {
-        console.error(new Date(), 'Loading componentName', componentName);
         loadComponentModule()
             .then(({ default: Component }) => {
-                console.error(new Date(), 'Loaded componentName', componentName);
-                this.setState(() => ({ Component }));
-            }).catch(console.error);
+                !this.unmounted && this.setState(() => ({ Component }));
+            }).catch(e => {});
     }
 
     componentWillMount() {
@@ -24,8 +23,11 @@ export default class AsyncComponentLoader extends PureComponent {
     }
 
     componentWillReceiveProps({ componentName, loadComponentModule }) {
-        console.error('AsyncComponentLoader componentWillReceiveProps');
         this.loadComponent({ componentName, loadComponentModule });
+    }
+
+    componentWillUnmount() {
+        this.unmounted = true;
     }
 
     render() {

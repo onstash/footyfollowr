@@ -11,9 +11,11 @@ fa-fixture-container {
 .fa-fixture-container {
   @extend fa-fixture-container;
   @extend fa-box-shadow;
+  border-radius: 3px;
 }
 
 .fa-fixture-container-live {
   @extend fa-fixture-container;
   border: 2px solid $brandGreen;
+  border-radius: 3px;
 }
